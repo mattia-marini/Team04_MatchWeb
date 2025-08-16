@@ -1,0 +1,26 @@
+package mmarini.unitn.team04_matchweb;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeController {
+
+    @GetMapping("/homepage")
+    public String homePage() {
+        // This returns the name of the HTML file in templates (without .html extension)
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        // This returns the name of the HTML file in templates (without .html extension)
+        return "login";
+    }
+
+    @GetMapping("/user")
+    public String userPage() {
+        // This returns the name of the HTML file in templates (without .html extension)
+        return "user";
+    }
+}
