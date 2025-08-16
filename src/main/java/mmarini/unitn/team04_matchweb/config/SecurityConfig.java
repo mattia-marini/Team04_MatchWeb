@@ -1,4 +1,4 @@
-package mmarini.unitn.team04_matchweb;
+package mmarini.unitn.team04_matchweb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

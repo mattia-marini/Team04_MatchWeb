@@ -1,6 +1,7 @@
-package mmarini.unitn.team04_matchweb;
+package mmarini.unitn.team04_matchweb.service;
 
 
+import mmarini.unitn.team04_matchweb.repository.UserRepository;
 import mmarini.unitn.team04_matchweb.model.MyUser;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

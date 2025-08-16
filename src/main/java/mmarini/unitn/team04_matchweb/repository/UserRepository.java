@@ -1,4 +1,4 @@
-package mmarini.unitn.team04_matchweb;
+package mmarini.unitn.team04_matchweb.repository;
 
 import mmarini.unitn.team04_matchweb.model.MyUser;
 import org.springframework.data.jpa.repository.JpaRepository;

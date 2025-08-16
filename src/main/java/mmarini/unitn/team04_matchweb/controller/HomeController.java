@@ -1,4 +1,4 @@
-package mmarini.unitn.team04_matchweb;
+package mmarini.unitn.team04_matchweb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
