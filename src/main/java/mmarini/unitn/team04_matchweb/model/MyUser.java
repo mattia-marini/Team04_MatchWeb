@@ -1,3 +1,4 @@
+/*
 package mmarini.unitn.team04_matchweb.model;
 
 import jakarta.persistence.*;
@@ -55,3 +56,4 @@ public class MyUser {
         this.role = role;
     }
 }
+ */

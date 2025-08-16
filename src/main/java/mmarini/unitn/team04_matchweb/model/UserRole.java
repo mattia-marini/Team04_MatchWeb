@@ -1,3 +1,4 @@
+/*
 package mmarini.unitn.team04_matchweb.model;
 
 public enum UserRole {
@@ -11,3 +12,5 @@ public enum UserRole {
         return name();
     }
 }
+
+ */
