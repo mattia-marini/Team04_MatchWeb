@@ -9,3 +9,10 @@ VALUES ('admin', 'ROLE_ADMIN'),
 INSERT INTO USER_DETAILS_EXTRA(username, first_name, last_name, mail, birth_date)
 VALUES ('admin', 'Alice', 'Rossi', 'alice.rossi@example.com', '1995-03-21'),
        ('user1', 'Marco', 'Bianchi', 'marco.bianchi@example.com', '1990-11-05');
+
+INSERT INTO review (username, rating, text, created_at)
+VALUES ('admin', 5, 'Servizio eccellente, tornerò sicuramente!', CURRENT_TIMESTAMP - 10 DAY),
+       ('admin', 4, 'Buona esperienza complessiva, ma i tempi di attesa un po’ lunghi.', CURRENT_TIMESTAMP - 7 DAY),
+       ('admin', 3, 'Normale, niente di speciale. Ci sono margini di miglioramento.', CURRENT_TIMESTAMP - 3 DAY),
+       ('user1', 2, 'Non sono rimasto soddisfatto, troppo costoso per quello che offre.', CURRENT_TIMESTAMP - 1 DAY),
+       ('user1', 5, 'Esperienza fantastica, lo consiglio a tutti!', CURRENT_TIMESTAMP);

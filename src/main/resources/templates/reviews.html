@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+<head>
+    <th:block th:replace="fragments/header :: commonHead('Recensioni')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/reviews.css}">
+</head>
+<body class="reviews-body">
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<!-- Page Header -->
+<header class="reviews-header">
+    <div class="container">
+        <h1>Recensioni degli Utenti</h1>
+        <p class="header-description">Scopri cosa pensano i nostri clienti della piattaforma SportBet</p>
+    </div>
+</header>
+
+<!-- Reviews Section -->
+<section class="reviews-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <!-- Reviews Summary -->
+                <div class="reviews-summary mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div class="overall-rating">4.8</div>
+                            <div class="ms-3">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <div class="rating-count">Basato su 147 recensioni</div>
+                            </div>
+                        </div>
+                        <button class="btn glow-btn">Scrivi una recensione</button>
+                    </div>
+                </div>
+
+                <!-- Filter Options -->
+                <div class="filter-options mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="me-2">Filtra per:</span>
+                            <select class="form-select form-select-sm me-2" style="width: auto;">
+                                <option selected>Più recenti</option>
+                                <option>Voto più alto</option>
+                                <option>Voto più basso</option>
+                            </select>
+                        </div>
+                        <div class="results-info">
+                            Mostrando <span>1-10</span> di <span>147</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews List -->
+                <div class="reviews-list">
+                    <div class="review-card" th:each="review : ${reviews}">
+                        <div class="review-header">
+                            <div class="avatar">
+                                <span th:text="${#strings.substring(review.username, 0, 1).toUpperCase()}">U</span>
+                            </div>
+                            <div class="user-info">
+                                <h4 class="username" th:text="${review.username}">username</h4>
+                                <div class="review-meta">
+                                        <span class="date"
+                                              th:text="${#temporals.format(review.createdAt, 'dd MMMM yyyy, HH:mm')}">
+                                            01/01/2025
+                                        </span>
+                                </div>
+                            </div>
+                            <div class="rating-display">
+                                <div class="stars" th:with="fullStars=${review.rating}">
+                                    <i class="fas fa-star" th:each="star : ${#numbers.sequence(1, fullStars)}"></i>
+                                    <i class="far fa-star" th:each="star : ${#numbers.sequence(fullStars + 1, 5)}"></i>
+                                </div>
+                                <div class="numeric-rating">
+                                    <span th:text="${review.rating}">5</span>/5
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-body" th:if="${review.text != null}">
+                            <p th:text="${review.text}">This is the review text...</p>
+                        </div>
+
+                        <div class="review-footer">
+                            <button class="btn btn-sm glow-btn-outline-secondary">
+                                <i class="fas fa-thumbs-up me-1"></i> Utile
+                            </button>
+                            <button class="btn btn-sm glow-btn-outline-secondary ms-2">
+                                <i class="fas fa-comment me-1"></i> Commenta
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Empty State (when no reviews) -->
+                    <div class="empty-state text-center py-5" th:if="${#lists.isEmpty(reviews)}">
+                        <i class="far fa-comment-dots fa-3x mb-3"></i>
+                        <h3>Nessuna recensione disponibile</h3>
+                        <p>Sii il primo a condividere la tua esperienza!</p>
+                        <button class="btn btn-primary mt-2">Scrivi una recensione</button>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-controls">
+                    <button class="pagination-arrow prev glow-btn-outline-secondary" title="Pagina precedente">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="page-numbers">
+                        <button class="page-number active">1</button>
+                        <button class="page-number">2</button>
+                        <button class="page-number">3</button>
+                        <span class="page-ellipsis">...</span>
+                        <button class="page-number">15</button>
+                    </div>
+                    <button class="pagination-arrow next glow-btn-outline-secondary" title="Pagina successiva">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Current date display -->
+<div class="date-display">
+    2025-08-17 15:50:38 UTC
+</div>
+
+<!-- Current user display -->
+<div class="user-display">
+    <i class="fas fa-user-circle me-1"></i> mattia-marini
+</div>
+
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

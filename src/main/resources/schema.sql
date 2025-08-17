@@ -21,3 +21,13 @@ CREATE TABLE USER_DETAILS_EXTRA
     birth_date DATE,
     CONSTRAINT FK_UserDetailsExtra_Users FOREIGN KEY (username) REFERENCES USERS (username)
 );
+
+
+CREATE TABLE IF NOT EXISTS review
+(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(64) NOT NULL,
+    rating INT NOT NULL,
+    text VARCHAR ( 500 ),
+    created_at TIMESTAMP NOT NULL
+    );
