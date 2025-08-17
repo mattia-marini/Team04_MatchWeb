@@ -1,66 +1,300 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
 <head>
-  <title>Sign Up</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SportBet - Registrazione</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px 0;
+    }
+
+    .signup-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .signup-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      border: none;
+    }
+
+    .card-header {
+      background-color: #ffffff;
+      padding: 25px 0 15px;
+      text-align: center;
+      border-bottom: none;
+    }
+
+    .brand-logo {
+      height: 45px;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      font-weight: 500;
+      color: #333;
+      font-size: 1.5rem;
+    }
+
+    .form-control {
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 10px 15px;
+      height: auto;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #0d6efd;
+    }
+
+    .form-label {
+      font-weight: 500;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .form-select {
+      border: 1px solid #e0e0e0;
+      padding: 10px 15px;
+      height: auto;
+      font-size: 15px;
+    }
+
+    .form-select:focus {
+      box-shadow: none;
+      border-color: #0d6efd;
+    }
+
+    .btn {
+      border-radius: 4px;
+      padding: 10px 20px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .btn-primary {
+      background-color: #0d6efd;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0b5ed7;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-secondary {
+      border-color: #e0e0e0;
+      color: #6c757d;
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: #f8f9fa;
+      border-color: #d3d3d3;
+    }
+
+    .alert {
+      border-radius: 4px;
+      font-size: 14px;
+      padding: 12px 15px;
+    }
+
+    .link-secondary {
+      color: #6c757d;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .link-secondary:hover {
+      color: #0d6efd;
+      text-decoration: underline;
+    }
+
+    .back-to-home {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .date-display {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      font-size: 12px;
+      color: #6c757d;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .user-display {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      font-size: 12px;
+      color: #6c757d;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .section-divider {
+      margin: 20px 0;
+      border-top: 1px solid #e0e0e0;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title {
+      position: relative;
+      top: -13px;
+      background: white;
+      padding: 0 15px;
+      display: inline-block;
+      font-size: 14px;
+      color: #6c757d;
+    }
+  </style>
 </head>
 <body>
-<h2>Registrazione</h2>
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="card-header">
+      <img src="https://via.placeholder.com/180x45/0d6efd/ffffff?text=SportBet" alt="SportBet Logo" class="brand-logo">
+      <h2 class="card-title">Registrazione</h2>
+    </div>
 
-<form th:action="@{/signup}" th:object="${registrationForm}" method="post">
-  <div>
-    <label>Nome:</label>
-    <input type="text" th:field="*{firstName}" required/>
-  </div>
-  <div>
-    <label>Cognome:</label>
-    <input type="text" th:field="*{lastName}" required/>
-  </div>
-  <div>
-    <label>Data di nascita (GG/MM/AAAA):</label>
-    <input type="date" th:field="*{birthDate}" required/>
-  </div>
-  <div>
-    <label>Email:</label>
-    <input type="email" th:field="*{mail}" required/>
-  </div>
-  <div>
-    <label>Username:</label>
-    <input type="text" th:field="*{username}" required/>
-  </div>
-  <div>
-    <label>Password:</label>
-    <input type="password" th:field="*{password}" required/>
-  </div>
-  <div>
-    <label>Conferma password:</label>
-    <input type="password" th:field="*{confirmPassword}" required/>
-  </div>
-  <div>
-    <label>Sport:</label>
-    <select th:field="*{sport}">
-      <option value="calcio">Calcio</option>
-      <option value="basket">Basket</option>
-      <option value="tennis">Tennis</option>
-    </select>
-  </div>
-  <div>
-    <label>Squadra del cuore:</label>
-    <select th:field="*{team}">
-      <option value="milan">Milan</option>
-      <option value="inter">Inter</option>
-      <option value="juventus">Juventus</option>
-    </select>
+    <div class="card-body p-4">
+      <!-- Show errors if any -->
+      <div th:if="${error}" class="alert alert-danger mb-4" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <span th:text="${error}"></span>
+      </div>
+
+      <form th:action="@{/signup}" th:object="${registrationForm}" method="post">
+        <!-- Personal Information Section -->
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">Nome</label>
+            <input type="text" class="form-control" th:field="*{firstName}" id="firstName" placeholder="Inserisci il tuo nome" required>
+          </div>
+
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Cognome</label>
+            <input type="text" class="form-control" th:field="*{lastName}" id="lastName" placeholder="Inserisci il tuo cognome" required>
+          </div>
+
+          <div class="col-12">
+            <label for="birthDate" class="form-label">Data di nascita</label>
+            <input type="date" class="form-control" th:field="*{birthDate}" id="birthDate" required>
+          </div>
+
+          <div class="col-12">
+            <label for="mail" class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{mail}" id="mail" placeholder="nome@example.com" required>
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <span class="section-title">Informazioni Account</span>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Scegli un username" required>
+          </div>
+
+          <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Crea una password" required>
+          </div>
+
+          <div class="col-md-6">
+            <label for="confirmPassword" class="form-label">Conferma password</label>
+            <input type="password" class="form-control" th:field="*{confirmPassword}" id="confirmPassword" placeholder="Ripeti la password" required>
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <span class="section-title">Preferenze Sportive</span>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="sport" class="form-label">Sport preferito</label>
+            <select class="form-select" th:field="*{sport}" id="sport">
+              <option value="calcio">Calcio</option>
+              <option value="basket">Basket</option>
+              <option value="tennis">Tennis</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="team" class="form-label">Squadra del cuore</label>
+            <select class="form-select" th:field="*{team}" id="team">
+              <option value="milan">Milan</option>
+              <option value="inter">Inter</option>
+              <option value="juventus">Juventus</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+          <button type="reset" class="btn btn-outline-secondary">
+            <i class="fas fa-redo-alt me-2"></i>Reset
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-user-plus me-2"></i>Iscriviti
+          </button>
+        </div>
+      </form>
+
+      <div class="text-center mt-4">
+        <p class="mb-0">Hai già un account? <a th:href="@{/login}" class="fw-bold text-primary">Accedi</a></p>
+      </div>
+    </div>
   </div>
 
-  <div>
-    <button type="submit">Iscriviti</button>
-    <button type="reset">Reset</button>
+  <div class="back-to-home">
+    <a th:href="@{/}" class="link-secondary">
+      <i class="fas fa-arrow-left me-1"></i> Torna alla Home
+    </a>
   </div>
+</div>
 
-  <div th:if="${error}">
-    <p style="color:red" th:text="${error}"></p>
-  </div>
-</form>
+<!-- Current date display -->
+<div class="date-display">
+  2025-08-17 10:28:07 UTC
+</div>
 
+<!-- Current user display -->
+<div class="user-display">
+  <i class="fas fa-user-circle me-1"></i> mattia-marini
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
