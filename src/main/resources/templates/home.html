@@ -1,26 +1,249 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SportBet - La tua schedina online</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+            url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+        }
+
+        .sport-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .sport-img-container {
+            overflow: hidden;
+            height: 240px;
+        }
+
+        .sport-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .sport-card:hover .sport-img {
+            transform: scale(1.1);
+        }
+
+        .footer {
+            background-color: #222;
+            color: white;
+        }
+
+        .brand-logo {
+            height: 60px;
+        }
+
+        .glow-btn {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(13, 110, 253, 0.5);
+        }
+
+        .glow-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0% {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            100% {
+                transform: translate(50%, 50%) rotate(45deg);
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h2>Welcome to our website!</h2>
+<!-- Header Section -->
+<div th:replace="fragments/navbar :: navbar"></div>
 
-<!-- Show login button if not authenticated -->
-<div sec:authorize="!isAuthenticated()">
-    <a th:href="@{/login}">
-        <button>Login</button>
-    </a>
-</div>
+<!-- Hero Section with Welcome Message -->
+<section class="hero-section">
+    <div class="container text-center py-5">
+        <h1 class="display-2 fw-bold mb-4">Benvenuto su SportBet</h1>
+        <p class="lead fs-4 mb-4">La tua destinazione definitiva per le scommesse sportive online.
+            Gioca, vinci e divertiti con le nostre schedine sui migliori campionati.</p>
+        <a href="#sports" class="btn btn-primary btn-lg px-5 py-3 glow-btn">
+            Scopri i nostri sport <i class="fas fa-chevron-down ms-2"></i>
+        </a>
+    </div>
+</section>
 
-<!-- Show logout button if authenticated -->
-<div sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
-</div>
+<!-- Sports Section -->
+<section id="sports" class="py-5">
+    <div class="container">
+        <h2 class="text-center display-4 mb-5">I Nostri Sport</h2>
+        <p class="text-center lead mb-5">Scegli tra i nostri campionati di punta e crea la tua schedina vincente!</p>
+
+        <div class="row g-4">
+            <!-- Calcio -->
+            <div class="col-md-4">
+                <a th:href="@{/sport/calcio}" class="text-decoration-none text-dark">
+                    <div class="card sport-card h-100 border-0 shadow">
+                        <div class="sport-img-container">
+                            <img src="https://images.unsplash.com/photo-1508098682722-e99c643e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                 class="sport-img" alt="Calcio">
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Calcio</h3>
+                            <p class="card-text">Serie A, Champions League, Premier League e molto altro!</p>
+                            <span class="btn btn-outline-primary">Dettagli <i
+                                    class="fas fa-arrow-right ms-2"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Basket -->
+            <div class="col-md-4">
+                <a th:href="@{/sport/basket}" class="text-decoration-none text-dark">
+                    <div class="card sport-card h-100 border-0 shadow">
+                        <div class="sport-img-container">
+                            <img src="https://images.unsplash.com/photo-1546519638-68e109acd310?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                 class="sport-img" alt="Basket">
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Basket</h3>
+                            <p class="card-text">NBA, Eurolega, Lega Basket Serie A e tutti i grandi campionati.</p>
+                            <span class="btn btn-outline-primary">Dettagli <i
+                                    class="fas fa-arrow-right ms-2"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Tennis -->
+            <div class="col-md-4">
+                <a th:href="@{/sport/tennis}" class="text-decoration-none text-dark">
+                    <div class="card sport-card h-100 border-0 shadow">
+                        <div class="sport-img-container">
+                            <img src="https://images.unsplash.com/photo-1622279457486-28f804ef6e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                 class="sport-img" alt="Tennis">
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Tennis</h3>
+                            <p class="card-text">Grand Slam, ATP, WTA e tutti i maggiori tornei internazionali.</p>
+                            <span class="btn btn-outline-primary">Dettagli <i
+                                    class="fas fa-arrow-right ms-2"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Counter -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-3 shadow-sm">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h2 class="display-5 fw-bold">250K+</h2>
+                    <p class="lead mb-0">Utenti attivi</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-3 shadow-sm">
+                    <i class="fas fa-trophy fa-3x text-primary mb-3"></i>
+                    <h2 class="display-5 fw-bold">€2M+</h2>
+                    <p class="lead mb-0">Vincite settimanali</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-3 shadow-sm">
+                    <i class="fas fa-football-ball fa-3x text-primary mb-3"></i>
+                    <h2 class="display-5 fw-bold">500+</h2>
+                    <p class="lead mb-0">Eventi sportivi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer with company information -->
+<footer class="footer py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 mb-4">
+                <img src="https://via.placeholder.com/200x80/0d6efd/ffffff?text=SportBet" alt="SportBet Logo"
+                     class="mb-4">
+                <p>La piattaforma leader per le scommesse sportive online in Italia. Scommetti responsabilmente e goditi
+                    l'emozione del gioco.</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5 class="mb-4 border-bottom pb-2">Informazioni Aziendali</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i> Via Roma 123, 00187 Roma, Italia
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-file-invoice me-2"></i> P.IVA: IT12345678901
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-phone me-2"></i> +39 06 1234567
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-envelope me-2"></i> info@sportbet-example.it
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5 class="mb-4 border-bottom pb-2">Seguici</h5>
+                <div class="d-flex gap-3 mb-4">
+                    <a href="#" class="btn btn-outline-light btn-floating">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-floating">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-floating">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-floating">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                <p class="small">© 2025 SportBet. Tutti i diritti riservati.<br>
+                    Gioco responsabile. 18+</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

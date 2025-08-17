@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="https://via.placeholder.com/150x60/0d6efd/ffffff?text=SportBet" alt="SportBet Logo"
+                 class="brand-logo me-2">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/homepage">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Schedine</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Risultati</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contatti</a>
+                </li>
+            </ul>
+            <div class="ms-3">
+                <a href="/login" class="btn btn-primary glow-btn">Accedi</a>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
