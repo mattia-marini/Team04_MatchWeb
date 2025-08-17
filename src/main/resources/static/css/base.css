@@ -1,0 +1,67 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    color: #333;
+}
+
+.text-primary {
+    color: #0d6efd !important;
+}
+
+.fw-bold {
+    font-weight: 600 !important;
+}
+
+.link-secondary {
+    color: #6c757d;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.link-secondary:hover {
+    color: #0d6efd;
+    text-decoration: underline;
+}
+
+/* System information displays */
+.date-display {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    font-size: 12px;
+    color: #6c757d;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.user-display {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    font-size: 12px;
+    color: #6c757d;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+/* Basic animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

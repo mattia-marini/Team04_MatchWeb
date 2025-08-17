@@ -1,254 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SportBet - Login</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Custom styles -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        body {
-            background-color: #f5f5f5;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .login-card {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            border: none;
-        }
-
-        .card-header {
-            background-color: #ffffff;
-            padding: 25px 0 15px;
-            text-align: center;
-            border-bottom: none;
-        }
-
-        .brand-logo {
-            height: 45px;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-weight: 500;
-            color: #333;
-            font-size: 1.5rem;
-        }
-
-        .form-control {
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            padding: 12px 15px;
-            height: auto;
-            font-size: 15px;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            box-shadow: none;
-            border-color: #0d6efd;
-        }
-
-        .form-label {
-            font-weight: 500;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group-text {
-            background-color: transparent;
-            border-right: none;
-            color: #6c757d;
-        }
-
-        .form-control {
-            border-left: none;
-        }
-
-        .btn-login {
-            background-color: #0d6efd;
-            border: none;
-            border-radius: 4px;
-            padding: 12px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: background-color 0.2s, transform 0.2s;
-        }
-
-        .btn-login:hover {
-            background-color: #0b5ed7;
-            transform: translateY(-1px);
-        }
-
-        .alert {
-            border-radius: 4px;
-            font-size: 14px;
-            padding: 12px 15px;
-        }
-
-        .link-secondary {
-            color: #6c757d;
-            font-size: 14px;
-            text-decoration: none;
-        }
-
-        .link-secondary:hover {
-            color: #0d6efd;
-            text-decoration: underline;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            color: #6c757d;
-            font-size: 14px;
-            margin: 20px 0;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .divider::before {
-            margin-right: 15px;
-        }
-
-        .divider::after {
-            margin-left: 15px;
-        }
-
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .btn-social {
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.2s;
-            border: 1px solid #e0e0e0;
-            background-color: white;
-            color: #333;
-        }
-
-        .btn-social:hover {
-            opacity: 0.8;
-        }
-
-        .back-to-home {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .date-display {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            font-size: 12px;
-            color: #6c757d;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-
-        .user-display {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            font-size: 12px;
-            color: #6c757d;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-    </style>
+    <th:block th:replace="fragments/header :: commonHead('Accedi')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/login.css}">
 </head>
 <body>
 <div class="login-container">
     <div class="login-card">
         <div class="card-header">
-            <img src="https://via.placeholder.com/180x45/0d6efd/ffffff?text=SportBet" alt="SportBet Logo" class="brand-logo">
-            <h2 class="card-title">Sign In</h2>
+            <img src="https://via.placeholder.com/180x45/0d6efd/ffffff?text=SportBet" alt="SportBet Logo"
+                 class="brand-logo">
+            <h2 class="card-title">Accedi</h2>
         </div>
 
         <div class="card-body p-4">
-            <!-- Show errors if login failed -->
+            <!-- Visualizza errori se il login fallisce -->
             <div th:if="${param.error}" class="alert alert-danger mb-4" role="alert">
                 <i class="fas fa-exclamation-circle me-2"></i>
-                Authentication failed
+                Autenticazione fallita
             </div>
 
-            <!-- Show message after logout -->
+            <!-- Visualizza il messaggio dopo il logout -->
             <div th:if="${param.logout}" class="alert alert-success mb-4" role="alert">
                 <i class="fas fa-check-circle me-2"></i>
-                You have been logged out
+                Sei stato disconnesso
             </div>
 
             <form th:action="@{/login}" method="post">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label">Nome utente</label>
                     <div class="input-group">
                             <span class="input-group-text">
                                 <i class="fas fa-user"></i>
                             </span>
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+                        <input type="text" id="username" name="username" class="form-control"
+                               placeholder="Inserisci il tuo nome utente" required>
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <label for="password" class="form-label">Password</label>
-                        <a href="#" class="link-secondary">Forgot?</a>
+                        <a href="#" class="link-secondary">Dimenticato?</a>
                     </div>
                     <div class="input-group">
                             <span class="input-group-text">
                                 <i class="fas fa-lock"></i>
                             </span>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        <input type="password" id="password" name="password" class="form-control"
+                               placeholder="Inserisci la tua password" required>
                     </div>
                 </div>
 
                 <div class="form-check mb-4">
                     <input class="form-check-input" type="checkbox" id="remember">
-                    <label class="form-check-label" for="remember">Remember me</label>
+                    <label class="form-check-label" for="remember">Ricordami</label>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-login w-100">
-                    Sign In
+                    Accedi
                 </button>
             </form>
 
-            <div class="divider">or continue with</div>
+            <div class="divider">oppure continua con</div>
 
             <div class="social-buttons mb-4">
                 <a href="#" class="btn-social">
@@ -263,24 +77,24 @@
             </div>
 
             <div class="text-center">
-                <p class="mb-0">Don't have an account? <a href="#" class="fw-bold text-primary">Sign up</a></p>
+                <p class="mb-0">Non hai un account? <a href="/signup" class="fw-bold text-primary">Registrati</a></p>
             </div>
         </div>
     </div>
 
     <div class="back-to-home">
-        <a href="/" class="link-secondary">
-            <i class="fas fa-arrow-left me-1"></i> Back to Home
+        <a href="/index" class="link-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Torna alla Home
         </a>
     </div>
 </div>
 
-<!-- Current date display -->
+<!-- Visualizzazione data corrente -->
 <div class="date-display">
     2025-08-17 10:25:35 UTC
 </div>
 
-<!-- Current user display -->
+<!-- Visualizzazione utente corrente -->
 <div class="user-display">
     <i class="fas fa-user-circle me-1"></i> mattia-marini
 </div>

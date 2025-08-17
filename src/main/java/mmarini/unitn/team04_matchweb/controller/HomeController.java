@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/homepage")
+    @GetMapping("/index")
     public String homePage() {
         // This returns the name of the HTML file in templates (without .html extension)
-        return "home";
+        return "index";
     }
 
     @GetMapping("/login")
