@@ -44,22 +44,9 @@ public class RegistrationService {
                 .roles(role) // Spring will prefix with ROLE_
                 .build();
 
-        System.out.println("User created");
-
         userDetailsManager.createUser(user);
 
-        // 2) Fetch the generated user_id from USERS
-        /*
-        Long userId = jdbcTemplate.queryForObject(
-                "SELECT id FROM USERS WHERE username = ?",
-                Long.class,
-                registrationForm.getUsername()
-        );
-        */
-
-        //System.out.println("Fetched new id " + userId);
-
-        // 3) Insert into USER_DETAILS_EXTRA
+        // 2) Insert USER_DETAILS_EXTRA
         UserDetailsExtra extra = new UserDetailsExtra();
         extra.setUsername(registrationForm.getUsername());
         extra.setFirstName(registrationForm.getFirstName());
