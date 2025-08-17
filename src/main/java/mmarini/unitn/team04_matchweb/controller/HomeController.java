@@ -12,6 +12,12 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/sponsor")
+    public String sponsorPage() {
+        // This returns the name of the HTML file in templates (without .html extension)
+        return "sponsor";
+    }
+
     @GetMapping("/logout")
     public String logoutPage() {
         // This returns the name of the HTML file in templates (without .html extension)

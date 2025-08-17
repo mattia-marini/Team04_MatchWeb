@@ -1,86 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SportBet - La tua schedina online</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-            url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
-        }
-
-        .sport-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .sport-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .sport-img-container {
-            overflow: hidden;
-            height: 240px;
-        }
-
-        .sport-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .sport-card:hover .sport-img {
-            transform: scale(1.1);
-        }
-
-        .footer {
-            background-color: #222;
-            color: white;
-        }
-
-        .brand-logo {
-            height: 60px;
-        }
-
-        .glow-btn {
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(13, 110, 253, 0.5);
-        }
-
-        .glow-btn::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: rotate(45deg);
-            animation: glow 2s infinite;
-        }
-
-        @keyframes glow {
-            0% {
-                transform: translate(-50%, -50%) rotate(45deg);
-            }
-            100% {
-                transform: translate(50%, 50%) rotate(45deg);
-            }
-        }
-    </style>
+    <th:block th:replace="fragments/header :: commonHead('Benvenuti su MatchWeb')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/index.css}">
 </head>
 <body>
 
