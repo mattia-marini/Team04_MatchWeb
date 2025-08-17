@@ -12,6 +12,12 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/registration-successful")
+    public String registrationSuccessful() {
+        // This returns the name of the HTML file in templates (without .html extension)
+        return "registration-successful";
+    }
+
     @GetMapping("/login")
     public String loginPage() {
         // This returns the name of the HTML file in templates (without .html extension)
