@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -19,14 +18,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/user", "/user/**").authenticated() // first, protects /user
-                .requestMatchers("/**", "/login").permitAll() // then public pages
-        ).formLogin(form -> form
-                        //.loginPage("/login")   // your custom login page
-                        .defaultSuccessUrl("/user", true)
-                //.permitAll()
-        ).logout(logout -> logout.permitAll());
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/user", "/user/**").authenticated() // first, protects /user
+                        .requestMatchers("/**", "/login").permitAll() // then public pages
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")       // your custom login page
+                        .loginProcessingUrl("/login") // where the form POSTs
+                        .defaultSuccessUrl("/user", true) // where to go after login
+                        .failureUrl("/login?error=true") // error redirect
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .permitAll()
+                );
 
         // Needed for H2 console frames
         http.headers(headers -> headers
@@ -41,10 +48,27 @@ public class SecurityConfig {
         return http.build();
     }
 
+
     @Bean
-    public UserDetailsService users(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
+    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+
+        // make sure the queries match your schema
+        /*
+        manager.setUsersByUsernameQuery(
+                "SELECT username, password, enabled FROM USERS WHERE username = ?"
+        );
+
+        manager.setAuthoritiesByUsernameQuery(
+                "SELECT u.username, a.authority " +
+                        "FROM USERS u JOIN AUTHORITIES a ON u.id = a.user_id " +
+                        "WHERE u.username = ?"
+        );
+         */
+
+        return manager;
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

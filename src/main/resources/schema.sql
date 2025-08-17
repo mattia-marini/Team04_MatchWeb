@@ -1,22 +1,23 @@
-CREATE TABLE IF NOT EXISTS USERS (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(64) NOT NULL UNIQUE,
+CREATE TABLE USERS
+(
+    username VARCHAR(64) NOT NULL PRIMARY KEY,
     password VARCHAR(64) NOT NULL,
-    enabled BOOLEAN NOT NULL
+    enabled  BOOLEAN     NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS AUTHORITIES (
-    user_id BIGINT NOT NULL,
-    username VARCHAR(64) NOT NULL UNIQUE,
+CREATE TABLE AUTHORITIES
+(
+    username  VARCHAR(64) NOT NULL,
     authority VARCHAR(64) NOT NULL,
-    CONSTRAINT FK_Authorities_Users FOREIGN KEY(user_id) REFERENCES Users(id)
+    CONSTRAINT FK_Authorities_Users FOREIGN KEY (username) REFERENCES USERS (username)
 );
 
-CREATE TABLE IF NOT EXISTS USER_DETAILS_EXTRA (
-    user_id BIGINT PRIMARY KEY,
+CREATE TABLE USER_DETAILS_EXTRA
+(
+    username   VARCHAR(64) PRIMARY KEY,
     first_name VARCHAR(64),
-    last_name VARCHAR(64),
-    mail VARCHAR(64),
+    last_name  VARCHAR(64),
+    mail       VARCHAR(64),
     birth_date DATE,
-    CONSTRAINT FK_UserDetailsExtra_Users FOREIGN KEY (user_id) REFERENCES Users(id)
+    CONSTRAINT FK_UserDetailsExtra_Users FOREIGN KEY (username) REFERENCES USERS (username)
 );

@@ -1,6 +1,8 @@
 package mmarini.unitn.team04_matchweb.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
@@ -9,31 +11,31 @@ import java.time.LocalDate;
 public class UserDetailsExtra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String username;
 
     private String firstName;
     private String lastName;
     private String mail;
     private LocalDate birthDate;
 
+
     public UserDetailsExtra() {
     }
 
-    public UserDetailsExtra(Long id, String firstName, String lastName, String mail, LocalDate birthDate) {
-        this.id = id;
+    public UserDetailsExtra(String username, String firstName, String lastName, String mail, LocalDate birthDate) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.birthDate = birthDate;
     }
 
-    public Long getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -67,6 +69,4 @@ public class UserDetailsExtra {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
-
-    // getters e setters
 }

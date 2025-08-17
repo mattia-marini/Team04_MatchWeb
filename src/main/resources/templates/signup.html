@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Sign Up</title>
+</head>
+<body>
+<h2>Registrazione</h2>
+
+<form th:action="@{/signup}" th:object="${registrationForm}" method="post">
+  <div>
+    <label>Nome:</label>
+    <input type="text" th:field="*{firstName}" required/>
+  </div>
+  <div>
+    <label>Cognome:</label>
+    <input type="text" th:field="*{lastName}" required/>
+  </div>
+  <div>
+    <label>Data di nascita (GG/MM/AAAA):</label>
+    <input type="date" th:field="*{birthDate}" required/>
+  </div>
+  <div>
+    <label>Email:</label>
+    <input type="email" th:field="*{mail}" required/>
+  </div>
+  <div>
+    <label>Username:</label>
+    <input type="text" th:field="*{username}" required/>
+  </div>
+  <div>
+    <label>Password:</label>
+    <input type="password" th:field="*{password}" required/>
+  </div>
+  <div>
+    <label>Conferma password:</label>
+    <input type="password" th:field="*{confirmPassword}" required/>
+  </div>
+  <div>
+    <label>Sport:</label>
+    <select th:field="*{sport}">
+      <option value="calcio">Calcio</option>
+      <option value="basket">Basket</option>
+      <option value="tennis">Tennis</option>
+    </select>
+  </div>
+  <div>
+    <label>Squadra del cuore:</label>
+    <select th:field="*{team}">
+      <option value="milan">Milan</option>
+      <option value="inter">Inter</option>
+      <option value="juventus">Juventus</option>
+    </select>
+  </div>
+
+  <div>
+    <button type="submit">Iscriviti</button>
+    <button type="reset">Reset</button>
+  </div>
+
+  <div th:if="${error}">
+    <p style="color:red" th:text="${error}"></p>
+  </div>
+</form>
+
+</body>
+</html>
