@@ -11,7 +11,7 @@
 <!-- Hero Section with Welcome Message -->
 <section class="hero-section">
     <div class="container text-center py-5">
-        <h1 class="display-2 fw-bold mb-4">Benvenuto su SportBet</h1>
+        <h1 class="display-2 fw-bold mb-4">Benvenuto su MatchWeb</h1>
         <p class="lead fs-4 mb-4">La tua destinazione definitiva per le scommesse sportive online.
             Gioca, vinci e divertiti con le nostre schedine sui migliori campionati.</p>
         <a href="#sports" class="btn btn-primary btn-lg px-5 py-3 glow-btn">
@@ -38,7 +38,7 @@
                         <div class="card-body text-center">
                             <h3 class="card-title">Calcio</h3>
                             <p class="card-text">Serie A, Champions League, Premier League e molto altro!</p>
-                            <span class="btn btn-outline-primary">Dettagli <i
+                            <span class="btn glow-btn-outline-secondary">Dettagli <i
                                     class="fas fa-arrow-right ms-2"></i></span>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="card-body text-center">
                             <h3 class="card-title">Basket</h3>
                             <p class="card-text">NBA, Eurolega, Lega Basket Serie A e tutti i grandi campionati.</p>
-                            <span class="btn btn-outline-primary">Dettagli <i
+                            <span class="btn glow-btn-outline-secondary">Dettagli <i
                                     class="fas fa-arrow-right ms-2"></i></span>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         <div class="card-body text-center">
                             <h3 class="card-title">Tennis</h3>
                             <p class="card-text">Grand Slam, ATP, WTA e tutti i maggiori tornei internazionali.</p>
-                            <span class="btn btn-outline-primary">Dettagli <i
+                            <span class="btn glow-btn-outline-secondary">Dettagli <i
                                     class="fas fa-arrow-right ms-2"></i></span>
                         </div>
                     </div>
@@ -113,56 +113,7 @@
     </div>
 </section>
 
-<!-- Footer with company information -->
-<footer class="footer py-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-lg-4 mb-4">
-                <img src="https://via.placeholder.com/200x80/0d6efd/ffffff?text=SportBet" alt="SportBet Logo"
-                     class="mb-4">
-                <p>La piattaforma leader per le scommesse sportive online in Italia. Scommetti responsabilmente e goditi
-                    l'emozione del gioco.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5 class="mb-4 border-bottom pb-2">Informazioni Aziendali</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <i class="fas fa-map-marker-alt me-2"></i> Via Roma 123, 00187 Roma, Italia
-                    </li>
-                    <li class="mb-2">
-                        <i class="fas fa-file-invoice me-2"></i> P.IVA: IT12345678901
-                    </li>
-                    <li class="mb-2">
-                        <i class="fas fa-phone me-2"></i> +39 06 1234567
-                    </li>
-                    <li class="mb-2">
-                        <i class="fas fa-envelope me-2"></i> info@sportbet-example.it
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5 class="mb-4 border-bottom pb-2">Seguici</h5>
-                <div class="d-flex gap-3 mb-4">
-                    <a href="#" class="btn btn-outline-light btn-floating">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="btn btn-outline-light btn-floating">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="btn btn-outline-light btn-floating">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="btn btn-outline-light btn-floating">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
-                <p class="small">© 2025 SportBet. Tutti i diritti riservati.<br>
-                    Gioco responsabile. 18+</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
+<div th:replace="fragments/footer :: footer"></div>
 <!-- Bootstrap 5 JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

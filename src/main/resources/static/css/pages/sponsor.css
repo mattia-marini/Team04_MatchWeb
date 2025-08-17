@@ -1,7 +1,8 @@
 .sponsors-body {
     padding-top: 0;
-    display: block;
+    padding-bottom: 0;
     background-color: #ffffff;
+    display: block;
 }
 
 /* Header styling */

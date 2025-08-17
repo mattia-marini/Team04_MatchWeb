@@ -320,3 +320,35 @@
         transform: translate(50%, 50%) rotate(45deg);
     }
 }
+
+/* Footer Styling */
+.footer {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 70px 0 40px;
+    margin-top: 0;
+}
+
+.footer h5 {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+}
+
+.footer ul li {
+    margin-bottom: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer ul li i {
+    width: 20px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
