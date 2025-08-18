@@ -21,13 +21,21 @@
                     <a class="nav-link active" href="/index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Schedine</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/reviews">Recensioni</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/sponsor">Sponsor</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="sportsDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Sports
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="sportsDropdown">
+                        <li><a class="dropdown-item" th:href="@{/sports/calcio}">Calcio</a></li>
+                        <li><a class="dropdown-item" th:href="@{/sports/basket}">Basket</a></li>
+                        <li><a class="dropdown-item" th:href="@{/sports/tennis}">Tennis</a></li>
+                    </ul>
                 </li>
             </ul>
 

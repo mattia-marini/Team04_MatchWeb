@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/dashboard.css}">
+</head>
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div style="padding-top:150px">
+
+    <h1 class="dashboard-title">Benvenuto, <span th:text="${#authentication.name}">username</span>!</h1>
+
+    <div sec:authorize="hasRole('ADMIN')"
+         th:replace="dashboard-admin :: body">
+    </div>
+
+    <!-- If user has ROLE_USER -->
+    <div sec:authorize="hasRole('USER')"
+         th:replace="dashboard-user :: body">
+    </div>
+</div>
+
+</body>
+</html>

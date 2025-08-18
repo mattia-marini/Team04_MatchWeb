@@ -19,13 +19,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/user", "/user/**").authenticated() // first, protects /user
+                        .requestMatchers("/dashboard", "/user/**").authenticated() // first, protects /user
                         .requestMatchers("/**", "/login").permitAll() // then public pages
                 )
                 .formLogin(form -> form
                         .loginPage("/login")       // your custom login page
                         .loginProcessingUrl("/login") // where the form POSTs
-                        .defaultSuccessUrl("/user", true) // where to go after login
+                        .defaultSuccessUrl("/dashboard", true) // where to go after login
                         .failureUrl("/login?error=true") // error redirect
                         .permitAll()
                 )

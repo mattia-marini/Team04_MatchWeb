@@ -8,37 +8,43 @@ public class HomeController {
 
     @GetMapping("/index")
     public String homePage() {
-        // This returns the name of the HTML file in templates (without .html extension)
         return "index";
     }
 
     @GetMapping("/sponsor")
     public String sponsorPage() {
-        // This returns the name of the HTML file in templates (without .html extension)
         return "sponsor";
     }
 
     @GetMapping("/logout")
     public String logoutPage() {
-        // This returns the name of the HTML file in templates (without .html extension)
         return "logout";
     }
 
     @GetMapping("/registration-successful")
     public String registrationSuccessful() {
-        // This returns the name of the HTML file in templates (without .html extension)
         return "registration-successful";
     }
 
     @GetMapping("/login")
     public String loginPage() {
-        // This returns the name of the HTML file in templates (without .html extension)
         return "login";
     }
 
     @GetMapping("/user")
     public String userPage() {
-        // This returns the name of the HTML file in templates (without .html extension)
         return "user";
     }
+
+    @GetMapping("/dashboard")
+    public String dashboardPage() {
+        return "dashboard";
+    }
+
+    @GetMapping("/write-review")
+    public String writeReviewPage() {
+        return "write-review";
+    }
+
+
 }
