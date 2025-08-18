@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
+
 <head>
-    <th:block th:replace="fragments/header :: commonHead('Recensioni')"/>
+    <th:block th:replace="fragments/header :: commonHead('Benvenuti su MatchWeb')"/>
     <link rel="stylesheet" th:href="@{/css/pages/reviews.css}">
 </head>
+
+
 <body class="reviews-body">
 
 <div th:replace="fragments/navbar :: navbar"></div>
@@ -24,17 +27,30 @@
                 <!-- Reviews Summary -->
                 <div class="reviews-summary mb-4">
                     <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="overall-rating">4.8</div>
-                            <div class="ms-3">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <div class="rating-count">Basato su 147 recensioni</div>
+
+                        <div class="overall-rating" th:text="${#numbers.formatDecimal(average, 1, 1)}">4.8</div>
+                        <div class="ms-3"
+                             th:with="
+        rounded=${T(java.lang.Math).round(average * 2.0) / 2.0},
+        fullStars=${T(java.lang.Math).floor(rounded)},
+        halfStar=${rounded > fullStars ? 1 : 0},
+        emptyStars=${5 - fullStars - halfStar}">
+
+                            <div class="stars">
+                                <!-- full stars -->
+                                <i class="fas fa-star" th:each="i : ${#numbers.sequence(1, fullStars)}"></i>
+
+                                <!-- half star -->
+                                <i class="fas fa-star-half-alt" th:if="${halfStar == 1}"></i>
+
+                                <!-- empty stars -->
+                                <i class="far fa-star" th:if="${emptyStars >0}"
+                                   th:each="i : ${#numbers.sequence(1, emptyStars)}"></i>
+                            </div>
+
+                            <div class="rating-count"
+                                 th:text="'Basato su ' + ${reviews.size()} + ' recensioni'">
+                                Basato su 147 recensioni
                             </div>
                         </div>
                         <button class="btn glow-btn">Scrivi una recensione</button>
@@ -76,8 +92,13 @@
                             </div>
                             <div class="rating-display">
                                 <div class="stars" th:with="fullStars=${review.rating}">
+                                    <!-- Filled stars -->
                                     <i class="fas fa-star" th:each="star : ${#numbers.sequence(1, fullStars)}"></i>
-                                    <i class="far fa-star" th:each="star : ${#numbers.sequence(fullStars + 1, 5)}"></i>
+
+                                    <!-- Empty stars (only if needed) -->
+                                    <i class="far fa-star"
+                                       th:if="${fullStars < 5}"
+                                       th:each="star : ${#numbers.sequence(1, 5 - fullStars)}"></i>
                                 </div>
                                 <div class="numeric-rating">
                                     <span th:text="${review.rating}">5</span>/5
@@ -106,23 +127,6 @@
                         <p>Sii il primo a condividere la tua esperienza!</p>
                         <button class="btn btn-primary mt-2">Scrivi una recensione</button>
                     </div>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination-controls">
-                    <button class="pagination-arrow prev glow-btn-outline-secondary" title="Pagina precedente">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="page-numbers">
-                        <button class="page-number active">1</button>
-                        <button class="page-number">2</button>
-                        <button class="page-number">3</button>
-                        <span class="page-ellipsis">...</span>
-                        <button class="page-number">15</button>
-                    </div>
-                    <button class="pagination-arrow next glow-btn-outline-secondary" title="Pagina successiva">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
                 </div>
             </div>
         </div>
