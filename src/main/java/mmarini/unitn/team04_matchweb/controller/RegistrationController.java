@@ -31,6 +31,6 @@ public class RegistrationController {
     public String registerUser(@ModelAttribute("registrationForm") RegistrationForm form, Model model) {
         registrationService.register(form, "USER");
 
-        return "redirect:/login?registered";
+        return "redirect:/registration-successful";
     }
 }

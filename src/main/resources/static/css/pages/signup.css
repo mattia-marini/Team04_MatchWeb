@@ -1,4 +1,6 @@
-/* Specific styles for the signup page */
+body {
+    display: flex;
+}
 
 .signup-container {
     width: 100%;

@@ -223,7 +223,7 @@
 }
 
 .navbar-dark {
-    background-color: #343a40;
+    background: linear-gradient(45deg, #282828, #212121);
 }
 
 /* Back to home link */

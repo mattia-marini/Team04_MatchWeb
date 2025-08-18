@@ -1,4 +1,7 @@
 /* Specific styles for the login page */
+body {
+    display: flex;
+}
 
 .login-container {
     width: 100%;
