@@ -41,6 +41,11 @@ public class HomeController {
         return "dashboard";
     }
 
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "profile";
+    }
+
     @GetMapping("/write-review")
     public String writeReviewPage() {
         return "write-review";

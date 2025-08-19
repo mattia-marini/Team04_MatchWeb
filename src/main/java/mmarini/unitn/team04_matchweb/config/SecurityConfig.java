@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/dashboard", "/user/**").authenticated() // first, protects /user
+                        .requestMatchers("/dashboard", "/profile", "/write-review").authenticated() // first, protects /user
                         .requestMatchers("/**", "/login").permitAll() // then public pages
                 )
                 .formLogin(form -> form
