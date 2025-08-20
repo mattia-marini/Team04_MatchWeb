@@ -40,9 +40,13 @@
             </ul>
 
 
+            <div sec:authorize="isAuthenticated()" class=" ms-3">
+                <a href="/dashboard" class="btn btn-primary glow-btn">Dashboard</a>
+            </div>
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class=" ms-3">
                 <button type="submit" class="btn btn-primary glow-btn">Logout</button>
             </form>
+
 
             <div sec:authorize="isAnonymous()" class=" ms-3">
                 <a href="/signup" class="btn btn-primary glow-btn">Registrati</a>
