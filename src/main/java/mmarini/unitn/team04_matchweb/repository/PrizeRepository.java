@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface PrizeRepository extends JpaRepository<Prize, Long> {
 
-    @Query("SELECT p.description FROM Prize p WHERE p.username = :username")
-    List<String> getPrizesByUsername(@Param("username") String username);
+    @Query("SELECT p FROM Prize p WHERE p.username = :username")
+    List<Prize> getPrizesByUsername(@Param("username") String username);
 }

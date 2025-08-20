@@ -32,7 +32,7 @@ public class ProfileInfosService {
         ProfileStats profileStats = new ProfileStats();
         List<Object[]> ranking = betRepository.getRanking();
 
-        int index = -1;
+        int index = -2;
         for (int i = 0; i < ranking.size(); i++) {
             String curr_username = (String) ranking.get(i)[0];
             if (curr_username.equals(username)) {
@@ -40,11 +40,12 @@ public class ProfileInfosService {
                 break;
             }
         }
+        index++;
 
         profileStats.setRankingPosition(index);
         profileStats.setTotalBets(betRepository.getTotalBets(username));
         profileStats.setPointsToday(betRepository.getPointsToday(username));
-
+        profileStats.setPrizes(prizeRepository.getPrizesByUsername(username));
 
         return profileStats;
     }

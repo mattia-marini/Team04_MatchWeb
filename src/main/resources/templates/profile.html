@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments/header :: commonHead('Profilo')"/>
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 15px;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/></svg>') repeat;
+            opacity: 0.4;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background-color: #f0f0f0;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-avatar i {
+            font-size: 70px;
+            color: #aaa;
+        }
+
+        .stat-card {
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card.primary {
+            background: linear-gradient(135deg, #ffffff, #f5f9ff);
+            border-left: 4px solid #0d6efd;
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, #ffffff, #f0fff5);
+            border-left: 4px solid #28a745;
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, #ffffff, #fffbf0);
+            border-left: 4px solid #ffc107;
+        }
+
+        .stat-card.danger {
+            background: linear-gradient(135deg, #ffffff, #fff5f5);
+            border-left: 4px solid #dc3545;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .info-title {
+            color: #0d6efd;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f5f5f5;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #9a4242;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            text-align: center;
+        }
+
+        .role-admin {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+        }
+
+        .role-user {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+        }
+
+        .role-moderator {
+            background: linear-gradient(45deg, #f46b45, #eea849);
+        }
+
+
+        .progress-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            position: relative;
+            margin: 0 auto 15px;
+        }
+
+        .progress-circle::before {
+            content: "";
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .progress-circle .value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container py-5" style="margin-top:70px">
+    <!-- Profile Header -->
+    <div class="profile-header text-center text-white">
+        <div class="profile-avatar">
+            <span style="font-size:50pt;"
+                  th:text="${#strings.substring(userDetailsExtra.username, 0, 1).toUpperCase()}">U</span>
+        </div>
+        <h1 class="display-5 fw-bold" th:text="${userDetailsExtra.firstName + ' ' + userDetailsExtra.lastName}">Mario
+            Rossi</h1>
+        <p class="lead" th:text="${userDetailsExtra.username}">mrossi</p>
+        <div class="mt-4">
+            <span class="role-badge"
+                  sec:authorize="hasRole('ADMIN')"
+                  th:classappend="role-admin">
+                <i class="fas fa-crown me-2"></i>Amministratore
+            </span>
+            <span class="role-badge"
+                  sec:authorize="hasRole('USER')"
+                  th:classappend="role-user">
+                <i class="fas fa-user me-2"></i>Utente
+            </span>
+            <span class="role-badge"
+                  sec:authorize="hasRole('MODERATOR')"
+                  th:classappend="role-moderator">
+                <i class="fas fa-shield-alt me-2"></i>Moderatore
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <!-- Personal Information -->
+            <div class="info-section">
+                <h3 class="info-title"><i class="fas fa-id-card me-2"></i>Informazioni Personali</h3>
+
+                <div class="row">
+                    <p class="info-label">Nome</p>
+                    <p class="info-value" th:text="${userDetailsExtra.firstName}">Mario</p>
+                </div>
+
+                <div class="row">
+                    <p class="info-label">Cognome</p>
+                    <p class="info-value" th:text="${userDetailsExtra.lastName}">Rossi</p>
+                </div>
+
+                <div class="row">
+                    <p class="info-label">Data di Nascita</p>
+                    <p class="info-value" th:text="${#temporals.format(userDetailsExtra.birthDate, 'dd/MM/yyyy')}">
+                        <i class="far fa-calendar-alt me-2"></i>01/01/1990
+                    </p>
+                </div>
+
+                <div class="row">
+                    <p class="info-label">E-mail</p>
+                    <p class="info-value" th:text="${userDetailsExtra.mail}">
+                        <i class="far fa-envelope me-2"></i>mario.rossi@example.com
+                    </p>
+                </div>
+
+                <div class="row">
+                    <p class="info-label">Username</p>
+                    <p class="info-value" th:text="${userDetailsExtra.username}">
+                        <i class="far fa-user me-2"></i>mrossi
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <!-- Statistics -->
+            <div class="info-section d-flex flex-column h-100">
+                <h3 class="info-title"><i class="fas fa-chart-line me-2"></i>Le Tue Statistiche</h3>
+
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="stat-card success text-center">
+                            <h5 style="color:#212121;">Punti Oggi</h5>
+                            <div class="progress-circle">
+                                <div class="value" th:text="${profileStats.pointsToday}">12</div>
+                            </div>
+                            <p class="text-success"><i class="fas fa-bolt me-1"></i>Performance Giornaliera</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card primary text-center">
+                            <h5 style="color:#212121;">Classifica</h5>
+                            <div class="progress-circle">
+                                <div class="value"
+                                     th:text="${profileStats.rankingPosition == -1 ? '/' : profileStats.rankingPosition}">
+                                    5
+                                </div>
+                            </div>
+                            <p class="text-primary"><i class="fas fa-medal me-1"></i>Posizione</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card warning text-center">
+                            <h5 style="color:#212121;">Schedine</h5>
+                            <div class="progress-circle">
+                                <div class="value" th:text="${profileStats.totalBets}">20</div>
+                            </div>
+                            <p class="text-warning"><i class="fas fa-ticket-alt me-1"></i>Totali</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <button class="btn btn-primary glow-btn px-5 py-3">
+                        <i class="fas fa-chart-bar me-2"></i>Statistiche Complete
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row  mt-4">
+        <div class="col-lg-12">
+            <div class="info-section">
+                <h3 class="info-title"><i class="fas fa-id-card me-2"></i>Premi ricevuti</h3>
+                <div class="row">
+                    <p class="info-label">Nome</p>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center"
+                     th:each="entry : ${profileStats.getPrizes()}">
+                    <span th:text="${entry.getDescription()}">Titolo evento</span>
+                    <span class="badge bg-primary rounded-pill"
+                          th:text="${#temporals.format(entry.getAssignedAt(), 'dd/MM/yyyy')}">10/05/2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row  mt-4">
+        <div class="col-lg-12">
+            <h3 class="info-title"><i class="fas fa-cogs me-2"></i>Azioni Rapide</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <button class="glow-btn-outline-secondary btn w-100">
+                        <i class="fas fa-edit me-2"></i>Modifica Profilo
+                    </button>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <button class="glow-btn-outline-secondary btn w-100">
+                        <i class="fas fa-key me-2"></i>Cambia Password
+                    </button>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <button class="glow-btn-outline-secondary btn w-100">
+                        <i class="fas fa-history me-2"></i>Cronologia
+                    </button>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <button class="glow-btn-outline-secondary btn w-100">
+                        <i class="fas fa-bell me-2"></i>Notifiche
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Add Font Awesome for icons -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>
