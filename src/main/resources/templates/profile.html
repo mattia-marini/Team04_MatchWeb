@@ -308,30 +308,41 @@
         </div>
     </div>
 
-    <div class="row  mt-4">
+    <div class="row mt-4">
         <div class="col-lg-12">
             <h3 class="info-title"><i class="fas fa-cogs me-2"></i>Azioni Rapide</h3>
             <div class="row">
+
+                <!-- Dashboard -->
                 <div class="col-md-6 mb-3">
-                    <button class="glow-btn-outline-secondary btn w-100">
-                        <i class="fas fa-edit me-2"></i>Modifica Profilo
-                    </button>
+                    <a href="/dashboard" class="glow-btn-outline-secondary btn w-100">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
                 </div>
+
+                <!-- Cambia Password -->
                 <div class="col-md-6 mb-3">
-                    <button class="glow-btn-outline-secondary btn w-100">
+                    <a href="/change-password" class="glow-btn-outline-secondary btn w-100">
                         <i class="fas fa-key me-2"></i>Cambia Password
-                    </button>
+                    </a>
                 </div>
+
+                <!-- Home -->
                 <div class="col-md-6 mb-3">
-                    <button class="glow-btn-outline-secondary btn w-100">
-                        <i class="fas fa-history me-2"></i>Cronologia
-                    </button>
+                    <a href="/index" class="glow-btn-outline-secondary btn w-100">
+                        <i class="fas fa-home me-2"></i>Home
+                    </a>
                 </div>
+
+                <!-- Logout (POST) -->
                 <div class="col-md-6 mb-3">
-                    <button class="glow-btn-outline-secondary btn w-100">
-                        <i class="fas fa-bell me-2"></i>Notifiche
-                    </button>
+                    <form th:action="@{/logout}" method="post" class="w-100">
+                        <button type="submit" class="glow-btn-outline-secondary btn w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </button>
+                    </form>
                 </div>
+
             </div>
         </div>
     </div>
