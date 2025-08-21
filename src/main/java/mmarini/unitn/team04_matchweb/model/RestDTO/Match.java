@@ -7,26 +7,24 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@IdClass(MatchId.class)
 @Check(constraints = "home_team <> away_team")
 public class Match {
 
     @Id
+    private int id;
+
     @ManyToOne
     @JoinColumn(name = "home_team", nullable = false)
     private Team homeTeam;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "away_team", nullable = false)
     private Team awayTeam;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "championship_id", nullable = false)
     private Championship championship;
 
-    @Id
     @Column(nullable = false)
     private LocalDateTime dateTime;
 
@@ -42,6 +40,16 @@ public class Match {
     }
 
     // Getters and Setters
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Team getHomeTeam() {
         return homeTeam;
     }

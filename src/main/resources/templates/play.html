@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <th:block th:replace="fragments/header :: commonHead('Calendario Partite')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
+    <style>
+        /* Additional styles for predictions */
+        .prediction-column {
+            width: 150px;
+            text-align: center;
+        }
+
+        .prediction-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prediction-option {
+            display: flex;
+            align-items: center;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .prediction-option input {
+            margin-right: 5px;
+        }
+
+        .prediction-submit {
+            margin: 20px 0;
+            text-align: right;
+        }
+
+        .team-option {
+            position: relative;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .team-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .team-option label {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .team-option input[type="radio"]:checked + label {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+
+        .team-option input[type="radio"]:focus + label {
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container py-5" style="margin-top:70px">
+    <!-- Calendar Header -->
+    <div class="calendar-header text-center text-white">
+        <div class="calendar-icon">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h1 class="display-5 fw-bold">Calendario Partite</h1>
+        <p class="lead">Visualizza tutte le partite in programma e fai le tue previsioni</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 calendar-container">
+            <!-- If no matches found -->
+            <div th:if="${calendar.isEmpty()}" class="no-matches-message">
+                <i class="fas fa-info-circle me-2"></i>
+                Non ci sono partite in programma al momento.
+            </div>
+
+            <!-- Championships -->
+            <div th:each="championshipEntry : ${calendar}" class="mb-5">
+                <div class="championship-header">
+                    <h2>
+                        <i class="fas fa-trophy me-2"></i>
+                        <span th:text="'Championship ' + ${championshipEntry.key}">Championship ID</span>
+                    </h2>
+                </div>
+
+                <form th:action="@{/predictions/submit}" method="post">
+                    <input type="hidden" name="championshipId" th:value="${championshipEntry.key}"/>
+
+                    <!-- Days -->
+                    <div th:each="dateEntry : ${championshipEntry.value}" class="day-group">
+                        <!-- Date heading in Italian format -->
+                        <div class="date-section">
+                            <i class="far fa-calendar-alt"></i>
+                            <span th:text="${#temporals.format(dateEntry.key, 'EEEE d MMMM yyyy', new java.util.Locale('it', 'IT'))}">Giovedì 21 Agosto 2025</span>
+                        </div>
+
+                        <!-- Matches Table -->
+                        <table class="matches-table">
+                            <thead>
+                            <tr>
+                                <th>Orario</th>
+                                <th>Squadra Casa</th>
+                                <th class="vs-column"></th>
+                                <th>Squadra Ospite</th>
+                                <th class="prediction-column">Previsione</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="match, matchStat : ${dateEntry.value}">
+                                <td class="match-time" th:text="${#temporals.format(match.getDateTime(), 'HH:mm')}">
+                                    Time
+                                </td>
+                                <td class="team-name" th:text="${match.homeTeam.name}">Home Team</td>
+                                <td class="vs-column">vs</td>
+                                <td class="team-name" th:text="${match.awayTeam.name}">Away Team</td>
+                                <td class="prediction-column">
+                                    <input type="hidden" th:name="'matchIds[' + ${matchStat.index} + ']'"
+                                           th:value="${match.homeTeam.name + '_' + match.awayTeam.name + '_' + match.championship.id + '_' + #temporals.format(match.getDateTime(), 'yyyy-MM-dd HH:mm:ss')}"/>
+
+                                    <div class="prediction-options"
+                                         th:data-match-id="${match.getId()}"
+                                         th:data-championship-id="${championshipEntry.key}">
+
+                                        <div class="team-option">
+                                            <input type="radio"
+                                                   th:id="|home_${match.getId()}|"
+                                                   th:name="|predictions_${match.getId()}|"
+                                                   th:value="1" required/>
+                                            <label th:for="|home_${match.getId()}|">Casa</label>
+                                        </div>
+
+                                        <div class="team-option">
+                                            <input type="radio"
+                                                   th:id="|away_${match.id}|"
+                                                   th:name="|predictions_${match.getId()}|"
+                                                   th:value="2"/>
+                                            <label th:for="|away_${match.getId()}|">Ospite</label>
+                                        </div>
+
+                                        <div class="team-option">
+                                            <input type="radio"
+                                                   th:id="|draw_${match.getId()}|"
+                                                   th:name="|predictions_${match.getId()}|"
+                                                   value="0"/>
+                                            <label th:for="|draw_${match.getId()}|">Pareggio</label>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Submit button for predictions -->
+                    <div class="prediction-submit">
+                        <button type="submit" class="btn btn-primary glow-btn"
+                                th:data-championship-id="${championshipEntry.key}"
+                                th:id="|submit_${championshipEntry.key}|">
+                            <i class="fas fa-check-circle me-2"></i>Invia
+                            Previsioni
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User and date displays -->
+<div class="user-display">
+    <i class="fas fa-user me-1"></i>
+    <span>mattia-marini</span>
+</div>
+
+<div class="date-display">
+    <i class="far fa-calendar me-1"></i>
+    <span>2025-08-21 13:36:05</span>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('Calendar page loaded with prediction handlers');
+
+
+        const forms = document.querySelectorAll("form");
+        forms.forEach(form => {
+            form.addEventListener("submit", function (event) {
+                if (!form.checkValidity()) {
+                    // This triggers the browser's validation UI
+                    form.reportValidity();
+                    event.preventDefault(); // stops submission
+                    return;
+                }
+
+                // Form is valid; you can proceed with your JS logic
+                event.preventDefault(); // optional: still prevent actual submission
+                console.log("Form is valid. You can now handle submission via JS.");
+            });
+        });
+
+        // Find all submit buttons for championships
+        const submitButtons = document.querySelectorAll('[id^="submit_"]');
+
+        submitButtons.forEach(button => {
+            //console.log(button)
+            button.addEventListener('click', function (event) {
+
+                const predictionContainers = document.querySelectorAll(`.prediction-options[data-championship-id="${button.dataset.championshipId}"]`);
+                let rv = {};
+
+                predictionContainers.forEach(container => {
+                    // Select all team-option divs inside this container
+                    const checkedRadio = container.querySelector('input[type="radio"]:checked');
+                    if (checkedRadio) {
+                        rv[container.dataset.matchId] = checkedRadio.value;
+                        console.log(checkedRadio.value)
+                    }
+                });
+
+                console.log(rv)
+
+
+                // Create hidden input with predictions JSON
+                //const hiddenInput = document.createElement('input');
+                //hiddenInput.type = 'hidden';
+                //hiddenInput.name = 'predictionsJson';
+                //hiddenInput.value = JSON.stringify(predictions);
+
+                //// Find the form containing this button
+                //const form = this.closest('form');
+                //form.appendChild(hiddenInput);
+
+                // Submit the form
+                //form.submit();
+            });
+        });
+    })
+    ;
+</script>
+</body>
+</html>
