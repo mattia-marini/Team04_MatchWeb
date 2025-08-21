@@ -5,7 +5,12 @@ import mmarini.unitn.team04_matchweb.service.ReviewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -32,4 +37,44 @@ public class ReviewController {
         model.addAttribute("average", avg);
         return "reviews";
     }
+
+    @GetMapping("/write-review")
+    public String writeReviewPage() {
+        return "write-review";
+    }
+
+    @GetMapping("/review-submitted")
+    public String reviewSubmittedPage() {
+        return "/review-submitted";
+    }
+
+    @PostMapping("/write-review")
+    public String submitReview(@RequestParam("rating") int rating,
+                               @RequestParam("reviewContent") String reviewContent,
+                               Principal principal,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            // Get the currently logged-in user
+            String username = principal.getName();
+
+            // Create review
+            Review review = new Review();
+            review.setUsername(username);
+            review.setRating(rating);
+            review.setText(reviewContent);
+            review.setCreatedAt(LocalDateTime.now());
+
+            // Save it
+            reviewService.saveReview(review);
+
+            // Success message
+            redirectAttributes.addFlashAttribute("successMessage", "Recensione inviata con successo!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Errore durante l'invio della recensione.");
+        }
+
+        return "redirect:/review-submitted";
+    }
+
+
 }

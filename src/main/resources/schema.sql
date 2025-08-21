@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS REVIEW
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(64) NOT NULL,
     rating INT NOT NULL,
-    text VARCHAR ( 500 ),
+    text VARCHAR ( 1024 ),
     created_at TIMESTAMP NOT NULL
     );
 

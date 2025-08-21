@@ -41,9 +41,5 @@ public class HomeController {
         return "dashboard";
     }
 
-    @GetMapping("/write-review")
-    public String writeReviewPage() {
-        return "write-review";
-    }
 
 }

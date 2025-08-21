@@ -1,10 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <th:block th:replace="fragments/header :: commonHead('Scrivi una Recensione')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/write-review.css}">
 </head>
-<body>
+
+<body class="bg-light">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container py-5" style="margin-top:70px">
+    <!-- Review Header -->
+    <div class="review-header text-center text-white">
+        <div class="review-icon">
+            <i class="fas fa-star"></i>
+        </div>
+        <h1 class="display-5 fw-bold">Scrivi una Recensione</h1>
+        <p class="lead">La tua opinione è importante per migliorare i nostri servizi</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Alert messages -->
+            <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                <span th:text="${successMessage}">Recensione inviata con successo!</span>
+            </div>
+
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span th:text="${errorMessage}">Si è verificato un errore!</span>
+            </div>
+
+            <!-- Review Form -->
+            <div class="info-section">
+                <h3 class="info-title"><i class="fas fa-edit me-2"></i>La tua recensione</h3>
+
+                <div class="review-guidelines">
+                    <h6><i class="fas fa-info-circle me-2"></i>Come scrivere una buona recensione</h6>
+                    <ul>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Sii specifico e descrivi la tua
+                            esperienza in dettaglio
+                        </li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Mantieni un tono costruttivo e
+                            rispettoso
+                        </li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Evita contenuti offensivi o
+                            informazioni personali
+                        </li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Includi sia aspetti positivi che
+                            suggerimenti per migliorare
+                        </li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> La recensione deve avere un minimo di
+                            100 caratteri
+                        </li>
+                    </ul>
+                </div>
+
+                <form id="reviewForm" th:action="@{/write-review}" method="post" class="needs-validation" novalidate>
+                    <!-- Rating stars -->
+                    <div class="rating-container mb-3">
+                        <label class="form-label">La tua valutazione</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5" required/>
+                            <label for="star5" title="5 stelle"><i class="fas fa-star"></i></label>
+
+                            <input type="radio" id="star4" name="rating" value="4"/>
+                            <label for="star4" title="4 stelle"><i class="fas fa-star"></i></label>
+
+                            <input type="radio" id="star3" name="rating" value="3"/>
+                            <label for="star3" title="3 stelle"><i class="fas fa-star"></i></label>
+
+                            <input type="radio" id="star2" name="rating" value="2"/>
+                            <label for="star2" title="2 stelle"><i class="fas fa-star"></i></label>
+
+                            <input type="radio" id="star1" name="rating" value="1"/>
+                            <label for="star1" title="1 stella"><i class="fas fa-star"></i></label>
+                        </div>
+                        <div class="form-feedback text-danger" id="rating-error" style="display: none;">
+                            <i class="fas fa-exclamation-circle me-1"></i> Seleziona una valutazione
+                        </div>
+                    </div>
+
+                    <!-- Review content -->
+                    <div class="input-container">
+                        <div class="form-floating">
+                            <textarea class="form-control" id="reviewContent" name="reviewContent"
+                                      placeholder="Scrivi la tua recensione qui" style="height: 200px"
+                                      required></textarea>
+                            <label for="reviewContent">La tua recensione</label>
+                        </div>
+                        <div class="character-count">
+                            <span id="charCount">0</span>/1000 caratteri
+                        </div>
+                        <div class="form-feedback text-danger" id="content-error" style="display: none;">
+                            <i class="fas fa-exclamation-circle me-1"></i> La recensione deve contenere almeno 100
+                            caratteri
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-4">
+                        <a th:href="@{/reviews}" class="btn btn-secondary glow-btn-outline-secondary px-4 py-2">
+                            <i class="fas fa-arrow-left me-2"></i>Torna alle recensioni
+                        </a>
+                        <button type="submit" class="btn btn-primary glow-btn px-5 py-2 btn-action" id="submitBtn">
+                            <i class="fas fa-paper-plane me-2"></i>Invia recensione
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/pages/write-review.js}"></script>
 
 </body>
 </html>

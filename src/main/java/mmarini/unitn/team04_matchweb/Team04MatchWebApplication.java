@@ -2,8 +2,10 @@ package mmarini.unitn.team04_matchweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+@EnableFeignClients
 public class Team04MatchWebApplication {
 
     public static void main(String[] args) {
