@@ -184,7 +184,7 @@
 </div>
 
 
-<script>
+<script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         console.log('Calendar page loaded with prediction handlers');
 
@@ -225,6 +225,25 @@
                 });
 
                 console.log(rv)
+
+                /*<![CDATA[*/
+                const date = /*[[${date}]]*/ '2025-10-20';
+                /*]]>*/
+                console.log(date);
+
+                fetch(`/calendar/results/${date}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Fetched results:", data);
+                    })
+                    .catch(error => {
+                        console.error("Fetch error:", error);
+                    });
 
 
                 // Create hidden input with predictions JSON

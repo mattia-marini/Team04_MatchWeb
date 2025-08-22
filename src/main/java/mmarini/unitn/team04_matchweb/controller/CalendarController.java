@@ -49,9 +49,11 @@ public class CalendarController {
 
             Map<Integer, List<Match>> calendar = matchCalendarClient.getMatchCalendarByDate(date);
             model.addAttribute("calendar", calendar);
+            model.addAttribute("date", date);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "play";
     }
+
 }
