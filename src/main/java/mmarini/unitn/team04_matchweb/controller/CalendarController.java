@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import mmarini.unitn.team04_matchweb.client.MatchCalendarClient;
 import mmarini.unitn.team04_matchweb.model.RestDTO.Match;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,14 +39,19 @@ public class CalendarController {
     }
 
     @GetMapping("/play")
-    public String playBetPage(Model model) {
+    public String playBetPageDefault(Model model) {
+        return playBetPage(LocalDate.now(), model);
+    }
+
+    @GetMapping("/play/{date}")
+    public String playBetPage(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model) {
         try {
-            Map<Integer, Map<LocalDate, List<Match>>> calendar = matchCalendarClient.getMatchCalendar();
+
+            Map<Integer, List<Match>> calendar = matchCalendarClient.getMatchCalendarByDate(date);
             model.addAttribute("calendar", calendar);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "play";
     }
 }

@@ -100,71 +100,62 @@
                 <form th:action="@{/predictions/submit}" method="post">
                     <input type="hidden" name="championshipId" th:value="${championshipEntry.key}"/>
 
-                    <!-- Days -->
-                    <div th:each="dateEntry : ${championshipEntry.value}" class="day-group">
-                        <!-- Date heading in Italian format -->
-                        <div class="date-section">
-                            <i class="far fa-calendar-alt"></i>
-                            <span th:text="${#temporals.format(dateEntry.key, 'EEEE d MMMM yyyy', new java.util.Locale('it', 'IT'))}">Giovedì 21 Agosto 2025</span>
-                        </div>
+                    <!-- Matches Table -->
+                    <table class="matches-table">
+                        <thead>
+                        <tr>
+                            <th>Orario</th>
+                            <th>Squadra Casa</th>
+                            <th class="vs-column"></th>
+                            <th>Squadra Ospite</th>
+                            <th class="prediction-column">Previsione</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="match, matchStat : ${championshipEntry.value}">
+                            <td class="match-time" th:text="${#temporals.format(match.getDateTime(), 'HH:mm')}">
+                                Time
+                            </td>
+                            <td class="team-name" th:text="${match.homeTeam.name}">Home Team</td>
+                            <td class="vs-column">vs</td>
+                            <td class="team-name" th:text="${match.awayTeam.name}">Away Team</td>
+                            <td class="prediction-column">
+                                <input type="hidden" th:name="'matchIds[' + ${matchStat.index} + ']'"
+                                       th:value="${match.homeTeam.name + '_' + match.awayTeam.name + '_' + match.championship.id + '_' + #temporals.format(match.getDateTime(), 'yyyy-MM-dd HH:mm:ss')}"/>
 
-                        <!-- Matches Table -->
-                        <table class="matches-table">
-                            <thead>
-                            <tr>
-                                <th>Orario</th>
-                                <th>Squadra Casa</th>
-                                <th class="vs-column"></th>
-                                <th>Squadra Ospite</th>
-                                <th class="prediction-column">Previsione</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="match, matchStat : ${dateEntry.value}">
-                                <td class="match-time" th:text="${#temporals.format(match.getDateTime(), 'HH:mm')}">
-                                    Time
-                                </td>
-                                <td class="team-name" th:text="${match.homeTeam.name}">Home Team</td>
-                                <td class="vs-column">vs</td>
-                                <td class="team-name" th:text="${match.awayTeam.name}">Away Team</td>
-                                <td class="prediction-column">
-                                    <input type="hidden" th:name="'matchIds[' + ${matchStat.index} + ']'"
-                                           th:value="${match.homeTeam.name + '_' + match.awayTeam.name + '_' + match.championship.id + '_' + #temporals.format(match.getDateTime(), 'yyyy-MM-dd HH:mm:ss')}"/>
+                                <div class="prediction-options"
+                                     th:data-match-id="${match.getId()}"
+                                     th:data-championship-id="${championshipEntry.key}">
 
-                                    <div class="prediction-options"
-                                         th:data-match-id="${match.getId()}"
-                                         th:data-championship-id="${championshipEntry.key}">
-
-                                        <div class="team-option">
-                                            <input type="radio"
-                                                   th:id="|home_${match.getId()}|"
-                                                   th:name="|predictions_${match.getId()}|"
-                                                   th:value="1" required/>
-                                            <label th:for="|home_${match.getId()}|">Casa</label>
-                                        </div>
-
-                                        <div class="team-option">
-                                            <input type="radio"
-                                                   th:id="|away_${match.id}|"
-                                                   th:name="|predictions_${match.getId()}|"
-                                                   th:value="2"/>
-                                            <label th:for="|away_${match.getId()}|">Ospite</label>
-                                        </div>
-
-                                        <div class="team-option">
-                                            <input type="radio"
-                                                   th:id="|draw_${match.getId()}|"
-                                                   th:name="|predictions_${match.getId()}|"
-                                                   value="0"/>
-                                            <label th:for="|draw_${match.getId()}|">Pareggio</label>
-                                        </div>
+                                    <div class="team-option">
+                                        <input type="radio"
+                                               th:id="|home_${match.getId()}|"
+                                               th:name="|predictions_${match.getId()}|"
+                                               th:value="1" required/>
+                                        <label th:for="|home_${match.getId()}|">Casa</label>
                                     </div>
 
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    <div class="team-option">
+                                        <input type="radio"
+                                               th:id="|away_${match.id}|"
+                                               th:name="|predictions_${match.getId()}|"
+                                               th:value="2"/>
+                                        <label th:for="|away_${match.getId()}|">Ospite</label>
+                                    </div>
+
+                                    <div class="team-option">
+                                        <input type="radio"
+                                               th:id="|draw_${match.getId()}|"
+                                               th:name="|predictions_${match.getId()}|"
+                                               value="0"/>
+                                        <label th:for="|draw_${match.getId()}|">Pareggio</label>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
                     <!-- Submit button for predictions -->
                     <div class="prediction-submit">

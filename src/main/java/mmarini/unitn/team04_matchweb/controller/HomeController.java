@@ -41,5 +41,10 @@ public class HomeController {
         return "dashboard";
     }
 
+    @GetMapping("/compute-scores")
+    public String computeScores() {
+        return "dashboard";
+    }
+
 
 }
