@@ -101,7 +101,7 @@
                     <input type="hidden" name="championshipId" th:value="${championshipEntry.key}"/>
 
                     <!-- Matches Table -->
-                    <table class="matches-table">
+                    <table class="matches-table" th:id="|form_${championshipEntry.key}|">
                         <thead>
                         <tr>
                             <th>Orario</th>
@@ -109,6 +109,9 @@
                             <th class="vs-column"></th>
                             <th>Squadra Ospite</th>
                             <th class="prediction-column">Previsione</th>
+                            <th class="results-column" hidden
+                                th:id="|result_column_championship_${championshipEntry.key}|">Risultati
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -152,6 +155,12 @@
                                     </div>
                                 </div>
 
+                            </td>
+
+                            <td class="results-column" hidden th:id="|result_col_${match.getId()}|">
+                                <i class="fas fa-check" style="color: green;"
+                                   th:id="|result_icon_${match.getId()}|"></i>
+                                <span th:id="|result_text_${match.getId()}|"> </span>
                             </td>
                         </tr>
                         </tbody>
@@ -213,36 +222,73 @@
             button.addEventListener('click', function (event) {
 
                 const predictionContainers = document.querySelectorAll(`.prediction-options[data-championship-id="${button.dataset.championshipId}"]`);
-                let rv = {};
+                let userPrediction = {};
 
+                let everythingSelected = true
                 predictionContainers.forEach(container => {
                     // Select all team-option divs inside this container
                     const checkedRadio = container.querySelector('input[type="radio"]:checked');
                     if (checkedRadio) {
-                        rv[container.dataset.matchId] = checkedRadio.value;
+                        userPrediction[container.dataset.matchId] = parseInt(checkedRadio.value, 10);
                         console.log(checkedRadio.value)
+                    } else {
+                        everythingSelected = false
                     }
                 });
+                if (!everythingSelected) {
+                    return
+                }
 
-                console.log(rv)
+                console.log("User prediction")
+                console.log(userPrediction)
 
                 /*<![CDATA[*/
                 const date = /*[[${date}]]*/ '2025-10-20';
                 /*]]>*/
-                console.log(date);
+                //console.log(date);
 
-                fetch(`/calendar/results/${date}`)
+                fetch(`/calendar/results/${date}/${button.dataset.championshipId}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
                         }
                         return response.json();
                     })
-                    .then(data => {
-                        console.log("Fetched results:", data);
+                    .then(results => {
+                        console.log("Fetched results:", results);
+
+
+                        // Column heading
+                        document.getElementById(`result_column_championship_${button.dataset.championshipId}`).hidden = false
+
+                        for (const [matchId, result] of Object.entries(results)) {
+
+                            let resultText
+                            if (result === 0)
+                                resultText = "Pareggio"
+                            else if (result === 1)
+                                resultText = "Casa"
+                            else if (result === 2)
+                                resultText = "Ospite"
+
+                            let classname = ""
+                            console.log(result, userPrediction[matchId])
+                            if (result === userPrediction[matchId]) {
+                                classname = "fas fa-check-circle text-success"
+                            } else {
+                                classname = "fas fa-times-circle text-danger"
+                            }
+
+                            document.getElementById(`result_col_${matchId}`).hidden = false
+                            document.getElementById(`result_text_${matchId}`).innerText = resultText
+                            let resultIcon = document.getElementById(`result_icon_${matchId}`)
+                            resultIcon.className = classname;
+                        }
+
                     })
                     .catch(error => {
                         console.error("Fetch error:", error);
+                        alert("Could not fetch results:", error)
                     });
 
 
