@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/dashboard", "/profile", "/write-review").authenticated() // first, protects /user
+                        .requestMatchers("/dashboard", "/profile", "/write-review", "/save-bet", "/play", "/play/**").authenticated() // first, protects /user
                         .requestMatchers("/**", "/login").permitAll() // then public pages
                 )
                 .formLogin(form -> form
@@ -43,6 +43,7 @@ public class SecurityConfig {
         // Disable CSRF for H2 console
         http.csrf(csrf -> csrf
                 .ignoringRequestMatchers("/h2-console/**")
+                .ignoringRequestMatchers("/save-bet/**")
         );
 
         return http.build();

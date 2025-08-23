@@ -6,18 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface BetRepository extends JpaRepository<Bet, Long> {
-
-    @Query(value = """
-            SELECT COALESCE(SUM(score), 0)
-            FROM BET
-            WHERE username = :username
-              AND CAST(played_at AS DATE) = CURRENT_DATE
-            """, nativeQuery = true)
-    int getPointsToday(@Param("username") String username);
+public interface BetRepository extends JpaRepository<Bet, Long>, BetRepositoryCustom {
 
     @Query(value = """
             SELECT COUNT(*)

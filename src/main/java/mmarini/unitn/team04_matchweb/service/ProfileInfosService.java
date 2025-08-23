@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,7 +45,7 @@ public class ProfileInfosService {
 
         profileStats.setRankingPosition(index);
         profileStats.setTotalBets(betRepository.getTotalBets(username));
-        profileStats.setPointsToday(betRepository.getPointsToday(username));
+        profileStats.setPointsToday(betRepository.getUserScoreByDay(username, LocalDate.now()));
         profileStats.setPrizes(prizeRepository.getPrizesByUsername(username));
 
         return profileStats;

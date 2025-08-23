@@ -1,9 +1,10 @@
 package mmarini.unitn.team04_matchweb.model;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProfileStats {
-    private int pointsToday;
+    private Optional<Integer> pointsToday;
     private int rankingPosition;
     private int totalBets;
     private List<Prize> prizes;
@@ -17,11 +18,11 @@ public class ProfileStats {
         this.prizes = prizes;
     }
 
-    public int getPointsToday() {
+    public Optional<Integer> getPointsToday() {
         return pointsToday;
     }
 
-    public void setPointsToday(int pointsToday) {
+    public void setPointsToday(Optional<Integer> pointsToday) {
         this.pointsToday = pointsToday;
     }
 
