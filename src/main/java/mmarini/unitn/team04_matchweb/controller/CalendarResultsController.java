@@ -23,6 +23,7 @@ public class CalendarResultsController {
         return matchResultsClient.getMatchResultsByDate(date);
     }
 
+    // Unused
     @GetMapping("/calendar/results/{date}/{championshipId}")
     public Map<Integer, Integer> calendarResultsByDateAndChampionshipId(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @PathVariable("championshipId") Integer championshipId) {
         return matchResultsClient.getMatchResultsByDateAndChampionshipId(date, championshipId);

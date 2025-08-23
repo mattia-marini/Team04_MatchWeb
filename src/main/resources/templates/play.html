@@ -89,15 +89,15 @@
             </div>
 
             <!-- Championships -->
-            <div th:each="championshipEntry : ${calendar}" class="mb-5">
-                <div class="championship-header">
-                    <h2>
-                        <i class="fas fa-trophy me-2"></i>
-                        <span th:text="'Championship ' + ${championshipEntry.key}">Championship ID</span>
-                    </h2>
-                </div>
+            <form th:action="@{/predictions/submit}" method="post">
+                <div th:each="championshipEntry : ${calendar}" class="mb-5">
+                    <div class="championship-header">
+                        <h2>
+                            <i class="fas fa-trophy me-2"></i>
+                            <span th:text="'Championship ' + ${championshipEntry.key}">Championship ID</span>
+                        </h2>
+                    </div>
 
-                <form th:action="@{/predictions/submit}" method="post">
                     <input type="hidden" name="championshipId" th:value="${championshipEntry.key}"/>
 
                     <!-- Matches Table -->
@@ -166,17 +166,17 @@
                         </tbody>
                     </table>
 
-                    <!-- Submit button for predictions -->
-                    <div class="prediction-submit">
-                        <button type="submit" class="btn btn-primary glow-btn"
-                                th:data-championship-id="${championshipEntry.key}"
-                                th:id="|submit_${championshipEntry.key}|">
-                            <i class="fas fa-check-circle me-2"></i>Invia
-                            Previsioni
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <!-- Submit button for predictions -->
+                <div class="prediction-submit">
+                    <button type="submit" class="btn btn-primary glow-btn"
+                            th:id="|submit_bet|">
+                        <i class="fas fa-check-circle me-2"></i>Invia
+                        Previsioni
+                    </button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
@@ -221,7 +221,8 @@
             //console.log(button)
             button.addEventListener('click', function (event) {
 
-                const predictionContainers = document.querySelectorAll(`.prediction-options[data-championship-id="${button.dataset.championshipId}"]`);
+                //const predictionContainers = document.querySelectorAll(`.prediction-options[data-championship-id="${button.dataset.championshipId}"]`);
+                const predictionContainers = document.querySelectorAll('.prediction-options');
                 let userPrediction = {};
 
                 let everythingSelected = true
@@ -247,7 +248,7 @@
                 /*]]>*/
                 //console.log(date);
 
-                fetch(`/calendar/results/${date}/${button.dataset.championshipId}`)
+                fetch(`/calendar/results/${date}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -257,11 +258,16 @@
                     .then(results => {
                         console.log("Fetched results:", results);
 
+                        const resultsFlattened = Object.assign({}, ...Object.values(results));
+                        console.log("Flattened results:", resultsFlattened);
 
                         // Column heading
-                        document.getElementById(`result_column_championship_${button.dataset.championshipId}`).hidden = false
+                        for (const res_col of document.querySelectorAll('.results-column')) {
+                            res_col.hidden = false
+                        }
+                        //document.getElementById(`result_column_championship_}`).hidden = false
 
-                        for (const [matchId, result] of Object.entries(results)) {
+                        for (const [matchId, result] of Object.entries(resultsFlattened)) {
 
                             let resultText
                             if (result === 0)
@@ -279,6 +285,7 @@
                                 classname = "fas fa-times-circle text-danger"
                             }
 
+                            console.log("matchId:", matchId);
                             document.getElementById(`result_col_${matchId}`).hidden = false
                             document.getElementById(`result_text_${matchId}`).innerText = resultText
                             let resultIcon = document.getElementById(`result_icon_${matchId}`)
