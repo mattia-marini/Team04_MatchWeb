@@ -168,13 +168,19 @@
 
                 </div>
                 <!-- Submit button for predictions -->
-                <div class="prediction-submit">
+                <div th:if="${!calendar.isEmpty()}" class="prediction-submit d-flex flex-row">
+                    <div th:id="total-score-row" class="d-flex flex-row align-items-center"
+                         style="flex-grow:1; opacity: 0">
+                        <div>Punteggio totale:</div>
+                        <div th:id="total-score-value" class="ms-2" style="flex-grow:1; text-align: left">something
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary glow-btn"
                             th:id="|submit_bet|">
-                        <i class="fas fa-check-circle me-2"></i>Invia
-                        Previsioni
+                        <i class="fas fa-check-circle me-2"></i>Invia Previsioni
                     </button>
                 </div>
+
             </form>
 
         </div>
@@ -267,22 +273,26 @@
                         }
                         //document.getElementById(`result_column_championship_}`).hidden = false
 
+                        let totalScore = 0;
+
                         for (const [matchId, result] of Object.entries(resultsFlattened)) {
 
                             let resultText
                             if (result === 0)
-                                resultText = "Pareggio"
+                                resultText = "Pareggio";
                             else if (result === 1)
-                                resultText = "Casa"
+                                resultText = "Casa";
                             else if (result === 2)
-                                resultText = "Ospite"
+                                resultText = "Ospite";
 
                             let classname = ""
                             console.log(result, userPrediction[matchId])
+
                             if (result === userPrediction[matchId]) {
-                                classname = "fas fa-check-circle text-success"
+                                classname = "fas fa-check-circle text-success";
+                                totalScore += 1;
                             } else {
-                                classname = "fas fa-times-circle text-danger"
+                                classname = "fas fa-times-circle text-danger";
                             }
 
                             console.log("matchId:", matchId);
@@ -290,7 +300,13 @@
                             document.getElementById(`result_text_${matchId}`).innerText = resultText
                             let resultIcon = document.getElementById(`result_icon_${matchId}`)
                             resultIcon.className = classname;
+
+
                         }
+
+                        button.disabled = true;
+                        document.getElementById("total-score-row").style.opacity = "1"
+                        document.getElementById('total-score-value').innerText = `${totalScore}/${Object.keys(userPrediction).length}`
 
                     })
                     .catch(error => {
