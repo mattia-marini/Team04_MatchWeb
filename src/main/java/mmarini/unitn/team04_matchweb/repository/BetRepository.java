@@ -35,4 +35,12 @@ public interface BetRepository extends JpaRepository<Bet, Long>, BetRepositoryCu
             ORDER BY total DESC
             """, nativeQuery = true)
     List<Object[]> getRanking();
+
+
+    @Query("""
+                SELECT b.username, SUM(b.score)
+                FROM Bet b
+                GROUP BY b.username
+            """)
+    List<Object[]> findTotalScorePerUser();
 }

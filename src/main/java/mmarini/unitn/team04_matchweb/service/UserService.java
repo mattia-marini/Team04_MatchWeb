@@ -1,0 +1,57 @@
+package mmarini.unitn.team04_matchweb.service;
+
+import mmarini.unitn.team04_matchweb.model.Authority;
+import mmarini.unitn.team04_matchweb.repository.AuthorityRepository;
+import mmarini.unitn.team04_matchweb.repository.BetRepository;
+import mmarini.unitn.team04_matchweb.repository.UserDetailsExtraRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@Service
+public class UserService {
+    AuthorityRepository authorityRepository;
+    UserDetailsExtraRepository userDetailsExtraRepository;
+    BetRepository betRepository;
+
+    @Autowired
+    public UserService(AuthorityRepository authorityRepository, UserDetailsExtraRepository userDetailsExtraRepository, BetRepository betRepository) {
+        this.authorityRepository = authorityRepository;
+        this.userDetailsExtraRepository = userDetailsExtraRepository;
+        this.betRepository = betRepository;
+    }
+
+
+    public Map<String, String> getAuthorityMap() {
+        List<Authority> authorities = authorityRepository.findAll();
+        Map<String, String> authoritiesMap = new LinkedHashMap<>();
+        authorities.forEach(authority -> {
+            authoritiesMap.put(authority.getUsername(), authority.getAuthority());
+        });
+        return authoritiesMap;
+    }
+
+    public Map<String, Long> getTotalScorePerUser() {
+        List<Object[]> authorities = betRepository.findTotalScorePerUser();
+        Map<String, Long> authoritiesMap = new LinkedHashMap<>();
+        authorities.forEach(authority -> {
+            authoritiesMap.put((String) authority[0], (Long) authority[1]);
+        });
+        return authoritiesMap;
+    }
+
+    public List<UserDetailsExtra> getAllUsernameAsc() {
+        return userDetailsExtraRepository.findAllByOrderByUsernameAsc();
+    }
+
+    public Optional<UserDetailsExtra> getUserDetailsExtraByUsername(String username) {
+        return userDetailsExtraRepository.getUserDetailsExtraByUsername(username);
+    }
+
+
+}

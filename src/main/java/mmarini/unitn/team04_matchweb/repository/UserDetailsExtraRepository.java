@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface UserDetailsExtraRepository extends JpaRepository<UserDetailsExtra, Long> {
     Optional<UserDetailsExtra> getUserDetailsExtraByUsername(String username);
+
+    List<UserDetailsExtra> findAllByOrderByUsernameAsc();
 }
