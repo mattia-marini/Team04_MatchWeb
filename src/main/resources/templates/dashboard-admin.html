@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="it">
+<body th:fragment="body">
+<div class="dashboard-container">
 
+    <div class="dashboard-grid">
+        <!-- Card 1: Visualizza Lista Utenti Iscritti -->
+        <a href="/user-list" class="dashboard-card">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h2 class="card-title">Visualizza Lista Utenti Iscritti</h2>
+            <p class="card-description">Accedi alla lista completa degli utenti registrati</p>
+        </a>
+
+        <!-- Card 2: Visualizza Classifica Utenti -->
+        <a href="/user-ranking" class="dashboard-card">
+            <div class="card-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h2 class="card-title">Visualizza Classifica Utenti</h2>
+            <p class="card-description">Controlla la classifica aggiornata degli utenti</p>
+        </a>
+
+        <!-- Card 3: Assegna Premi -->
+        <a href="/assign-awards" class="dashboard-card">
+            <div class="card-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h2 class="card-title">Assegna Premi</h2>
+            <p class="card-description">Gestisci e assegna premi agli utenti</p>
+        </a>
+
+        <!-- Card 4: Upgrade -->
+        <a href="/upgrade" class="dashboard-card">
+            <div class="card-icon">
+                <i class="fas fa-level-up-alt"></i>
+            </div>
+            <h2 class="card-title">Upgrade</h2>
+            <p class="card-description">Aggiorna le funzionalità del sistema</p>
+        </a>
+    </div>
+</div>
+
+<!-- System information displays -->
+<div class="date-display" id="dateDisplay">
+    <script>
+        document.getElementById('dateDisplay').innerText = new Date().toLocaleString();
+    </script>
+</div>
+<div class="user-display" id="userDisplay">
+    <script>
+        document.getElementById('userDisplay').innerText = "Utente: mattia-marini";
+    </script>
+</div>
 </body>
 </html>

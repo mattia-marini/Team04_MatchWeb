@@ -7,7 +7,7 @@ CREATE TABLE USERS
 
 CREATE TABLE AUTHORITIES
 (
-    username  VARCHAR(64) NOT NULL,
+    username  VARCHAR(64) NOT NULL PRIMARY KEY,
     authority VARCHAR(64) NOT NULL,
     CONSTRAINT FK_Authorities_Users FOREIGN KEY (username) REFERENCES USERS (username)
 );
@@ -25,26 +25,64 @@ CREATE TABLE USER_DETAILS_EXTRA
 
 CREATE TABLE IF NOT EXISTS REVIEW
 (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(64) NOT NULL,
+    id
+    BIGINT
+    AUTO_INCREMENT
+    PRIMARY
+    KEY,
+    username
+    VARCHAR
+(
+    64
+) NOT NULL,
     rating INT NOT NULL,
-    text VARCHAR ( 1024 ),
+    text VARCHAR
+(
+    1024
+),
     created_at TIMESTAMP NOT NULL
     );
 
 CREATE TABLE IF NOT EXISTS PRIZE
 (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(64) NOT NULL,
-    description VARCHAR(64) NOT NULL,
+    id
+    BIGINT
+    AUTO_INCREMENT
+    PRIMARY
+    KEY,
+    username
+    VARCHAR
+(
+    64
+) NOT NULL,
+    description VARCHAR
+(
+    64
+) NOT NULL,
     assigned_at TIMESTAMP NOT NULL,
-    CONSTRAINT FK_Prize_Users FOREIGN KEY (username) REFERENCES USERS (username)
+    CONSTRAINT FK_Prize_Users FOREIGN KEY
+(
+    username
+) REFERENCES USERS
+(
+    username
+)
     );
 
 CREATE TABLE IF NOT EXISTS BET
 (
-    username VARCHAR(64) NOT NULL,
+    username
+    VARCHAR
+(
+    64
+) NOT NULL,
     played_at TIMESTAMP NOT NULL,
     score INT NOT NULL,
-    CONSTRAINT FK_Bet_Users FOREIGN KEY (username) REFERENCES USERS (username)
+    CONSTRAINT FK_Bet_Users FOREIGN KEY
+(
+    username
+) REFERENCES USERS
+(
+    username
+)
     );
