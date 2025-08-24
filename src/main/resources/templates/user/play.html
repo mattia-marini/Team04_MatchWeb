@@ -127,24 +127,7 @@
     </div>
 </div>
 
-<!-- Hidden form -->
-<!--<form id="hiddenForm" method="POST" action="/save-bet">-->
-<!--    <input type="hidden" id="hidden-form-username" name="username">-->
-<!--    <input type="hidden" id="hidden-form-score" name="score">-->
-<!--    <input type="hidden" id="hidden-form-played-at" name="playedAt">-->
-<!--</form>-->
-
-<!-- User and date displays -->
-<div class="user-display">
-    <i class="fas fa-user me-1"></i>
-    <span>mattia-marini</span>
-</div>
-
-<div class="date-display">
-    <i class="far fa-calendar me-1"></i>
-    <span>2025-08-21 13:36:05</span>
-</div>
-
+<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
 
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {

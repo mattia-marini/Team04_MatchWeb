@@ -40,7 +40,7 @@ public class ReviewController {
 
     @GetMapping("/write-review")
     public String writeReviewPage() {
-        return "write-review";
+        return "user/write-review";
     }
 
     @GetMapping("/review-submitted")

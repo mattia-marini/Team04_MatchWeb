@@ -29,7 +29,7 @@ public class CalendarController {
             System.out.println(e);
         }
 
-        return "calendar";
+        return "user/calendar";
     }
 
 

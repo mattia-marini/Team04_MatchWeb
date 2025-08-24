@@ -24,15 +24,6 @@
 </div>
 
 <!-- System information displays -->
-<div class="date-display" id="dateDisplay">
-    <script>
-        document.getElementById('dateDisplay').innerText = new Date().toLocaleString();
-    </script>
-</div>
-<div class="user-display" id="userDisplay">
-    <script>
-        document.getElementById('userDisplay').innerText = "Utente: mattia-marini";
-    </script>
-</div>
+<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
 </body>
 </html>

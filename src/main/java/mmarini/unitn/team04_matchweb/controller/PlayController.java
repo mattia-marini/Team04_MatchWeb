@@ -44,6 +44,6 @@ public class PlayController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "play";
+        return "user/play";
     }
 }

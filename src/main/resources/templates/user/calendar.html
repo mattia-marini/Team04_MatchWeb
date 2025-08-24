@@ -63,21 +63,7 @@
     </div>
 </div>
 
-<!-- User and date displays -->
-<div class="user-display">
-    <i class="fas fa-user me-1"></i>
-    <span>mattia-marini</span>
-</div>
+<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
 
-<div class="date-display">
-    <i class="far fa-calendar me-1"></i>
-    <span>2025-08-21 10:04:08</span>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log('Calendar page loaded');
-    });
-</script>
 </body>
 </html>

@@ -24,7 +24,7 @@ public class ChangePasswordController {
 
     @GetMapping("/change-password")
     public String showChangePasswordForm() {
-        return "change-password";
+        return "user/change-password";
     }
 
 
