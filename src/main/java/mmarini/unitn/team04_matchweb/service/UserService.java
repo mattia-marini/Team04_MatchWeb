@@ -53,5 +53,14 @@ public class UserService {
         return userDetailsExtraRepository.getUserDetailsExtraByUsername(username);
     }
 
+    public boolean updateUsersRole(String newRole, List<String> usernames) {
+        Map<String, String> authMap = this.getAuthorityMap();
+        for (String username : usernames) {
+            String authority = authMap.get(username);
+            if (authority == null || authority.equals("ROLE_ADMIN")) return false;
+        }
+        authorityRepository.updateRolesForUsers(newRole, usernames);
+        return true;
+    }
 
 }

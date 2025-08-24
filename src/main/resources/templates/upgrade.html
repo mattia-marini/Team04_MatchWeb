@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
+    <style>
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            background-color: #2a5298;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1e3c72;
+        }
+
+        .matches-table th, .matches-table td {
+            padding: 15px;
+        }
+
+        .user-role {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            background-color: #6c757d;
+        }
+
+        .user-email {
+            color: #495057;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: #6c757d;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container calendar-container py-5" style="margin-top:70px">
+    <!-- Header similar to calendar header -->
+    <div class="calendar-header">
+        <div class="calendar-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <h1 style="color: white; text-align: center; margin-top: 10px;">Lista Utenti Iscritti</h1>
+        <p style="color: white; text-align: center; opacity: 0.8;">Visualizza tutti gli utenti registrati alla
+            piattaforma</p>
+    </div>
+
+    <a href="/dashboard" class="back-button">
+        <i class="fas fa-arrow-left"></i> Torna alla Dashboard
+    </a>
+
+    <!-- Search box -->
+    <input type="text" id="searchUsers" class="search-box" placeholder="Cerca utenti...">
+
+    <!-- User table -->
+    <form th:action="@{/update-roles}" method="post">
+        <input hidden name="role" th:value="ROLE_MODERATOR">
+        <table class="matches-table">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Nome Completo</th>
+                <th>Ruolo</th>
+                <th>Email</th>
+                <th>Data di Nascita</th>
+                <th>Promuovi</th>
+            </tr>
+            </thead>
+            <tbody id="usersTableBody">
+            <tr th:each="user : ${users}">
+                <td class="team-name">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span th:text="${user.username}">username</span>
+                    </div>
+                </td>
+                <td th:text="${user.firstName + ' ' + user.lastName}">Nome Cognome</td>
+                <td th:text="${authorities.get(user.username)}"></td>
+                <td class="user-email">
+                    <i class="fas fa-envelope" style="margin-right: 5px;"></i>
+                    <span th:text="${user.mail}">email@example.com</span>
+                </td>
+                <td th:text="${#temporals.format(user.birthDate, 'dd/MM/yyyy')}">01/01/1990</td>
+
+                <td th:if="${authorities.get(user.username) == 'ROLE_USER'}">
+                    <input type="checkbox" name="usernames" th:value="${user.username}"/>
+                </td>
+                <td th:if="${authorities.get(user.username) != 'ROLE_USER'}">
+                    <input disabled type="checkbox" name="usernames" th:value="${user.username}"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-primary glow-btn px-5 py-2 btn-action float-end" id="submitBtn"
+                disabled>
+            <i class="fas fa-save me-2"></i> Promuovi a moderatore
+        </button>
+    </form>
+    <!-- No users message -->
+    <div class="no-matches-message" th:if="${#lists.isEmpty(users)}">
+        <i class="fas fa-info-circle"></i> Nessun utente registrato.
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchUsers').addEventListener('keyup', function () {
+        let searchValue = this.value.toLowerCase();
+        let rows = document.getElementById('usersTableBody').getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            let username = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+            let fullName = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+            let email = rows[i].getElementsByTagName('td')[3].textContent.toLowerCase();
+
+            if (username.includes(searchValue) || fullName.includes(searchValue) || email.includes(searchValue)) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    });
+
+
+    function toggleButton() {
+        const checked = document.querySelectorAll('input[name="usernames"]:checked').length;
+        document.getElementById("submitBtn").disabled = checked === 0;
+    }
+
+    document.querySelectorAll('input[name="usernames"]').forEach(cb => {
+        cb.addEventListener("change", toggleButton);
+    });
+</script>
+</body>
+</html>

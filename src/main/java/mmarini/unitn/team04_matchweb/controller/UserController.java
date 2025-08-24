@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Comparator;
 import java.util.List;
@@ -42,5 +44,37 @@ public class UserController {
         model.addAttribute("ranks", ranks);
         return "user-ranking";
     }
+
+    @GetMapping("/assign-awards")
+    public String assignAwardsPage(Model model) {
+        List<UserDetailsExtra> users = userService.getAllUsernameAsc();
+        Map<String, Long> ranks = userService.getTotalScorePerUser();
+        users.sort(Comparator.comparing(u -> ranks.getOrDefault(u.getUsername(), 0L), Comparator.reverseOrder()));
+
+        if (users.size() > 3) {
+            users = users.subList(0, 3);
+        }
+
+        model.addAttribute("users", users);
+        model.addAttribute("ranks", ranks);
+        return "assign-awards";
+    }
+
+    @GetMapping("/upgrade")
+    public String upgradePage(Model model) {
+        model.addAttribute("users", userService.getAllUsernameAsc());
+        model.addAttribute("authorities", userService.getAuthorityMap());
+        return "upgrade";
+    }
+
+
+    // Handles POST from a form submission
+    @PostMapping("/update-roles")
+    public String updateRoles(@RequestParam List<String> usernames, @RequestParam String role, Model model) {
+        boolean updated = userService.updateUsersRole(role, usernames);
+        System.out.println("updated: " + updated);
+        return "redirect:/upgrade"; // redirect to a view
+    }
+
 
 }

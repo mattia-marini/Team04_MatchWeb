@@ -19,7 +19,7 @@
     </div>
 
     <!-- If user has ROLE_USER -->
-    <div sec:authorize="hasRole('USER')"
+    <div sec:authorize="hasAnyRole('USER','MODERATOR')"
          th:replace="dashboard-user :: body">
     </div>
 </div>
