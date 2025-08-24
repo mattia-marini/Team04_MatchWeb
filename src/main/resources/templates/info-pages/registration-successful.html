@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
 
 <head>
-    <th:block th:replace="fragments/header :: commonHead('Recensione inviata correttamente!')"/>
+    <th:block th:replace="fragments/header :: commonHead('Registrazione avvenuta con successo!')"/>
     <link rel="stylesheet" th:href="@{/css/pages/message.css}">
 </head>
 <body>
@@ -13,16 +13,17 @@
                 <i class="fas fa-check-circle"></i>
             </div>
 
-            <h1 class="card-title mt-4">Recensione inviata!</h1>
+            <h1 class="card-title mt-4">Registrazione Completata!</h1>
             <p class="message-text mb-4">
-                Grazie per aver valutato MatchWeb! La tua opinione conta!
+                Grazie per esserti registrato su SportBet. Il tuo account è stato creato con successo.
+                Ora puoi accedere e iniziare a utilizzare tutti i nostri servizi.
             </p>
 
             <div class="d-flex justify-content-center mt-5">
-                <a th:href="@{/reviews}" class="btn glow-btn me-3">
-                    <i class="fas fa-star me-2"></i> Recensioni
+                <a th:href="@{/login}" class="btn glow-btn me-3">
+                    <i class="fas fa-sign-in-alt me-2"></i> Accedi
                 </a>
-                <a th:href="@{/}" class="btn glow-btn-outline-secondary">
+                <a th:href="@{/static}" class="btn glow-btn-outline-secondary">
                     <i class="fas fa-home me-2"></i> Torna alla Home
                 </a>
             </div>

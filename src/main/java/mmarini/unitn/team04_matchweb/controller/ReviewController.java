@@ -35,7 +35,7 @@ public class ReviewController {
 
         model.addAttribute("reviews", reviews);
         model.addAttribute("average", avg);
-        return "reviews";
+        return "public/reviews";
     }
 
     @GetMapping("/write-review")
@@ -45,7 +45,7 @@ public class ReviewController {
 
     @GetMapping("/review-submitted")
     public String reviewSubmittedPage() {
-        return "/review-submitted";
+        return "info-pages/review-submitted";
     }
 
 

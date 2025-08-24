@@ -41,7 +41,7 @@ public class PrizeController {
 
     @GetMapping("/award-assigned")
     public String awardAssignedPage() {
-        return "award-assigned";
+        return "info-pages/award-assigned";
     }
 
     // Api

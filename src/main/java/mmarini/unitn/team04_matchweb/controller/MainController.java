@@ -2,34 +2,38 @@ package mmarini.unitn.team04_matchweb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class MainController {
 
+    @GetMapping("/")
+    public String homePageNoIndex() {
+        return "public/index";
+    }
+
     @GetMapping("/index")
     public String homePage() {
-        return "index";
+        return "public/index";
     }
 
     @GetMapping("/sponsor")
     public String sponsorPage() {
-        return "sponsor";
+        return "public/sponsor";
     }
 
     @GetMapping("/logout")
     public String logoutPage() {
-        return "logout";
+        return "public/logout";
     }
 
     @GetMapping("/registration-successful")
     public String registrationSuccessful() {
-        return "registration-successful";
+        return "info-pages/registration-successful";
     }
 
     @GetMapping("/login")
     public String loginPage() {
-        return "login";
+        return "public/login";
     }
 
     @GetMapping("/dashboard")

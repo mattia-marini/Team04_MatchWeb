@@ -15,12 +15,12 @@
     <h1 class="dashboard-title">Benvenuto, <span th:text="${#authentication.name}">username</span>!</h1>
 
     <div sec:authorize="hasRole('ADMIN')"
-         th:replace="dashboard-admin :: body">
+         th:replace="admin/dashboard-admin :: body">
     </div>
 
     <!-- If user has ROLE_USER -->
     <div sec:authorize="hasAnyRole('USER','MODERATOR')"
-         th:replace="dashboard-user :: body">
+         th:replace="user/dashboard-user :: body">
     </div>
 </div>
 

@@ -21,9 +21,8 @@ public class RegistrationController {
 
     @GetMapping("/signup")
     public String registerPage(Model model) {
-        // This returns the name of the HTML file in templates (without .html extension)
         model.addAttribute("registrationForm", new RegistrationForm());
-        return "signup";
+        return "public/signup";
     }
 
     // Api
