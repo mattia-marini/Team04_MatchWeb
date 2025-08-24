@@ -2,6 +2,7 @@ package mmarini.unitn.team04_matchweb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class MainController {
@@ -31,11 +32,6 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("/user")
-    public String userPage() {
-        return "user";
-    }
-
     @GetMapping("/dashboard")
     public String dashboardPage() {
         return "dashboard";
@@ -45,7 +41,5 @@ public class MainController {
     public String computeScores() {
         return "dashboard";
     }
-
-
 
 }

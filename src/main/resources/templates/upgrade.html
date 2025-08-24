@@ -4,66 +4,7 @@
 <head>
     <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
     <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
-    <style>
-
-        .back-button {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 8px 15px;
-            background-color: #2a5298;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #1e3c72;
-        }
-
-        .matches-table th, .matches-table td {
-            padding: 15px;
-        }
-
-        .user-role {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            color: white;
-            background-color: #6c757d;
-        }
-
-        .user-email {
-            color: #495057;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #e9ecef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            color: #6c757d;
-        }
-
-        .search-box {
-            margin-bottom: 20px;
-            padding: 10px;
-            width: 100%;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/pages/upgrade.css}">
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
