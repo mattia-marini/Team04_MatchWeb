@@ -1,10 +1,332 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
+    <style>
+
+        .badge-unassigned {
+            background-color: #b3b3b3;
+        }
+
+        .badge-assigned {
+            background-color: #2a5298;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            background-color: #2a5298;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1e3c72;
+        }
+
+        .matches-table th, .matches-table td {
+            padding: 15px;
+        }
+
+        .user-role {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            background-color: #6c757d;
+        }
+
+        .user-email {
+            color: #495057;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: #6c757d;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Gift section styling */
+        .gift-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gift-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+
+        .gift-list {
+            margin-bottom: 30px;
+        }
+
+        .gift-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        .gift-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .gift-name {
+            font-weight: 500;
+        }
+
+        .gift-recipient {
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .gift-icon {
+            color: #2a5298;
+            margin-right: 10px;
+        }
+
+        .gift-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .gift-button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .assign-button {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+        }
+
+        .assign-button:hover {
+            background-color: #1e3c72;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
+        }
+
+        .send-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .send-button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        .gift-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
+<div th:replace="fragments/navbar :: navbar"></div>
 
+<div class="container calendar-container py-5" style="margin-top:70px">
+    <!-- Header similar to calendar header -->
+    <div class="calendar-header">
+        <div class="calendar-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <h1 style="color: white; text-align: center; margin-top: 10px;">Classifica Utenti Iscritti</h1>
+        <p style="color: white; text-align: center; opacity: 0.8;">Visualizza i punteggi degli utenti registrati alla
+            piattaforma</p>
+    </div>
+
+    <a href="/dashboard" class="back-button">
+        <i class="fas fa-arrow-left"></i> Torna alla Dashboard
+    </a>
+
+    <!-- User table -->
+    <table class="matches-table">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Nome Completo</th>
+            <th>Email</th>
+            <th>Data di Nascita</th>
+            <th>Punteggio</th>
+        </tr>
+        </thead>
+        <tbody id="usersTableBody">
+        <tr th:each="user : ${users}">
+            <td class="team-name">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span th:text="${user.username}">username</span>
+                </div>
+            </td>
+            <td th:text="${user.firstName + ' ' + user.lastName}">Nome Cognome</td>
+            <td class="user-email">
+                <i class="fas fa-envelope" style="margin-right: 5px;"></i>
+                <span th:text="${user.mail}">email@example.com</span>
+            </td>
+            <td th:text="${#temporals.format(user.birthDate, 'dd/MM/yyyy')}">01/01/1990</td>
+            <td th:text="${ranks.get(user.username)}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- No users message -->
+    <div class="no-matches-message" th:if="${#lists.isEmpty(users)}">
+        <i class="fas fa-info-circle"></i> Nessun utente registrato.
+    </div>
+
+    <!-- Gift Section -->
+    <div class="gift-section">
+        <div class="gift-header">
+            <h2 style="color: #2a5298"><i class="fas fa-gift"></i> Premi per gli Utenti</h2>
+            <p>Assegna i premi agli utenti con i punteggi più alti</p>
+        </div>
+
+        <div class="gift-list" id="giftList">
+            <div class="gift-item" th:each="user : ${users}" th:if="${!#lists.isEmpty(users) && userStat.index < 3}">
+                <div>
+                    <span class="gift-name">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span th:text="${user.username}">username</span>
+                    <span class="gift-badge badge-unassigned" th:id="|gift-badge-${userStat.index}|">In attesa di assegnazione</span>
+                </div>
+                    </span>
+                </div>
+                <span class="gift-recipient" th:id="|gift-text-${userStat.index}|">Nessun regalo assegnato</span>
+            </div>
+
+            <!-- Show this if there are no users -->
+            <div class=" no-matches-message" th:if="${#lists.isEmpty(users)}">
+                <i class="fas fa-info-circle"></i> Nessun utente disponibile per l'assegnazione dei premi.
+            </div>
+        </div>
+
+        <div class="gift-buttons">
+            <button id="assignButton" class="btn glow-btn-outline-secondary">
+                <i class="fas fa-random"></i> Assegna Regali Casualmente
+            </button>
+            <button id="sendButton" class="btn glow-btn" disabled>
+                <i class="fas fa-paper-plane"></i> Invia Regali
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const gifts = [
+            "Un biglietto per assistere a una partita della squadra del cuore",
+            "Una maglia ufficiale di un giocatore della squadra",
+            "Una serata in pizzeria insieme alla squadra"
+        ];
+
+        const assignButton = document.getElementById('assignButton');
+        const sendButton = document.getElementById('sendButton');
+        let assigned = false;
+
+        // Function to assign gifts randomly
+        assignButton.addEventListener('click', function () {
+            // Get available users (maximum 3)
+            const userElements = document.querySelectorAll('.gift-item');
+            if (userElements.length === 0) return;
+
+            // Shuffle gifts array to ensure random assignment
+            const shuffledGifts = [...gifts].sort(() => 0.5 - Math.random());
+
+            // Assign gifts to users (max 3)
+            for (let i = 0; i < Math.min(userElements.length, 3); i++) {
+                const giftText = document.getElementById(`gift-text-${i}`);
+                const giftBadge = document.getElementById(`gift-badge-${i}`);
+
+                if (giftText && giftBadge) {
+                    giftText.textContent = shuffledGifts[i];
+                    giftBadge.textContent = "Assegnato";
+                    giftBadge.classList.remove("badge-unassigned")
+                    giftBadge.classList.add("badge-assigned")
+                } else {
+                    console.log("oPSSSSSSSSSS")
+                }
+            }
+
+            // Enable send button after assignment
+            sendButton.disabled = false;
+        });
+
+        // Function to send gifts
+        sendButton.addEventListener('click', function () {
+            if (!assigned) return;
+
+            // Show confirmation message
+            alert("I regali sono stati inviati con successo!");
+
+            // Reset the UI
+            const userElements = document.querySelectorAll('.gift-item');
+            for (let i = 0; i < userElements.length; i++) {
+                const giftText = document.getElementById(`gift-${i}`);
+                const giftBadge = document.getElementById(`gift-badge-${i}`);
+
+                if (giftText && giftBadge) {
+                    giftText.textContent = "Regalo inviato";
+                    giftBadge.textContent = "Inviato";
+                    giftBadge.style.backgroundColor = "#6c757d";
+                }
+            }
+
+            // Disable both buttons after sending
+            sendButton.disabled = true;
+        });
+    });
+</script>
 </body>
 </html>
