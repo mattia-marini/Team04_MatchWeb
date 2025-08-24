@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/profile")
 public class ProfileController {
 
     private final ProfileInfosService profileInfosService;
@@ -21,7 +20,7 @@ public class ProfileController {
     }
 
 
-    @GetMapping
+    @GetMapping("/profile")
     public String profilePage(Model model, Principal principal) {
         String username = principal.getName();
 

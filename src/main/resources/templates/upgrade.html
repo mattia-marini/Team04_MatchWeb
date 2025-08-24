@@ -87,7 +87,7 @@
     <input type="text" id="searchUsers" class="search-box" placeholder="Cerca utenti...">
 
     <!-- User table -->
-    <form th:action="@{/update-roles}" method="post">
+    <form th:action="@{/api/upgrade}" method="post">
         <input hidden name="role" th:value="ROLE_MODERATOR">
         <table class="matches-table">
             <thead>

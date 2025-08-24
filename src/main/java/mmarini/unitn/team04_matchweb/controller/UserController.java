@@ -27,6 +27,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    // Pages
     @GetMapping("/user-list")
     public String userListPage(Model model) {
         model.addAttribute("users", userService.getAllUsernameAsc());
@@ -45,20 +46,6 @@ public class UserController {
         return "user-ranking";
     }
 
-    @GetMapping("/assign-awards")
-    public String assignAwardsPage(Model model) {
-        List<UserDetailsExtra> users = userService.getAllUsernameAsc();
-        Map<String, Long> ranks = userService.getTotalScorePerUser();
-        users.sort(Comparator.comparing(u -> ranks.getOrDefault(u.getUsername(), 0L), Comparator.reverseOrder()));
-
-        if (users.size() > 3) {
-            users = users.subList(0, 3);
-        }
-
-        model.addAttribute("users", users);
-        model.addAttribute("ranks", ranks);
-        return "assign-awards";
-    }
 
     @GetMapping("/upgrade")
     public String upgradePage(Model model) {
@@ -67,9 +54,8 @@ public class UserController {
         return "upgrade";
     }
 
-
-    // Handles POST from a form submission
-    @PostMapping("/update-roles")
+    // Apis
+    @PostMapping("/api/upgrade")
     public String updateRoles(@RequestParam List<String> usernames, @RequestParam String role, Model model) {
         boolean updated = userService.updateUsersRole(role, usernames);
         System.out.println("updated: " + updated);

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class MainController {
 
     @GetMapping("/index")
     public String homePage() {
@@ -46,10 +46,6 @@ public class HomeController {
         return "dashboard";
     }
 
-    @GetMapping("/award-assigned")
-    public String awardAssignedPage() {
-        return "award-assigned";
-    }
 
 
 }

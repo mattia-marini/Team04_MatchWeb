@@ -48,7 +48,9 @@ public class ReviewController {
         return "/review-submitted";
     }
 
-    @PostMapping("/write-review")
+
+    // Api
+    @PostMapping("/api/write-review")
     public String submitReview(@RequestParam("rating") int rating,
                                @RequestParam("reviewContent") String reviewContent,
                                Principal principal,

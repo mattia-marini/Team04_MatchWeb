@@ -19,7 +19,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/dashboard", "/profile", "/write-review", "/save-bet", "/play", "/play/**").authenticated() // first, protects /user
+                        .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/api/").authenticated() // Api endpoints
+
+                        .requestMatchers("/profile", "/calendar", "/change-password", "/play", "/play/**", "/write-review").authenticated() // user pages
+                        .requestMatchers("/user-list", "/user-ranking", "/assign-awards", "/upgrade").authenticated() // admin pages
                         .requestMatchers("/**", "/login").permitAll() // then public pages
                 )
                 .formLogin(form -> form

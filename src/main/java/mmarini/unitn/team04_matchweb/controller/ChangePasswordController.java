@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class PasswordChangeController {
+public class ChangePasswordController {
 
     private final UserDetailsManager userDetailsManager;
     private final PasswordEncoder passwordEncoder;
 
-    public PasswordChangeController(UserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder) {
+    public ChangePasswordController(UserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder) {
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
     }
@@ -27,7 +27,9 @@ public class PasswordChangeController {
         return "change-password";
     }
 
-    @PostMapping("/change-password")
+
+    // Api
+    @PostMapping("/api/change-password")
     public String processChangePassword(
             @RequestParam("currentPassword") String currentPassword,
             @RequestParam("newPassword") String newPassword,

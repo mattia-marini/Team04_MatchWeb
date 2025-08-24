@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/signup")
 public class RegistrationController {
 
     private final RegistrationService registrationService;
@@ -20,14 +19,15 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
-    @GetMapping
+    @GetMapping("/signup")
     public String registerPage(Model model) {
         // This returns the name of the HTML file in templates (without .html extension)
         model.addAttribute("registrationForm", new RegistrationForm());
         return "signup";
     }
 
-    @PostMapping
+    // Api
+    @PostMapping("/api/signup")
     public String registerUser(@ModelAttribute("registrationForm") RegistrationForm form, Model model) {
         registrationService.register(form, "USER");
 

@@ -280,7 +280,7 @@
                 /*]]>*/
                 //console.log(date);
 
-                fetch(`/calendar/results/${date}`)
+                fetch(`/api/calendar/results/${date}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error("Could not fetch results");

@@ -34,10 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm() {
         const isContentValid = reviewContent.value.length >= 100;
         const isRatingSelected = Array.from(ratingInputs).some(input => input.checked);
-        const isTitleValid = document.getElementById('reviewTitle').value.trim() !== '';
 
         // Enable submit button only if all validations pass
-        submitBtn.disabled = !(isContentValid && isRatingSelected && isTitleValid);
+        submitBtn.disabled = !(isContentValid && isRatingSelected);
     }
 
     // Initial validation
