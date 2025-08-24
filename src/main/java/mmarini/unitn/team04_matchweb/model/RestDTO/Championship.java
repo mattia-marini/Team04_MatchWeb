@@ -6,13 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 
-@Entity
 public class Championship {
 
-    @Id
     private Integer id;
 
-    @Column(length = 64)
     private String description;
 
 

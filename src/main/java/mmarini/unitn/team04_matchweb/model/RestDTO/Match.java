@@ -6,26 +6,16 @@ import org.hibernate.annotations.Check;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Check(constraints = "home_team <> away_team")
 public class Match {
 
-    @Id
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "home_team", nullable = false)
     private Team homeTeam;
 
-    @ManyToOne
-    @JoinColumn(name = "away_team", nullable = false)
     private Team awayTeam;
 
-    @ManyToOne
-    @JoinColumn(name = "championship_id", nullable = false)
     private Championship championship;
 
-    @Column(nullable = false)
     private LocalDateTime dateTime;
 
     // Constructors

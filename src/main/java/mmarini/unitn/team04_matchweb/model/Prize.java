@@ -23,10 +23,10 @@ public class Prize {
     public Prize() {
     }
 
-    public Prize(Long id, String description, LocalDateTime asignedAt) {
-        this.id = id;
+    public Prize(String username, String description, LocalDateTime assignedAt) {
+        this.username = username;
         this.description = description;
-        this.assignedAt = asignedAt;
+        this.assignedAt = assignedAt;
     }
 
     public Long getId() {

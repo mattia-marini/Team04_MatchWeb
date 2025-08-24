@@ -7,7 +7,7 @@
     <style>
 
         .badge-unassigned {
-            background-color: #b3b3b3;
+            background-color: #6c757d;
         }
 
         .badge-assigned {
@@ -133,29 +133,6 @@
             transition: all 0.3s;
         }
 
-        .assign-button {
-            background-color: #2a5298;
-            color: white;
-            border: none;
-        }
-
-        .assign-button:hover {
-            background-color: #1e3c72;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
-        }
-
-        .send-button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-        }
-
-        .send-button:hover {
-            background-color: #218838;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-        }
 
         .gift-badge {
             display: inline-block;
@@ -225,14 +202,17 @@
 
     <!-- Gift Section -->
     <div class="gift-section">
-        <div class="gift-header">
-            <h2 style="color: #2a5298"><i class="fas fa-gift"></i> Premi per gli Utenti</h2>
-            <p>Assegna i premi agli utenti con i punteggi più alti</p>
-        </div>
+        <form th:action="@{/assign-awards}" method="post">
+            <div class="gift-header">
+                <h2 style="color: #2a5298"><i class="fas fa-gift"></i> Premi per gli Utenti</h2>
+                <p>Assegna i premi agli utenti con i punteggi più alti</p>
+            </div>
 
-        <div class="gift-list" id="giftList">
-            <div class="gift-item" th:each="user : ${users}" th:if="${!#lists.isEmpty(users) && userStat.index < 3}">
-                <div>
+            <div class="gift-list" id="giftList">
+                <div class="gift-item" th:each="user : ${users}"
+                     th:if="${!#lists.isEmpty(users) && userStat.index < 3}">
+                    <input type="hidden" name="usernames" th:value="${user.username}"/>
+                    <div>
                     <span class="gift-name">
                 <div class="user-info">
                     <div class="user-avatar">
@@ -242,33 +222,35 @@
                     <span class="gift-badge badge-unassigned" th:id="|gift-badge-${userStat.index}|">In attesa di assegnazione</span>
                 </div>
                     </span>
+                    </div>
+                    <span class="gift-recipient" th:id="|gift-text-${userStat.index}|">Nessun regalo assegnato</span>
+                    <input type="hidden" th:id="|gift-value-${userStat.index}|" name="awards"/>
                 </div>
-                <span class="gift-recipient" th:id="|gift-text-${userStat.index}|">Nessun regalo assegnato</span>
+
+                <!-- Show this if there are no users -->
+                <div class=" no-matches-message" th:if="${#lists.isEmpty(users)}">
+                    <i class="fas fa-info-circle"></i> Nessun utente disponibile per l'assegnazione dei premi.
+                </div>
             </div>
 
-            <!-- Show this if there are no users -->
-            <div class=" no-matches-message" th:if="${#lists.isEmpty(users)}">
-                <i class="fas fa-info-circle"></i> Nessun utente disponibile per l'assegnazione dei premi.
+            <div class="gift-buttons">
+                <button type="button" id="assignButton" class="btn glow-btn-outline-secondary">
+                    <i class="fas fa-random"></i> Assegna Regali Casualmente
+                </button>
+                <button type=submit id="sendButton" class="btn glow-btn" disabled>
+                    <i class="fas fa-paper-plane"></i> Invia Regali
+                </button>
             </div>
-        </div>
-
-        <div class="gift-buttons">
-            <button id="assignButton" class="btn glow-btn-outline-secondary">
-                <i class="fas fa-random"></i> Assegna Regali Casualmente
-            </button>
-            <button id="sendButton" class="btn glow-btn" disabled>
-                <i class="fas fa-paper-plane"></i> Invia Regali
-            </button>
-        </div>
+        </form>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const gifts = [
-            "Un biglietto per assistere a una partita della squadra del cuore",
-            "Una maglia ufficiale di un giocatore della squadra",
-            "Una serata in pizzeria insieme alla squadra"
+            "Biglietto per partita della squadra del cuore",
+            "Maglia ufficiale di un giocatore della squadra del cuore",
+            "Serata in pizzeria insieme alla squadra del cuore"
         ];
 
         const assignButton = document.getElementById('assignButton');
@@ -288,9 +270,12 @@
             for (let i = 0; i < Math.min(userElements.length, 3); i++) {
                 const giftText = document.getElementById(`gift-text-${i}`);
                 const giftBadge = document.getElementById(`gift-badge-${i}`);
+                const giftValue = document.getElementById(`gift-value-${i}`);
 
                 if (giftText && giftBadge) {
                     giftText.textContent = shuffledGifts[i];
+                    giftValue.value = shuffledGifts[i];
+
                     giftBadge.textContent = "Assegnato";
                     giftBadge.classList.remove("badge-unassigned")
                     giftBadge.classList.add("badge-assigned")
@@ -304,6 +289,7 @@
         });
 
         // Function to send gifts
+        /*
         sendButton.addEventListener('click', function () {
             if (!assigned) return;
 
@@ -315,6 +301,7 @@
             for (let i = 0; i < userElements.length; i++) {
                 const giftText = document.getElementById(`gift-${i}`);
                 const giftBadge = document.getElementById(`gift-badge-${i}`);
+                const giftValue = document.getElementById(`gift-value-${i}`);
 
                 if (giftText && giftBadge) {
                     giftText.textContent = "Regalo inviato";
@@ -326,6 +313,7 @@
             // Disable both buttons after sending
             sendButton.disabled = true;
         });
+         */
     });
 </script>
 </body>

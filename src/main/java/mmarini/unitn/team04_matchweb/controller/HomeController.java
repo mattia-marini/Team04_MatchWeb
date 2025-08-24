@@ -46,5 +46,10 @@ public class HomeController {
         return "dashboard";
     }
 
+    @GetMapping("/award-assigned")
+    public String awardAssignedPage() {
+        return "award-assigned";
+    }
+
 
 }
