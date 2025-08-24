@@ -3,9 +3,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <!-- Footer Fragment with Date/Time and User Info -->
-<div th:fragment="roleDateFooter" class="position-fixed bottom-0 start-0 end-0">
+<div th:fragment="roleDateFooter" class="position-fixed bottom-0 start-0 end-0" sec:authorize="isAuthenticated()">
     <!-- Info bar with date and user -->
-    <div class="bg-light">
+    <div class=" bg-light">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center">
                 <!-- User info on the left -->
