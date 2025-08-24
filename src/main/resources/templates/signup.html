@@ -21,7 +21,12 @@
                 <span th:text="${error}"></span>
             </div>
 
-            <form th:action="@{/api/signup}" th:object="${registrationForm}" method="post">
+            <div hidden th:id="front-end-error-container" class="alert alert-danger mb-4" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span th:id="front-end-error-text"></span>
+            </div>
+
+            <form th:id="reg-form" th:action="@{/api/signup}" th:object="${registrationForm}" method="post">
                 <!-- Personal Information Section -->
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -146,6 +151,59 @@
     <!-- News ticker below -->
     <div th:replace="fragments/championship-news :: newsTicker(my-ticker)"></div>
 </div>
+
+<script>
+    function getAge(birthDateStr, minAge = 18) {
+        const today = new Date();
+        const birthDate = new Date(birthDateStr);
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+
+        // adjust if birthday hasn't happened yet this year
+        const hasHadBirthday =
+            today.getMonth() > birthDate.getMonth() ||
+            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+        if (!hasHadBirthday) {
+            age--;
+        }
+
+        return age
+    }
+
+    function showAlertMsg(text) {
+        document.getElementById("front-end-error-text").innerText = text
+        document.getElementById("front-end-error-container").hidden = false;
+    }
+
+    document.getElementById("reg-form").addEventListener("submit", e => {
+        e.preventDefault();
+
+        if (!e.currentTarget.checkValidity()) {
+            e.currentTarget.reportValidity();
+            return;
+        }
+
+
+        // check confirm password
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        if (password !== confirmPassword) {
+            showAlertMsg("Le due password non coincidono!");
+            return;
+        }
+
+        // check 18+
+        const age = new Date(document.getElementById("birthDate").value);
+        if (getAge(age) < 18) {
+            showAlertMsg("L'utente deve essere maggiorenne per accedere al servizio");
+            return;
+        }
+
+        console.log("form is well formed")
+        e.currentTarget.submit()
+    })
+</script>
 
 
 <!-- Bootstrap Bundle with Popper -->
