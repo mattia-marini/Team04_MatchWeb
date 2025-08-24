@@ -9,7 +9,7 @@ body {
 
 .hero-section {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
-    url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    url('/images/stadium.jpg');
     background-size: cover;
     background-position: center;
     color: white;
