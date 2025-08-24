@@ -89,15 +89,32 @@
     </div>
 </div>
 
-<!-- Visualizzazione data corrente -->
-<div class="date-display">
-    2025-08-17 10:25:35 UTC
+<div class="position-fixed bottom-0 start-0 end-0">
+    <!-- Info bar with date and user -->
+    <div class="bg-light">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div class="d-flex justify-content-end small text-muted">
+                    <div class="user-display">
+                        <i class="fas fa-user-circle me-1"></i>
+                        <span>anonymousUser</span>
+                        <span class="badge bg-secondary ms-2">ROLE_ANONYMOUS</span>
+                    </div>
+                </div>
+
+                <div class="date-display small">
+                    <i class="fas fa-clock me-1"></i> 2025-08-17 10:25:35 UTC
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- News ticker below -->
+    <div th:replace="fragments/championship-news :: newsTicker(my-ticker)"></div>
 </div>
 
-<!-- Visualizzazione utente corrente -->
-<div class="user-display">
-    <i class="fas fa-user-circle me-1"></i> mattia-marini
-</div>
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
+<!-- News Ticker Fragment -->
+<div th:fragment="newsTicker(id)" th:id="|${id}-container|"
+     class="ticker-container d-flex align-items-center justify-content-center gap-2">
+    <i class="fas fa-bullhorn"></i>
+    <div class="ticker-content text-center" th:id="${id}">
+        BREAKING NEWS: This is a placeholder for the scrolling news alert.
+    </div>
 
+    <style>
+        .ticker-container {
+            background-color: var(--white-2);
+            border-top: 1px solid var(--white-3);
+            border-bottom: 1px solid var(--white-3);
+            padding: 10px 10px; /* small padding for icon */
+            transition: opacity 0.5s ease;
+        }
+
+        /* Fade animations for ticker content */
+        .ticker-content {
+            color: var(--gray-4);
+            font-weight: bold;
+            transition: opacity 0.5s ease;
+        }
+
+        .ticker-content.fade-out {
+            opacity: 0;
+        }
+
+        .ticker-content.fade-in {
+            opacity: 1;
+        }
+
+        .fa-bullhorn {
+            font-size: 1.2rem;
+        }
+    </style>
+
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the dynamic ID from Thymeleaf
+            const tickerId = /*[[${id}]]*/ 'my-ticker';
+            const ticker = document.getElementById(tickerId);
+            const tickerContainer = document.getElementById(tickerId + "-container");
+
+            // Check if elements exist and if this script has already been initialized for this ticker
+            if (!ticker || !tickerContainer || ticker.hasAttribute('data-initialized')) {
+                return;
+            }
+
+            ticker.setAttribute('data-initialized', 'true');
+
+            function updateTickerText(newText) {
+                // Apply fade-out to the content element
+                ticker.classList.add("fade-out");
+
+                setTimeout(() => {
+                    // Update text and fade back in
+                    ticker.innerText = newText;
+                    ticker.classList.remove("fade-out");
+                    ticker.classList.add("fade-in");
+                    setTimeout(() => ticker.classList.remove("fade-in"), 500);
+                }, 500);
+            }
+
+            function fetchAndDisplayNews() {
+                fetch("api/news")
+                    .then(res => {
+                        if (res.ok) return res.json();
+                        throw new Error("Cannot fetch news");
+                    })
+                    .then(json => {
+                        updateTickerText(json.description)
+                    })
+                    .catch(err => console.error(err));
+            }
+
+            fetchAndDisplayNews();
+
+            setInterval(fetchAndDisplayNews, 30_000);
+        });
+    </script>
+</div>
 </body>
 </html>
