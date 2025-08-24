@@ -149,15 +149,7 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container calendar-container py-5" style="margin-top:70px">
-    <!-- Header similar to calendar header -->
-    <div class="calendar-header">
-        <div class="calendar-icon">
-            <i class="fas fa-users"></i>
-        </div>
-        <h1 style="color: white; text-align: center; margin-top: 10px;">Classifica Utenti Iscritti</h1>
-        <p style="color: white; text-align: center; opacity: 0.8;">Visualizza i punteggi degli utenti registrati alla
-            piattaforma</p>
-    </div>
+    <div th:replace="~{fragments/user-page-header :: header('fas fa-award', 'Assegna Premi', 'Gestisci e assegna premi agli utenti')}"></div>
 
     <a href="/dashboard" class="back-button">
         <i class="fas fa-arrow-left"></i> Torna alla Dashboard

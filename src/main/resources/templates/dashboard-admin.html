@@ -5,40 +5,16 @@
 
     <div class="dashboard-grid">
         <!-- Card 1: Visualizza Lista Utenti Iscritti -->
-        <a href="/user-list" class="dashboard-card">
-            <div class="card-icon">
-                <i class="fas fa-users"></i>
-            </div>
-            <h2 class="card-title">Visualizza Lista Utenti Iscritti</h2>
-            <p class="card-description">Accedi alla lista completa degli utenti registrati</p>
-        </a>
+        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-users', 'Visualizza Lista Utenti Iscritti', 'Accedi alla lista completa degli utenti registrati', '/user-list' )"></div>
 
         <!-- Card 2: Visualizza Classifica Utenti -->
-        <a href="/user-ranking" class="dashboard-card">
-            <div class="card-icon">
-                <i class="fas fa-trophy"></i>
-            </div>
-            <h2 class="card-title">Visualizza Classifica Utenti</h2>
-            <p class="card-description">Controlla la classifica aggiornata degli utenti</p>
-        </a>
+        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-trophy', 'Visualizza Classifica Utenti', 'Controlla la classifica aggiornata degli utenti', '/user-ranking' )"></div>
 
         <!-- Card 3: Assegna Premi -->
-        <a href="/assign-awards" class="dashboard-card">
-            <div class="card-icon">
-                <i class="fas fa-award"></i>
-            </div>
-            <h2 class="card-title">Assegna Premi</h2>
-            <p class="card-description">Gestisci e assegna premi agli utenti</p>
-        </a>
+        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-award', 'Assegna Premi', 'Gestisci e assegna premi agli utenti', '/assign-awards' )"></div>
 
         <!-- Card 4: Upgrade -->
-        <a href="/upgrade" class="dashboard-card">
-            <div class="card-icon">
-                <i class="fas fa-level-up-alt"></i>
-            </div>
-            <h2 class="card-title">Upgrade</h2>
-            <p class="card-description">Aggiorna le funzionalità del sistema</p>
-        </a>
+        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-level-up-alt', 'Upgrade', 'Aggiorna le funzionalità del sistema', '/upgrade' )"></div>
     </div>
 </div>
 

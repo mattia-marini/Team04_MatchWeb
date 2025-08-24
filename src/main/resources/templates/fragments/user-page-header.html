@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="header(icon, title, description)"
+     class="user-page-header text-center text-white">
+    <div class="user-page-header-icon">
+        <i th:class="${icon}"></i>
+    </div>
+    <h1 class="display-5 fw-bold" th:text="${title}">Default Title</h1>
+    <p class="lead" th:text="${description}">Default description</p>
+</div>
+</body>
+</html>

@@ -10,14 +10,7 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container py-5" style="margin-top:70px">
-    <!-- Review Header -->
-    <div class="review-header text-center text-white">
-        <div class="review-icon">
-            <i class="fas fa-star"></i>
-        </div>
-        <h1 class="display-5 fw-bold">Scrivi una Recensione</h1>
-        <p class="lead">La tua opinione è importante per migliorare i nostri servizi</p>
-    </div>
+    <div th:replace="~{fragments/user-page-header :: header( 'fas fa-star', 'Scrivi una Recensione', 'La tua opinione è importante per migliorare i nostri servizi' )}"></div>
 
     <div class="row justify-content-center">
         <div class="col-lg-8">
