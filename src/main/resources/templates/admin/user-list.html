@@ -4,13 +4,13 @@
 <head>
     <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
     <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
-    <link rel="stylesheet" th:href="@{/css/pages/user-ranking.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/user-list.css}">
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container calendar-container py-5" style="margin-top:70px">
-    <div th:replace="~{fragments/user-page-header :: header('fas fa-trophy', 'Visualizza Classifica Utenti', 'Controlla la classifica aggiornata degli utenti')}"></div>
+    <div th:replace="~{fragments/user-page-header :: header('fas fa-users', 'Visualizza Lista Utenti Iscritti', 'Accedi alla lista completa degli utenti registrati')}"></div>
 
     <a href="/dashboard" class="back-button">
         <i class="fas fa-arrow-left"></i> Torna alla Dashboard
@@ -25,9 +25,9 @@
         <tr>
             <th>Username</th>
             <th>Nome Completo</th>
+            <th>Ruolo</th>
             <th>Email</th>
             <th>Data di Nascita</th>
-            <th>Punteggio</th>
         </tr>
         </thead>
         <tbody id="usersTableBody">
@@ -41,12 +41,12 @@
                 </div>
             </td>
             <td th:text="${user.firstName + ' ' + user.lastName}">Nome Cognome</td>
+            <td th:text="${authorities.get(user.username)}"></td>
             <td class="user-email">
                 <i class="fas fa-envelope" style="margin-right: 5px;"></i>
                 <span th:text="${user.mail}">email@example.com</span>
             </td>
             <td th:text="${#temporals.format(user.birthDate, 'dd/MM/yyyy')}">01/01/1990</td>
-            <td th:text="${ranks.get(user.username)}"></td>
         </tr>
         </tbody>
     </table>
@@ -56,6 +56,8 @@
         <i class="fas fa-info-circle"></i> Nessun utente registrato.
     </div>
 </div>
+
+<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
 
 <script>
     document.getElementById('searchUsers').addEventListener('keyup', function () {

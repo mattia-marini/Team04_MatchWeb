@@ -36,7 +36,7 @@ public class PrizeController {
 
         model.addAttribute("users", users);
         model.addAttribute("ranks", ranks);
-        return "assign-awards";
+        return "admin/assign-awards";
     }
 
     @GetMapping("/award-assigned")

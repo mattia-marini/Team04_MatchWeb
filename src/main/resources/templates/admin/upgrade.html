@@ -72,6 +72,8 @@
     </div>
 </div>
 
+<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+
 <script>
     document.getElementById('searchUsers').addEventListener('keyup', function () {
         let searchValue = this.value.toLowerCase();

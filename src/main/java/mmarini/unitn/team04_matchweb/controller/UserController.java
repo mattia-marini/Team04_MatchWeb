@@ -32,7 +32,7 @@ public class UserController {
     public String userListPage(Model model) {
         model.addAttribute("users", userService.getAllUsernameAsc());
         model.addAttribute("authorities", userService.getAuthorityMap());
-        return "user-list";
+        return "admin/user-list";
     }
 
     @GetMapping("/user-ranking")
@@ -43,7 +43,7 @@ public class UserController {
 
         model.addAttribute("users", users);
         model.addAttribute("ranks", ranks);
-        return "user-ranking";
+        return "admin/user-ranking";
     }
 
 
@@ -51,7 +51,7 @@ public class UserController {
     public String upgradePage(Model model) {
         model.addAttribute("users", userService.getAllUsernameAsc());
         model.addAttribute("authorities", userService.getAuthorityMap());
-        return "upgrade";
+        return "admin/upgrade";
     }
 
     // Apis
