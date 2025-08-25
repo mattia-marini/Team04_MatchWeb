@@ -18,16 +18,11 @@ public class RegistrationService {
     private final UserDetailsExtraRepository extraRepository;
 
     private final PasswordEncoder passwordEncoder;
-    private final JdbcTemplate jdbcTemplate;
 
-    public RegistrationService(JdbcUserDetailsManager userDetailsManager,
-                               PasswordEncoder passwordEncoder,
-                               UserDetailsExtraRepository extraRepository,
-                               JdbcTemplate jdbcTemplate) {
+    public RegistrationService(JdbcUserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder, UserDetailsExtraRepository extraRepository) {
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
         this.extraRepository = extraRepository;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Transactional
@@ -38,10 +33,7 @@ public class RegistrationService {
         }
 
         // 1) Create core user
-        UserDetails user = User.builder()
-                .username(registrationForm.getUsername())
-                .password(passwordEncoder.encode(registrationForm.getPassword()))
-                .roles(role) // Spring will prefix with ROLE_
+        UserDetails user = User.builder().username(registrationForm.getUsername()).password(passwordEncoder.encode(registrationForm.getPassword())).roles(role) // Spring will prefix with ROLE_
                 .build();
 
         userDetailsManager.createUser(user);
@@ -53,6 +45,8 @@ public class RegistrationService {
         extra.setLastName(registrationForm.getLastName());
         extra.setMail(registrationForm.getMail());
         extra.setBirthDate(registrationForm.getBirthDate());
+        extra.setFavTeam(registrationForm.getFavTeam());
+        extra.setSport(registrationForm.getSport());
 
         extraRepository.save(extra);
     }

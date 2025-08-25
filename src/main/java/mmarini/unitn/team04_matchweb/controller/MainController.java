@@ -23,7 +23,7 @@ public class MainController {
 
     @GetMapping("/logout")
     public String logoutPage() {
-        return "public/logout";
+        return "info-pages/logout";
     }
 
     @GetMapping("/registration-successful")

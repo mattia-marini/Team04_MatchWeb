@@ -1,8 +1,6 @@
 package mmarini.unitn.team04_matchweb.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -18,16 +16,22 @@ public class UserDetailsExtra {
     private String mail;
     private LocalDate birthDate;
 
+    @Enumerated(EnumType.STRING)
+    private Sport sport;
+
+    private String favTeam;
+
 
     public UserDetailsExtra() {
     }
 
-    public UserDetailsExtra(String username, String firstName, String lastName, String mail, LocalDate birthDate) {
+    public UserDetailsExtra(String username, String firstName, String lastName, String mail, LocalDate birthDate, Sport sport) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.birthDate = birthDate;
+        this.sport = sport;
     }
 
     public String getUsername() {
@@ -68,5 +72,21 @@ public class UserDetailsExtra {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Sport getSport() {
+        return sport;
+    }
+
+    public void setSport(Sport sport) {
+        this.sport = sport;
+    }
+
+    public String getFavTeam() {
+        return favTeam;
+    }
+
+    public void setFavTeam(String favTeam) {
+        this.favTeam = favTeam;
     }
 }

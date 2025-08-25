@@ -86,15 +86,15 @@
                     <div class="col-md-6">
                         <label for="sport" class="form-label">Sport preferito</label>
                         <select class="form-select" th:field="*{sport}" id="sport">
-                            <option value="calcio">Calcio</option>
-                            <option value="basket">Basket</option>
-                            <option value="tennis">Tennis</option>
+                            <option value="CALCIO">Calcio</option>
+                            <option value="BASKET">Basket</option>
+                            <option value="TENNIS">Tennis</option>
                         </select>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="team" class="form-label">Squadra del cuore</label>
-                        <select class="form-select" th:field="*{team}" id="team">
+                        <label for="favTeam" class="form-label">Squadra del cuore</label>
+                        <select class="form-select" th:field="*{favTeam}" id="favTeam">
                             <option value="milan">Milan</option>
                             <option value="inter">Inter</option>
                             <option value="juventus">Juventus</option>
@@ -199,6 +199,13 @@
             showAlertMsg("L'utente deve essere maggiorenne per accedere al servizio");
             return;
         }
+
+        // check that soccer is selected
+        if (document.getElementById("sport").value !== "CALCIO") {
+            showAlertMsg("Servizio non disponibile! Servizi disponibili: Calcio");
+            return;
+        }
+
 
         console.log("form is well formed")
         e.currentTarget.submit()

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+<head>
+    <th:block th:replace="fragments/header :: commonHead('Benvenuti su MatchWeb')"/>
+    <link rel="stylesheet" th:href="@{/css/pages/index.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<!-- Hero Section with Welcome Message -->
+<section class="hero-section">
+    <div class="container text-center py-5">
+        <h1 class="display-2 fw-bold mb-4">Calcio</h1>
+        <p class="lead fs-4 mb-4">Lo sport nazionale, amato da tutti, dove passione e competizione si incontrano in ogni
+            partita</p>
+        <a href="#sports" class="btn btn-primary btn-lg px-5 py-3 glow-btn">
+            Scopri le squadre <i class="fas fa-chevron-down ms-2"></i>
+        </a>
+    </div>
+</section>
+
+
+<!-- Sports Section -->
+<section id="sports" class="py-5">
+    <div class="container">
+        <h2 class="text-center display-4 mb-5">Le squadre del campionato</h2>
+
+        <!-- User table -->
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Potenza stimata</th>
+            </tr>
+            </thead>
+            <tbody id="usersTableBody">
+            <tr th:each="team : ${teams}">
+                <td class="team-name">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-futbol"></i>
+                        </div>
+                        <span th:text="${team.getName()}">name</span>
+                    </div>
+                </td>
+                <td th:text="${team.getStrength()}">strength</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
+<div th:replace="fragments/championship-news :: newsTicker(my-ticker)"></div>
+
+<div th:replace="fragments/footer :: footer"></div>
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

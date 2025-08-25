@@ -14,11 +14,13 @@ CREATE TABLE AUTHORITIES
 
 CREATE TABLE USER_DETAILS_EXTRA
 (
-    username   VARCHAR(64) PRIMARY KEY,
-    first_name VARCHAR(64),
-    last_name  VARCHAR(64),
-    mail       VARCHAR(64),
-    birth_date DATE,
+    username   VARCHAR(64) NOT NULL PRIMARY KEY,
+    first_name VARCHAR(64) NOT NULL,
+    last_name  VARCHAR(64) NOT NULL,
+    mail       VARCHAR(64) NOT NULL,
+    birth_date DATE        NOT NULL,
+    sport      VARCHAR(20) NOT NULL,
+    fav_team   VARCHAR(64) NOT NULL,
     CONSTRAINT FK_UserDetailsExtra_Users FOREIGN KEY (username) REFERENCES USERS (username)
 );
 

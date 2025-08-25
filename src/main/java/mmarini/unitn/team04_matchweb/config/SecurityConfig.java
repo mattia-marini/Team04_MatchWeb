@@ -22,8 +22,8 @@ public class SecurityConfig {
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/api/").authenticated() // Api endpoints
 
-                        .requestMatchers("/profile", "/calendar", "/change-password", "/play", "/play/**", "/write-review").authenticated() // user pages
-                        .requestMatchers("/user-list", "/user-ranking", "/assign-awards", "/upgrade").authenticated() // admin pages
+                        .requestMatchers("/profile", "/calendar", "/change-password", "/play", "/play/**", "/write-review").hasAnyRole("ADMIN", "USER", "MODERATOR") // user pages
+                        .requestMatchers("/user-list", "/user-ranking", "/assign-awards", "/upgrade").hasRole("ADMIN") // admin pages
                         .requestMatchers("/**", "/login").permitAll() // then public pages
                 )
                 .formLogin(form -> form

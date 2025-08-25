@@ -6,9 +6,9 @@ INSERT INTO AUTHORITIES(username, authority)
 VALUES ('admin', 'ROLE_ADMIN'),
        ('user1', 'ROLE_USER');
 
-INSERT INTO USER_DETAILS_EXTRA(username, first_name, last_name, mail, birth_date)
-VALUES ('admin', 'Alice', 'Rossi', 'alice.rossi@example.com', '1995-03-21'),
-       ('user1', 'Marco', 'Bianchi', 'marco.bianchi@example.com', '1990-11-05');
+INSERT INTO USER_DETAILS_EXTRA(username, first_name, last_name, mail, birth_date, fav_team, sport)
+VALUES ('admin', 'Alice', 'Rossi', 'alice.rossi@example.com', '1995-03-21', 'Milan', 'CALCIO'),
+       ('user1', 'Marco', 'Bianchi', 'marco.bianchi@example.com', '1990-11-05', 'Inter', 'CALCIO');
 
 INSERT INTO REVIEW (username, rating, text, created_at)
 VALUES ('admin', 5, 'Servizio eccellente, tornerò sicuramente!', CURRENT_TIMESTAMP - 10 DAY),

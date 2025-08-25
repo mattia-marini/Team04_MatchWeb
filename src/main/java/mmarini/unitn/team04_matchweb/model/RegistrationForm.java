@@ -10,8 +10,8 @@ public class RegistrationForm {
     private String username;
     private String password;
     private String confirmPassword;
-    private String sport;
-    private String team;
+    private Sport sport;
+    private String favTeam;
 
     public String getFirstName() {
         return firstName;
@@ -69,20 +69,19 @@ public class RegistrationForm {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getSport() {
+    public Sport getSport() {
         return sport;
     }
 
-    public void setSport(String sport) {
+    public void setSport(Sport sport) {
         this.sport = sport;
     }
 
-    public String getTeam() {
-        return team;
+    public String getFavTeam() {
+        return favTeam;
     }
 
-    public void setTeam(String team) {
-        this.team = team;
+    public void setFavTeam(String favTeam) {
+        this.favTeam = favTeam;
     }
-// getters & setters
 }
