@@ -29,7 +29,7 @@ public class RegistrationService {
     public void register(RegistrationForm registrationForm, String role) {
 
         if (userDetailsManager.userExists(registrationForm.getUsername())) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new IllegalArgumentException("username already exists");
         }
 
         // 1) Create core user

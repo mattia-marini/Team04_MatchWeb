@@ -19,12 +19,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/dashboard").authenticated()
+
                         // Apis
                         .requestMatchers("/api/save-bet", "/api/change-password", "/api/write-review").authenticated()
                         .requestMatchers("/api/assign-awards", "/api/upgrade").hasRole("ADMIN")
 
                         // Pages
+                        .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/profile", "/calendar", "/change-password", "/play", "/play/**", "/write-review").hasAnyRole("ADMIN", "USER", "MODERATOR") // user pages
                         .requestMatchers("/user-list", "/user-ranking", "/assign-awards", "/upgrade").hasRole("ADMIN") // admin pages
                         .requestMatchers("/**").permitAll() // then public pages
@@ -58,28 +59,12 @@ public class SecurityConfig {
 
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-
-        // make sure the queries match your schema
-        /*
-        manager.setUsersByUsernameQuery(
-                "SELECT username, password, enabled FROM USERS WHERE username = ?"
-        );
-
-        manager.setAuthoritiesByUsernameQuery(
-                "SELECT u.username, a.authority " +
-                        "FROM USERS u JOIN AUTHORITIES a ON u.id = a.user_id " +
-                        "WHERE u.username = ?"
-        );
-         */
-
-        return manager;
+        return new JdbcUserDetailsManager(dataSource);
     }
 
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-        //return org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance();
     }
 }
