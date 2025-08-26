@@ -5,6 +5,9 @@
     <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
     <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
     <link rel="stylesheet" th:href="@{/css/pages/user-ranking.css}">
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
@@ -55,9 +58,128 @@
     <div class="no-matches-message" th:if="${#lists.isEmpty(users)}">
         <i class="fas fa-info-circle"></i> Nessun utente registrato.
     </div>
+
+    <div class="container mt-4">
+        <div th:if="${!#lists.isEmpty(users)}">
+            <div class="row mb-4">
+                <div class="col-12 px-0">
+                    <div class="card">
+                        <h4 class="card-header text-white py-4" style="background-color: var(--blue-3)">
+                            Diagramma a dispersione
+                        </h4>
+                        <div class="card-body chart-container">
+                            <div id="scatter-plot"></div>
+                        </div>
+                        <span class="text-muted text-center small mb-4 px-3">
+                            <i class="fas fa-circle-info"></i> Sulla x il numero di campione, sulla y il relativo punteggio
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4 px-0">
+
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="card h-100">
+                        <h4 class="card-header text-white py-4" style="background-color: var(--red-3)">
+                            Distribuzione prevista
+                        </h4>
+                        <div class="card-body chart-container">
+                            <div id="bell-curve"></div>
+                        </div>
+                        <span class="text-muted text-center small mb-4 px-3">
+                            <i class="fas fa-circle-info"></i> Sulla x il punteggio dell'utente, sulla y la densità di probabilità prevista, assumendo distribuzione normale dei dati
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 px-0">
+                    <div class="card h-100">
+                        <h4 class="card-header text-white py-4" style="background-color: var(--green-3)">
+                            Istrogramma
+                        </h4>
+                        <div class="card-body chart-container">
+                            <div id="histogram"></div>
+                        </div>
+                        <span class="text-muted text-center small mb-4 px-3">
+                            <i class="fas fa-circle-info"></i> Sulla x il punteggio diviso per intervalli, sulla y il numero di valori che ricadono all'interno di questo
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+
+<script th:inline="javascript">
+
+    const data = /*[[${ranks.values()}]]*/ [];
+
+    Highcharts.chart('scatter-plot', {
+        title: {text: null},
+        yAxis: [{title: {text: 'Punteggio'}}],
+        series: [
+            {
+                name: 'Data',
+                type: 'scatter',
+                data: data,
+                color: 'var(--blue-3)',
+                showInLegend: false
+            }
+        ]
+    });
+
+    Highcharts.chart('bell-curve', {
+        title: {text: null},
+        yAxis: [{title: {text: 'Densità di probabilità'}}],
+        series: [
+            {
+                name: 'Distribuzione normale stimata',
+                type: 'bellcurve',
+                baseSeries: 'data',
+                zIndex: -1,
+                color: 'var(--red-3)',
+                showInLegend: false
+            },
+            {
+                name: 'Data',
+                type: 'scatter',
+                data: data,
+                visible: false,
+                showInLegend: false,
+                id: 'data'
+            }
+        ]
+    });
+
+    Highcharts.chart('histogram', {
+        title: {text: null},
+        yAxis: [{title: {text: 'Punteggio'}}],
+        series: [
+            {
+                name: 'Istogramma punteggi',
+                type: 'histogram',
+                baseSeries: 'data',
+                zIndex: -1,
+                color: 'var(--green-3)',
+                showInLegend: false
+            },
+            {
+                name: 'Data',
+                type: 'scatter',
+                data: data,
+                visible: false,
+                showInLegend: false,
+                id: 'data'
+            }
+        ]
+    });
+
+
+</script>
 
 <script>
     document.getElementById('searchUsers').addEventListener('keyup', function () {
