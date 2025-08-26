@@ -2,9 +2,7 @@ package mmarini.unitn.team04_matchweb.service;
 
 import mmarini.unitn.team04_matchweb.model.Authority;
 import mmarini.unitn.team04_matchweb.repository.AuthorityRepository;
-import mmarini.unitn.team04_matchweb.repository.BetRepository;
 import mmarini.unitn.team04_matchweb.repository.UserDetailsExtraRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
 
@@ -17,15 +15,13 @@ import java.util.Optional;
 public class UserService {
     AuthorityRepository authorityRepository;
     UserDetailsExtraRepository userDetailsExtraRepository;
-    BetRepository betRepository;
+    BetService betService;
 
-    @Autowired
-    public UserService(AuthorityRepository authorityRepository, UserDetailsExtraRepository userDetailsExtraRepository, BetRepository betRepository) {
+    public UserService(AuthorityRepository authorityRepository, UserDetailsExtraRepository userDetailsExtraRepository, BetService betService) {
         this.authorityRepository = authorityRepository;
         this.userDetailsExtraRepository = userDetailsExtraRepository;
-        this.betRepository = betRepository;
+        this.betService = betService;
     }
-
 
     public Map<String, String> getAuthorityMap() {
         List<Authority> authorities = authorityRepository.findAll();
@@ -37,12 +33,7 @@ public class UserService {
     }
 
     public Map<String, Long> getTotalScorePerUser() {
-        List<Object[]> authorities = betRepository.findTotalScorePerUser();
-        Map<String, Long> authoritiesMap = new LinkedHashMap<>();
-        authorities.forEach(authority -> {
-            authoritiesMap.put((String) authority[0], (Long) authority[1]);
-        });
-        return authoritiesMap;
+        return betService.getTotalScorePerUserMap();
     }
 
     public List<UserDetailsExtra> getAllUsernameAsc() {

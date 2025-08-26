@@ -2,6 +2,7 @@ package mmarini.unitn.team04_matchweb.controller;
 
 import mmarini.unitn.team04_matchweb.model.Bet;
 import mmarini.unitn.team04_matchweb.repository.BetRepository;
+import mmarini.unitn.team04_matchweb.service.BetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,12 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/save-bet")
 public class BetController {
 
-    @Autowired
-    private BetRepository betRepository;
+
+    private final BetService betService;
+
+    public BetController(BetService betService) {
+        this.betService = betService;
+    }
 
     @PostMapping
     public ResponseEntity<Bet> createBet(@RequestBody Bet bet) {
-        Bet savedBet = betRepository.save(bet);
+        Bet savedBet = betService.createBet(bet);
         return ResponseEntity.ok(savedBet);
     }
 }

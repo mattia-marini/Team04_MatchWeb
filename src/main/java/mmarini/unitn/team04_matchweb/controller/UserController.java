@@ -18,12 +18,9 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-    UserDetailsExtraRepository userDetailsExtraRepository;
     UserService userService;
 
-    @Autowired
-    public UserController(UserDetailsExtraRepository userDetailsExtraRepository, AuthorityRepository authorityRepository, UserService userService) {
-        this.userDetailsExtraRepository = userDetailsExtraRepository;
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 

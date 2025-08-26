@@ -8,6 +8,7 @@ import mmarini.unitn.team04_matchweb.repository.UserDetailsExtraRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.data.util.Pair;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,25 +18,23 @@ public class ProfileInfosService {
 
     private final JdbcTemplate jdbcTemplate;
     private final UserDetailsExtraRepository userDetailsExtraRepository;
-    private final BetRepository betRepository;
+    private final BetService betService;
     private final PrizeRepository prizeRepository;
 
-
-    public ProfileInfosService(JdbcTemplate jdbcTemplate, BetRepository betRepository, UserDetailsExtraRepository userDetailsExtraRepository, PrizeRepository prizeRepository) {
+    public ProfileInfosService(JdbcTemplate jdbcTemplate, UserDetailsExtraRepository userDetailsExtraRepository, BetService betService, PrizeRepository prizeRepository) {
         this.jdbcTemplate = jdbcTemplate;
-        this.betRepository = betRepository;
         this.userDetailsExtraRepository = userDetailsExtraRepository;
+        this.betService = betService;
         this.prizeRepository = prizeRepository;
     }
 
-
     public ProfileStats getProfileStats(String username) {
         ProfileStats profileStats = new ProfileStats();
-        List<Object[]> ranking = betRepository.getRanking();
+        List<Pair<String, Long>> ranking = betService.getRanking();
 
         int index = -2;
         for (int i = 0; i < ranking.size(); i++) {
-            String curr_username = (String) ranking.get(i)[0];
+            String curr_username = ranking.get(i).getFirst();
             if (curr_username.equals(username)) {
                 index = i;
                 break;
@@ -44,8 +43,8 @@ public class ProfileInfosService {
         index++;
 
         profileStats.setRankingPosition(index);
-        profileStats.setTotalBets(betRepository.getTotalBets(username));
-        profileStats.setPointsToday(betRepository.getUserScoreByDay(username, LocalDate.now()));
+        profileStats.setTotalBets(betService.getTotalBets(username));
+        profileStats.setPointsToday(betService.getUserPointsByDate(username, LocalDate.now()));
         profileStats.setPrizes(prizeRepository.getPrizesByUsername(username));
 
         return profileStats;

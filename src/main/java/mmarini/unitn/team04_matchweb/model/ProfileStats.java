@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProfileStats {
-    private Optional<Integer> pointsToday;
+    private Optional<Long> pointsToday;
     private int rankingPosition;
     private int totalBets;
     private List<Prize> prizes;
@@ -18,11 +18,11 @@ public class ProfileStats {
         this.prizes = prizes;
     }
 
-    public Optional<Integer> getPointsToday() {
+    public Optional<Long> getPointsToday() {
         return pointsToday;
     }
 
-    public void setPointsToday(Optional<Integer> pointsToday) {
+    public void setPointsToday(Optional<Long> pointsToday) {
         this.pointsToday = pointsToday;
     }
 

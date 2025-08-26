@@ -1,6 +1,7 @@
 package mmarini.unitn.team04_matchweb.controller;
 
 import mmarini.unitn.team04_matchweb.client.MatchResultsClient;
+import mmarini.unitn.team04_matchweb.service.PartiteWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,22 +14,21 @@ import java.util.Map;
 @RestController
 public class CalendarResultsController {
 
-    private final MatchResultsClient matchResultsClient;
+    private final PartiteWebService partiteWebService;
 
-    @Autowired
-    public CalendarResultsController(MatchResultsClient matchResultsClient) {
-        this.matchResultsClient = matchResultsClient;
+    public CalendarResultsController(PartiteWebService partiteWebService) {
+        this.partiteWebService = partiteWebService;
     }
 
     // Apis
     @GetMapping("/api/calendar/results/{date}")
     public Map<Integer, Map<Integer, Integer>> calendarResultsByDate(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return matchResultsClient.getMatchResultsByDate(date);
+        return partiteWebService.getMatchResultsByDate(date);
     }
 
     // Unused
     @GetMapping("/api/calendar/results/{date}/{championshipId}")
     public Map<Integer, Integer> calendarResultsByDateAndChampionshipId(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @PathVariable("championshipId") Integer championshipId) {
-        return matchResultsClient.getMatchResultsByDateAndChampionshipId(date, championshipId);
+        return partiteWebService.getMatchResultsByDateAndChampionshipId(date, championshipId);
     }
 }

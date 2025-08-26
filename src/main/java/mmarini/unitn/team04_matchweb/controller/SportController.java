@@ -1,22 +1,23 @@
 package mmarini.unitn.team04_matchweb.controller;
 
 import mmarini.unitn.team04_matchweb.client.TeamClient;
+import mmarini.unitn.team04_matchweb.service.PartiteWebService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SportController {
-    private final TeamClient teamClient;
 
-    public SportController(TeamClient teamClient) {
-        this.teamClient = teamClient;
+    private final PartiteWebService partiteWebService;
+
+    public SportController(PartiteWebService partiteWebService) {
+        this.partiteWebService = partiteWebService;
     }
-
 
     @GetMapping("/sport/soccer")
     public String soccerPage(Model model) {
-        model.addAttribute("teams", teamClient.getAllTeams());
+        model.addAttribute("teams", partiteWebService.getAllTeams());
         return "public/soccer";
     }
 

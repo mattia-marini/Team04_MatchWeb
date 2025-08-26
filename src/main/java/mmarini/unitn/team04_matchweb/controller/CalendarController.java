@@ -2,6 +2,7 @@ package mmarini.unitn.team04_matchweb.controller;
 
 import mmarini.unitn.team04_matchweb.client.MatchCalendarClient;
 import mmarini.unitn.team04_matchweb.model.RestDTO.Match;
+import mmarini.unitn.team04_matchweb.service.PartiteWebService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,17 +14,17 @@ import java.util.Map;
 @Controller
 public class CalendarController {
 
-    private final MatchCalendarClient matchCalendarClient;
+    private final PartiteWebService partiteWebService;
 
-    public CalendarController(MatchCalendarClient matchCalendarClient) {
-        this.matchCalendarClient = matchCalendarClient;
+    public CalendarController(PartiteWebService partiteWebService) {
+        this.partiteWebService = partiteWebService;
     }
 
     // Pages
     @GetMapping("/calendar")
     public String showCalendar(Model model) {
         try {
-            Map<Integer, Map<LocalDate, List<Match>>> calendar = matchCalendarClient.getMatchCalendar();
+            Map<Integer, Map<LocalDate, List<Match>>> calendar = partiteWebService.getMatchCalendar();
             model.addAttribute("calendar", calendar);
         } catch (Exception e) {
             System.out.println(e);
