@@ -27,10 +27,20 @@
                 Points scored today: <span th:text="${pointsToday.get()}"></span>
             </div>
 
+
             <div th:if="${calendar.isEmpty() && !pointsToday.isPresent()}" class="no-matches-message">
                 <i class="fas fa-info-circle me-2"></i>
                 Non ci sono partite in programma al momento.
             </div>
+
+            <div th:if="${calendar.isEmpty() && !pointsToday.isPresent()}" class="no-matches-message">
+                E' possibile simulare una scommessa in una qualsiasi giornata aggiungendola come parametro all'url ad
+                esempio
+                <div>
+                    /play/2025-10-21
+                </div>
+            </div>
+
 
             <!-- Championships -->
             <form th:if="${!pointsToday.isPresent()}" th:action="@{/predictions/submit}" method="post">
