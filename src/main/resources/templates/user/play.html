@@ -5,6 +5,10 @@
     <th:block th:replace="fragments/header :: commonHead('Calendario Partite')"/>
     <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
     <link rel="stylesheet" th:href="@{/css/pages/play.css}">
+
+    <!-- Avoid 403 forbidden error -->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 
 <body class="bg-light">
@@ -225,10 +229,13 @@
                         //document.getElementById("hidden-form-played-at").value = getDateWithCurrTime(date).toISOString();
                         //document.getElementById("hiddenForm").submit();
 
-                        return fetch(`/save-bet`, {
+                        const token = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+                        const header = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
+                        return fetch(`/api/save-bet`, {
                                 method: "POST",
                                 headers: {
-                                    "Content-Type": "application/json"
+                                    "Content-Type": "application/json",
+                                    [header]: token
                                 },
                                 body: JSON.stringify(bet)
                             }

@@ -20,11 +20,14 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/dashboard").authenticated()
-                        .requestMatchers("/api/").authenticated() // Api endpoints
+                        // Apis
+                        .requestMatchers("/api/save-bet", "/api/change-password", "/api/write-review").authenticated()
+                        .requestMatchers("/api/assign-awards", "/api/upgrade").hasRole("ADMIN")
 
+                        // Pages
                         .requestMatchers("/profile", "/calendar", "/change-password", "/play", "/play/**", "/write-review").hasAnyRole("ADMIN", "USER", "MODERATOR") // user pages
                         .requestMatchers("/user-list", "/user-ranking", "/assign-awards", "/upgrade").hasRole("ADMIN") // admin pages
-                        .requestMatchers("/**", "/login").permitAll() // then public pages
+                        .requestMatchers("/**").permitAll() // then public pages
                 )
                 .formLogin(form -> form
                         .loginPage("/login")       // your custom login page
@@ -47,7 +50,6 @@ public class SecurityConfig {
         // Disable CSRF for H2 console
         http.csrf(csrf -> csrf
                 .ignoringRequestMatchers("/h2-console/**")
-                .ignoringRequestMatchers("/save-bet/**")
         );
 
         return http.build();
