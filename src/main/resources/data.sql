@@ -20,8 +20,10 @@ VALUES ('user#team_04', 2, 'Non sono rimasto soddisfatto, troppo costoso per que
        ('user#team_04', 5, 'Sito programmato veramente bene!', CURRENT_TIMESTAMP),
        ('moderator#team_04', 2, 'Sito crashato sul più bello ...', CURRENT_TIMESTAMP),
        ('admin#team_04', 5, 'Eccellente!', CURRENT_TIMESTAMP - 10 DAY),
-       ('admin#team_04', 4, 'Buona esperienza complessiva, ma sarebbe bello funzionassi con più sport.', CURRENT_TIMESTAMP - 7 DAY),
-       ('admin#team_04', 3, 'Normale, niente di speciale. Ci sono margini di miglioramento.', CURRENT_TIMESTAMP - 3 DAY);
+       ('admin#team_04', 4, 'Buona esperienza complessiva, ma sarebbe bello funzionassi con più sport.',
+        CURRENT_TIMESTAMP - 7 DAY),
+       ('admin#team_04', 3, 'Normale, niente di speciale. Ci sono margini di miglioramento.',
+        CURRENT_TIMESTAMP - 3 DAY);
 
 INSERT INTO PRIZE (username, description, assigned_at)
 VALUES ('admin#team_04', 'Bonus Benvenuto', '2025-08-01 10:30:00'),
