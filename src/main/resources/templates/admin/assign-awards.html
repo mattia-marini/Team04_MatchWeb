@@ -2,12 +2,12 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
+    <th:block th:replace="~{fragments/header :: commonHead('Benvenuto!')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
     <link rel="stylesheet" th:href="@{/css/pages/assign-awards.css}">
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container calendar-container py-5" style="margin-top:70px">
     <div th:replace="~{fragments/user-page-header :: header('fas fa-award', 'Assegna Premi', 'Gestisci e assegna premi agli utenti')}"></div>
@@ -98,7 +98,7 @@
     </div>
 </div>
 
-<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+<div th:replace="~{fragments/role-date-indicator :: roleDateFooter}"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -135,7 +135,6 @@
                     giftBadge.classList.remove("badge-unassigned")
                     giftBadge.classList.add("badge-assigned")
                 } else {
-                    console.log("oPSSSSSSSSSS")
                 }
             }
 

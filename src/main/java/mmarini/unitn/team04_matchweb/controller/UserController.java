@@ -55,7 +55,6 @@ public class UserController {
     @PostMapping("/api/upgrade")
     public String updateRoles(@RequestParam List<String> usernames, @RequestParam String role, Model model) {
         boolean updated = userService.updateUsersRole(role, usernames);
-        System.out.println("updated: " + updated);
         return "redirect:/upgrade"; // redirect to a view
     }
 

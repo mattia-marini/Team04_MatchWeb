@@ -2,7 +2,7 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <th:block th:replace="fragments/header :: commonHead('Benvenuto!')"/>
+    <th:block th:replace="~{fragments/header :: commonHead('Benvenuto!')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
     <link rel="stylesheet" th:href="@{/css/pages/user-ranking.css}">
 
@@ -10,7 +10,7 @@
     <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container calendar-container py-5" style="margin-top:70px">
     <div th:replace="~{fragments/user-page-header :: header('fas fa-trophy', 'Visualizza Classifica Utenti', 'Controlla la classifica aggiornata degli utenti')}"></div>
@@ -112,7 +112,7 @@
     </div>
 </div>
 
-<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+<div th:replace="~{fragments/role-date-indicator :: roleDateFooter}"></div>
 
 <script th:inline="javascript">
 

@@ -1,6 +1,5 @@
 package mmarini.unitn.team04_matchweb.controller;
 
-import mmarini.unitn.team04_matchweb.client.MatchCalendarClient;
 import mmarini.unitn.team04_matchweb.model.RestDTO.Match;
 import mmarini.unitn.team04_matchweb.service.PartiteWebService;
 import org.springframework.stereotype.Controller;

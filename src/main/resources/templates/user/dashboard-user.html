@@ -6,24 +6,24 @@
     <div class="dashboard-grid">
 
         <!-- Card 1: Visualizza profilo -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-user', 'Visualizza profilo', 'Accedi al tuo profilo personale', '/profile' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-user', 'Visualizza profilo', 'Accedi al tuo profilo personale', '/profile' )}"></div>
 
         <!-- Card 2: Visualizza Calendario Partite -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-calendar-alt', 'Visualizza Calendario Partite', 'Controlla le prossime partite in programma', '/calendar' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-calendar-alt', 'Visualizza Calendario Partite', 'Controlla le prossime partite in programma', '/calendar' )}"></div>
 
         <!-- Card 3: Cambio Password -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-key', 'Cambio Password', 'Modifica la password del tuo account', '/change-password' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-key', 'Cambio Password', 'Modifica la password del tuo account', '/change-password' )}"></div>
 
         <!-- Card 4: Gioca schedina -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-futbol', 'Gioca schedina', 'Crea e gioca la tua schedina', '/play' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-futbol', 'Gioca schedina', 'Crea e gioca la tua schedina', '/play' )}"></div>
 
         <!-- Card 5: Scrivi recensione -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-star', 'Scrivi recensione', 'Lascia la tua opinione', '/write-review' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-star', 'Scrivi recensione', 'Lascia la tua opinione', '/write-review' )}"></div>
 
     </div>
 </div>
 
 <!-- System information displays -->
-<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+<div th:replace="~{fragments/role-date-indicator :: roleDateFooter}"></div>
 </body>
 </html>

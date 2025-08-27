@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
 
 <head>
-    <th:block th:replace="fragments/header :: commonHead('Registrazione avvenuta con successo!')"/>
+    <th:block th:replace="~{fragments/header :: commonHead('Registrazione avvenuta con successo!')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/message.css}">
 </head>
 <body>
@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+<div th:replace="~{fragments/role-date-indicator :: roleDateFooter}"></div>
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -5,21 +5,21 @@
 
     <div class="dashboard-grid">
         <!-- Card 1: Visualizza Lista Utenti Iscritti -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-users', 'Visualizza Lista Utenti Iscritti', 'Accedi alla lista completa degli utenti registrati', '/user-list' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-users', 'Visualizza Lista Utenti Iscritti', 'Accedi alla lista completa degli utenti registrati', '/user-list' )}"></div>
 
         <!-- Card 2: Visualizza Classifica Utenti -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-trophy', 'Visualizza Classifica Utenti', 'Controlla la classifica aggiornata degli utenti', '/user-ranking' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-trophy', 'Visualizza Classifica Utenti', 'Controlla la classifica aggiornata degli utenti', '/user-ranking' )}"></div>
 
         <!-- Card 3: Assegna Premi -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-award', 'Assegna Premi', 'Gestisci e assegna premi agli utenti', '/assign-awards' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-award', 'Assegna Premi', 'Gestisci e assegna premi agli utenti', '/assign-awards' )}"></div>
 
         <!-- Card 4: Upgrade -->
-        <div th:replace="fragments/dashboard-card :: dashboardCard( 'fas fa-level-up-alt', 'Upgrade', 'Aggiorna le funzionalità del sistema', '/upgrade' )"></div>
+        <div th:replace="~{fragments/dashboard-card :: dashboardCard( 'fas fa-level-up-alt', 'Upgrade', 'Aggiorna le funzionalità del sistema', '/upgrade' )}"></div>
     </div>
 </div>
 
 <!-- System information displays -->
-<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+<div th:replace="~{fragments/role-date-indicator :: roleDateFooter}"></div>
 
 </body>
 </html>

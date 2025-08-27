@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
 
 <head>
-    <th:block th:replace="fragments/header :: commonHead('Benvenuti su MatchWeb')"/>
+    <th:block th:replace="~{fragments/header :: commonHead('Benvenuti su MatchWeb')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/reviews.css}">
 </head>
 
 
 <body class="reviews-body">
 
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <!-- Page Header -->
 <header class="reviews-header">
@@ -134,9 +134,9 @@
     </div>
 </section>
 
-<div th:replace="fragments/championship-news :: newsTicker(my-ticker)"></div>
+<div th:replace="~{fragments/championship-news :: newsTicker(my-ticker)}"></div>
 
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

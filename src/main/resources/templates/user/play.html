@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <th:block th:replace="fragments/header :: commonHead('Calendario Partite')"/>
+    <th:block th:replace="~{fragments/header :: commonHead('Calendario Partite')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/calendar.css}">
     <link rel="stylesheet" th:href="@{/css/pages/play.css}">
 
@@ -12,7 +12,7 @@
 </head>
 
 <body class="bg-light">
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 
 <div class="container py-5" style="margin-top:70px">
@@ -142,11 +142,10 @@
     </div>
 </div>
 
-<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+<div th:replace="~{fragments/role-date-indicator :: roleDateFooter}"></div>
 
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('Calendar page loaded with prediction handlers');
 
         function getDateWithCurrTime(date) {
             const now = new Date();
@@ -175,7 +174,6 @@
 
             // Form is valid; you can proceed with your JS logic
             event.preventDefault(); // optional: still prevent actual submission
-            console.log("Form is valid. You can now handle submission via JS.");
         });
 
 
@@ -194,7 +192,6 @@
                 const checkedRadio = container.querySelector('input[type="radio"]:checked');
                 if (checkedRadio) {
                     userPrediction[container.dataset.matchId] = parseInt(checkedRadio.value, 10);
-                    console.log(checkedRadio.value)
                 } else {
                     everythingSelected = false
                 }
@@ -203,14 +200,10 @@
                 return
             }
 
-            console.log("User prediction")
-            console.log(userPrediction)
-
             /*<![CDATA[*/
             const date = /*[[${date}]]*/ '2025-10-20';
             const username = /*[[${#authentication.name}]]*/ '2025-10-20';
             /*]]>*/
-            //console.log(date);
 
             fetch(`/api/calendar/results/${date}`)
                 .then(response => {
@@ -247,7 +240,6 @@
                         }
                     )
                         .then(response => {
-                            console.log(response)
                             if (response.redirected) {
                                 window.location.href = response.url
                                 throw new Error("You should log in");
@@ -260,11 +252,9 @@
 
                 const resultsFlattened = Object.assign({}, ...Object.values(results));
 
-                // Column heading
                 for (const res_col of document.querySelectorAll('.results-column')) {
                     res_col.hidden = false
                 }
-                //document.getElementById(`result_column_championship_}`).hidden = false
 
                 let totalScore = 0;
 
@@ -279,7 +269,6 @@
                         resultText = "Ospite";
 
                     let classname = ""
-                    console.log(result, userPrediction[matchId])
 
                     if (result === userPrediction[matchId]) {
                         classname = "fas fa-check-circle text-success";
@@ -288,7 +277,6 @@
                         classname = "fas fa-times-circle text-danger";
                     }
 
-                    console.log("matchId:", matchId);
                     document.getElementById(`result_col_${matchId}`).hidden = false
                     document.getElementById(`result_text_${matchId}`).innerText = resultText
                     let resultIcon = document.getElementById(`result_icon_${matchId}`)

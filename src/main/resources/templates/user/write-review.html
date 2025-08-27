@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <th:block th:replace="fragments/header :: commonHead('Scrivi una Recensione')"/>
+    <th:block th:replace="~{fragments/header :: commonHead('Scrivi una Recensione')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/write-review.css}">
 </head>
 
 <body class="bg-light">
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container py-5" style="margin-top:70px">
     <div th:replace="~{fragments/user-page-header :: header( 'fas fa-star', 'Scrivi una Recensione', 'La tua opinione è importante per migliorare i nostri servizi' )}"></div>
@@ -107,7 +107,7 @@
     </div>
 </div>
 
-<div th:replace="fragments/role-date-indicator :: roleDateFooter"></div>
+<div th:replace="~{fragments/role-date-indicator :: roleDateFooter}"></div>
 
 <script th:src="@{/js/pages/write-review.js}"></script>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
 <head>
-    <th:block th:replace="fragments/header :: commonHead('Sign Up')"/>
+    <th:block th:replace="~{fragments/header :: commonHead('Sign Up')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/signup.css}">
 </head>
 <body>
@@ -156,7 +156,7 @@
     </div>
 
     <!-- News ticker below -->
-    <div th:replace="fragments/championship-news :: newsTicker(my-ticker)"></div>
+    <div th:replace="~{fragments/championship-news :: newsTicker(my-ticker)}"></div>
 </div>
 
 <script>
@@ -213,8 +213,6 @@
             return;
         }
 
-
-        console.log("form is well formed")
         e.currentTarget.submit()
     })
 
