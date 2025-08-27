@@ -43,7 +43,8 @@
 
 
             <!-- Championships -->
-            <form th:if="${!pointsToday.isPresent()}" th:action="@{/predictions/submit}" method="post">
+            <form th:id="|bet-form|" th:if="${!pointsToday.isPresent()}" th:action="@{/predictions/submit}"
+                  method="post">
                 <div th:each="championshipEntry : ${calendar}" class="mb-5">
                     <div class="championship-header">
                         <h2>
@@ -160,160 +161,154 @@
         }
 
 
-        const forms = document.querySelectorAll("form");
-        forms.forEach(form => {
-            form.addEventListener("submit", function (event) {
-                if (!form.checkValidity()) {
-                    // This triggers the browser's validation UI
-                    form.reportValidity();
-                    event.preventDefault(); // stops submission
-                    return;
-                }
+        const form = document.getElementById("bet-form");
+        if (!form)
+            return;
 
-                // Form is valid; you can proceed with your JS logic
-                event.preventDefault(); // optional: still prevent actual submission
-                console.log("Form is valid. You can now handle submission via JS.");
-            });
+        form.addEventListener("submit", function (event) {
+            if (!form.checkValidity()) {
+                // This triggers the browser's validation UI
+                form.reportValidity();
+                event.preventDefault(); // stops submission
+                return;
+            }
+
+            // Form is valid; you can proceed with your JS logic
+            event.preventDefault(); // optional: still prevent actual submission
+            console.log("Form is valid. You can now handle submission via JS.");
         });
 
-        // Find all submit buttons for championships
-        const submitButtons = document.querySelectorAll('[id^="submit_"]');
 
-        submitButtons.forEach(button => {
-            //console.log(button)
-            button.addEventListener('click', function (event) {
+        const button = document.getElementById("submit_bet");
+        if (!button)
+            return;
+        button.addEventListener('click', function (event) {
 
-                //const predictionContainers = document.querySelectorAll(`.prediction-options[data-championship-id="${button.dataset.championshipId}"]`);
-                const predictionContainers = document.querySelectorAll('.prediction-options');
-                let userPrediction = {};
+            //const predictionContainers = document.querySelectorAll(`.prediction-options[data-championship-id="${button.dataset.championshipId}"]`);
+            const predictionContainers = document.querySelectorAll('.prediction-options');
+            let userPrediction = {};
 
-                let everythingSelected = true
-                predictionContainers.forEach(container => {
-                    // Select all team-option divs inside this container
-                    const checkedRadio = container.querySelector('input[type="radio"]:checked');
-                    if (checkedRadio) {
-                        userPrediction[container.dataset.matchId] = parseInt(checkedRadio.value, 10);
-                        console.log(checkedRadio.value)
-                    } else {
-                        everythingSelected = false
+            let everythingSelected = true
+            predictionContainers.forEach(container => {
+                // Select all team-option divs inside this container
+                const checkedRadio = container.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    userPrediction[container.dataset.matchId] = parseInt(checkedRadio.value, 10);
+                    console.log(checkedRadio.value)
+                } else {
+                    everythingSelected = false
+                }
+            });
+            if (!everythingSelected) {
+                return
+            }
+
+            console.log("User prediction")
+            console.log(userPrediction)
+
+            /*<![CDATA[*/
+            const date = /*[[${date}]]*/ '2025-10-20';
+            const username = /*[[${#authentication.name}]]*/ '2025-10-20';
+            /*]]>*/
+            //console.log(date);
+
+            fetch(`/api/calendar/results/${date}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Could not fetch results");
                     }
-                });
-                if (!everythingSelected) {
-                    return
+                    return response.json();
+                })
+                .then(results => {
+
+                    let totalScore = 0
+                    const resultsFlattened = Object.assign({}, ...Object.values(results));
+                    for (const [matchId, result] of Object.entries(resultsFlattened)) {
+                        if (result === userPrediction[matchId])
+                            totalScore += 1;
+                    }
+
+                    const bet = {
+                        username: username,
+                        score: totalScore,
+                        playedAt: getDateWithCurrTime(date).toISOString()
+                    };
+
+
+                    const token = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+                    const header = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
+                    return fetch(`/api/save-bet`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                [header]: token
+                            },
+                            body: JSON.stringify(bet)
+                        }
+                    )
+                        .then(response => {
+                            console.log(response)
+                            if (response.redirected) {
+                                window.location.href = response.url
+                                throw new Error("You should log in");
+                            } else if (!response.ok) {
+                                throw new Error("Could not save bet to server");
+                            }
+                            return results
+                        })
+                }).then(results => {
+
+                const resultsFlattened = Object.assign({}, ...Object.values(results));
+
+                // Column heading
+                for (const res_col of document.querySelectorAll('.results-column')) {
+                    res_col.hidden = false
+                }
+                //document.getElementById(`result_column_championship_}`).hidden = false
+
+                let totalScore = 0;
+
+                for (const [matchId, result] of Object.entries(resultsFlattened)) {
+
+                    let resultText
+                    if (result === 0)
+                        resultText = "Pareggio";
+                    else if (result === 1)
+                        resultText = "Casa";
+                    else if (result === 2)
+                        resultText = "Ospite";
+
+                    let classname = ""
+                    console.log(result, userPrediction[matchId])
+
+                    if (result === userPrediction[matchId]) {
+                        classname = "fas fa-check-circle text-success";
+                        totalScore += 1;
+                    } else {
+                        classname = "fas fa-times-circle text-danger";
+                    }
+
+                    console.log("matchId:", matchId);
+                    document.getElementById(`result_col_${matchId}`).hidden = false
+                    document.getElementById(`result_text_${matchId}`).innerText = resultText
+                    let resultIcon = document.getElementById(`result_icon_${matchId}`)
+                    resultIcon.className = classname;
+
+
                 }
 
-                console.log("User prediction")
-                console.log(userPrediction)
-
-                /*<![CDATA[*/
-                const date = /*[[${date}]]*/ '2025-10-20';
-                const username = /*[[${#authentication.name}]]*/ '2025-10-20';
-                /*]]>*/
-                //console.log(date);
-
-                fetch(`/api/calendar/results/${date}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Could not fetch results");
-                        }
-                        return response.json();
-                    })
-                    .then(results => {
-
-                        let totalScore = 0
-                        const resultsFlattened = Object.assign({}, ...Object.values(results));
-                        for (const [matchId, result] of Object.entries(resultsFlattened)) {
-                            if (result === userPrediction[matchId])
-                                totalScore += 1;
-                        }
-
-                        const bet = {
-                            username: username,
-                            score: totalScore,
-                            playedAt: getDateWithCurrTime(date).toISOString()
-                        };
+                button.disabled = true;
+                document.getElementById("total-score-row").style.opacity = "1"
+                document.getElementById('total-score-value').innerText = `${totalScore}/${Object.keys(userPrediction).length}`
 
 
-                        //document.getElementById("hidden-form-username").value = username;
-                        //document.getElementById("hidden-form-score").value = totalScore;
-                        //document.getElementById("hidden-form-played-at").value = getDateWithCurrTime(date).toISOString();
-                        //document.getElementById("hiddenForm").submit();
-
-                        const token = document.querySelector('meta[name="_csrf"]').getAttribute("content");
-                        const header = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
-                        return fetch(`/api/save-bet`, {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    [header]: token
-                                },
-                                body: JSON.stringify(bet)
-                            }
-                        )
-                            .then(response => {
-                                console.log(response)
-                                if (response.redirected) {
-                                    window.location.href = response.url
-                                    throw new Error("You should log in");
-                                } else if (!response.ok) {
-                                    throw new Error("Could not save bet to server");
-                                }
-                                return results
-                            })
-                    }).then(results => {
-
-                    const resultsFlattened = Object.assign({}, ...Object.values(results));
-
-                    // Column heading
-                    for (const res_col of document.querySelectorAll('.results-column')) {
-                        res_col.hidden = false
+            })
+                .catch(error => {
+                    if (error !== "You should log in") {
+                        console.error("Fetch error:", error);
+                        alert(`Fetch error: ${error}`)
                     }
-                    //document.getElementById(`result_column_championship_}`).hidden = false
-
-                    let totalScore = 0;
-
-                    for (const [matchId, result] of Object.entries(resultsFlattened)) {
-
-                        let resultText
-                        if (result === 0)
-                            resultText = "Pareggio";
-                        else if (result === 1)
-                            resultText = "Casa";
-                        else if (result === 2)
-                            resultText = "Ospite";
-
-                        let classname = ""
-                        console.log(result, userPrediction[matchId])
-
-                        if (result === userPrediction[matchId]) {
-                            classname = "fas fa-check-circle text-success";
-                            totalScore += 1;
-                        } else {
-                            classname = "fas fa-times-circle text-danger";
-                        }
-
-                        console.log("matchId:", matchId);
-                        document.getElementById(`result_col_${matchId}`).hidden = false
-                        document.getElementById(`result_text_${matchId}`).innerText = resultText
-                        let resultIcon = document.getElementById(`result_icon_${matchId}`)
-                        resultIcon.className = classname;
-
-
-                    }
-
-                    button.disabled = true;
-                    document.getElementById("total-score-row").style.opacity = "1"
-                    document.getElementById('total-score-value').innerText = `${totalScore}/${Object.keys(userPrediction).length}`
-
-
-                })
-                    .catch(error => {
-                        if (error !== "You should log in") {
-                            console.error("Fetch error:", error);
-                            alert(`Fetch error: ${error}`)
-                        }
-                    });
-            });
+                });
         });
     })
     ;
