@@ -12,7 +12,7 @@
 <div class="container calendar-container py-5" style="margin-top:70px">
     <div th:replace="~{fragments/user-page-header :: header('fas fa-users', 'Visualizza Lista Utenti Iscritti', 'Accedi alla lista completa degli utenti registrati')}"></div>
 
-    <a href="/dashboard" class="back-button">
+    <a th:href="@{/dashboard}" class="back-button">
         <i class="fas fa-arrow-left"></i> Torna alla Dashboard
     </a>
 

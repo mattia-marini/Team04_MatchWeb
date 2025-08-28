@@ -12,7 +12,7 @@
 <div class="container calendar-container py-5" style="margin-top:70px">
     <div th:replace="~{fragments/user-page-header :: header('fas fa-level-up-alt', 'Aggiorna ruolo utente', 'Gestisci il ruolo degli utenti, promuovendo il ruolo a moderatore')}"></div>
 
-    <a href="/dashboard" class="back-button">
+    <a th:href="@{/dashboard}" class="back-button">
         <i class="fas fa-arrow-left"></i> Torna alla Dashboard
     </a>
 

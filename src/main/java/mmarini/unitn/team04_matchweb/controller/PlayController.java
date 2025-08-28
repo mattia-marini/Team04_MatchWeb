@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -28,12 +29,12 @@ public class PlayController {
     }
 
     @GetMapping("/play")
-    public String playBetPageDefault(Principal principal, Model model) {
-        return playBetPage(principal, LocalDate.now(), model);
+    public String playBetPageDefault(Principal principal, Model model, RedirectAttributes redirectAttributes) {
+        return playBetPage(principal, LocalDate.now(), model, redirectAttributes);
     }
 
     @GetMapping("/play/{date}")
-    public String playBetPage(Principal principal, @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model) {
+    public String playBetPage(Principal principal, @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model, RedirectAttributes redirectAttributes) {
         try {
             Optional<Long> pointsToday = betService.getUserPointsByDate(principal.getName(), date);
             Map<Integer, List<Match>> calendar = partiteWebService.getMatchCalendarByDate(date);
@@ -42,7 +43,8 @@ public class PlayController {
             model.addAttribute("date", date);
             model.addAttribute("pointsToday", pointsToday);
         } catch (Exception e) {
-            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+            return "redirect:/error";
         }
         return "user/play";
     }

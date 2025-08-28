@@ -1,6 +1,7 @@
 // Important! This script assumes that both
 //      const date
 //      const username
+//      const contextPath
 // are made available through thymleaf template inline script
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -52,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return
         }
 
-
-        fetch(`/api/calendar/results/${date}`)
+        const contextPath = document.querySelector('meta[name="context-path"]').content;
+        fetch(`${contextPath}api/calendar/results/${date}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Could not fetch results");
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const token = document.querySelector('meta[name="_csrf"]').getAttribute("content");
                 const header = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
-                return fetch(`/api/save-bet`, {
+                return fetch(`${contextPath}api/save-bet`, {
                     method: "POST", headers: {
                         "Content-Type": "application/json", [header]: token
                     }, body: JSON.stringify(bet)

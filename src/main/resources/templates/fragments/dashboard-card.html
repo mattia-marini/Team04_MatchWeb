@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <th:block th:fragment="dashboardCard(icon, title, description, link)">
-    <a th:href="${link}" class="dashboard-card">
+    <a th:href="@{${link}}" class="dashboard-card">
         <div class="card-icon">
             <i th:class="${icon}"></i>
         </div>

@@ -65,8 +65,9 @@
                 }, 500);
             }
 
+            const contextPath = document.querySelector('meta[name="context-path"]').content;
             function fetchAndDisplayNews() {
-                fetch("/api/news")
+                fetch(`${contextPath}api/news`)
                     .then(res => {
                         if (res.ok) return res.json();
                         throw new Error("Cannot fetch news");

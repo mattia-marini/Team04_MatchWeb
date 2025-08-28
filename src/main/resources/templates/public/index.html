@@ -3,13 +3,19 @@
 <head>
     <th:block th:replace="~{fragments/header :: commonHead('Benvenuti su MatchWeb')}"/>
     <link rel="stylesheet" th:href="@{/css/pages/index.css}">
+    <style th:inline="css">
+        .background-img {
+            background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+            url([[@{/images/stadium.jpg}]]);
+        }
+    </style>
 </head>
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <!-- Hero Section with Welcome Message -->
-<section class="hero-section">
+<section class="hero-section background-img">
     <div class="container text-center py-5">
         <h1 class="display-2 fw-bold mb-4">Benvenuto su MatchWeb</h1>
         <p class="lead fs-4 mb-4">La tua destinazione definitiva per le scommesse sportive online.
@@ -113,6 +119,7 @@
         </div>
     </div>
 </section>
+
 
 <div th:replace="~{fragments/championship-news :: newsTicker(my-ticker)}"></div>
 
