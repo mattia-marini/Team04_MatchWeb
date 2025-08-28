@@ -24,7 +24,7 @@ You can run the application directly from IntelliJ IDEA:
 
 Alternatively, you can deploy and run the application in Tomcat:
 
-1. **Clone both this and the [**MatchREST API**](https://github.com/mattia-marini/Team04_REST) repo
+1. **Clone** both this and the [**MatchREST API**](https://github.com/mattia-marini/Team04_MatchWeb) repo
 2. For both projects:
 
     * Go to `View → Tool Windows → Maven → Reload All Maven Projects`.
