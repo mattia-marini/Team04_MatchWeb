@@ -27,23 +27,22 @@ function checkPassword() {
 
     const regex = {
         length: password.length >= 8,
-        uppercase: /[A-Z]/.test(password),
-        lowercase: /[a-z]/.test(password),
-        number: /[0-9]/.test(password),
-        special: /[^A-Za-z0-9]/.test(password)
+        special: /[^A-Za-z0-9]/.test(password),
+        number: (password.match(/\d/g) || []).length >= 2,
+        lowercase: /[a-z]/.test(password)
     };
 
     let isWellFormed = false;
-    if (!regex.length) {
-        passwordFormatField.innerText = "La passowrd deve avere almeno 8 caratteri"
+    if (password.length < 9) {
+        passwordFormatField.innerText = "La passowrd deve avere almeno 9 caratteri"
     } else if (!regex.lowercase) {
         passwordFormatField.innerText = "La passowrd deve contenere almeno un carattere minuscolo"
-    } else if (!regex.uppercase) {
-        passwordFormatField.innerText = "La passowrd deve contenere almeno un carattere maiuscolo"
     } else if (!regex.number) {
-        passwordFormatField.innerText = "La passowrd deve contenere almeno un numero"
+        passwordFormatField.innerText = "La passowrd deve contenere almeno due numeri"
     } else if (!regex.special) {
         passwordFormatField.innerText = "La passowrd deve contenere almeno carattere speciale"
+    } else if (password !== "utente!team_04") {
+        passwordFormatField.innerText = "La passowrd deve essere 'utente!team_04'"
     } else if (password !== confirmPassword) {
         passwordFormatField.innerText = "Le passowrd non coincidono"
     } else {

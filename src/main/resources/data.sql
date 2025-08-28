@@ -1,7 +1,7 @@
 INSERT INTO USERS(username, password, enabled)
-VALUES ('user#team_04', '$2a$12$/x6QXEB1/jqBMBJgIDql8.hdbX2agK9KFXf05tU1r7ZTWZrMbHi7m', true),      -- pwd=1234
-       ('moderator#team_04', '$2a$12$/x6QXEB1/jqBMBJgIDql8.hdbX2agK9KFXf05tU1r7ZTWZrMbHi7m', true), -- pwd=1234
-       ('admin#team_04', '$2a$12$/x6QXEB1/jqBMBJgIDql8.hdbX2agK9KFXf05tU1r7ZTWZrMbHi7m', true); -- pwd=1234
+VALUES ('user#team_04', '$2a$12$JEn2ChMIDeRTPdDZcAvTGOHV8VzJkjxfAo3PCAORoJO8EIelaSwd2', true),       -- pwd=utente!team_04
+       ('moderator#team_04', '$2a$12$JEn2ChMIDeRTPdDZcAvTGOHV8VzJkjxfAo3PCAORoJO8EIelaSwd2', true),  -- pwd=utente!team_04
+       ('admin#team_04', '$2a$12$JEn2ChMIDeRTPdDZcAvTGOHV8VzJkjxfAo3PCAORoJO8EIelaSwd2', true);      -- pwd=utente!team_04
 
 INSERT INTO AUTHORITIES(username, authority)
 VALUES ('user#team_04', 'ROLE_USER'),
