@@ -1,4 +1,4 @@
-package mmarini.unitn.team04_matchweb.model;
+package mmarini.unitn.team04_matchweb.model.entity;
 
 import jakarta.persistence.*;
 

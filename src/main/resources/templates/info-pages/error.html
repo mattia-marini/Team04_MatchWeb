@@ -13,15 +13,27 @@
                 <i class="fas fa-times" style="color: var(--red-1);"></i>
             </div>
 
-            <h1 class="card-title mt-4">Servizio non disponibile!</h1>
+            <h1 class="card-title mt-4">Qualcosa è andato storto!</h1>
             <p class="message-text mb-4">
-                Al momento attuale, la piattaforma MatchWeb fornisce servizi di scommesse esclusivamente per eventi
-                calcistici
+                C'è stato un errore nell'elaborazione della tua richiesta, per favore riprova più tardi
             </p>
 
+            <!--Custom error-->
+            <div th:if="${customError != null}">
+                <p th:text="${customError}"></p>
+            </div>
+
+            <!--Default error-->
+            <div th:if="${customError == null}">
+                <p>Status: <span th:text="${status}">500</span></p>
+                <p>Error: <span th:text="${error}">Internal Server Error</span></p>
+                <p>Message: <span th:text="${message}">Unexpected error</span></p>
+                <p>Path: <span th:text="${uri}">/example</span></p>
+            </div>
+
             <div class="d-flex justify-content-center mt-5">
-                <a th:href="@{/sport/soccer}" class="btn glow-btn me-3">
-                    <i class="fas fa-futbol me-2"></i> Vai al calcio
+                <a th:href="@{/login}" class="btn glow-btn me-3">
+                    <i class="fas fa-sign-in-alt me-2"></i> Accedi
                 </a>
                 <a th:href="@{/index}" class="btn glow-btn-outline-secondary">
                     <i class="fas fa-home me-2"></i> Torna alla Home

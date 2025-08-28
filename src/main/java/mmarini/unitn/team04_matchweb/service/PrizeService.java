@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.service;
 
-import mmarini.unitn.team04_matchweb.model.Prize;
+import mmarini.unitn.team04_matchweb.model.entity.Prize;
 import mmarini.unitn.team04_matchweb.repository.PrizeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

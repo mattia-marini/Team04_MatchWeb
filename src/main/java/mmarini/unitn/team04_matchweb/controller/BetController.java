@@ -1,9 +1,7 @@
 package mmarini.unitn.team04_matchweb.controller;
 
-import mmarini.unitn.team04_matchweb.model.Bet;
-import mmarini.unitn.team04_matchweb.repository.BetRepository;
+import mmarini.unitn.team04_matchweb.model.entity.Bet;
 import mmarini.unitn.team04_matchweb.service.BetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

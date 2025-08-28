@@ -1,4 +1,4 @@
-package mmarini.unitn.team04_matchweb.model.RestDTO;
+package mmarini.unitn.team04_matchweb.model.dto.rest;
 
 
 import java.io.Serializable;

@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.controller;
 
-import mmarini.unitn.team04_matchweb.model.Review;
+import mmarini.unitn.team04_matchweb.model.entity.Review;
 import mmarini.unitn.team04_matchweb.service.ReviewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

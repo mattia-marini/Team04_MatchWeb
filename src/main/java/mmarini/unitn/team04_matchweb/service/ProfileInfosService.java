@@ -1,14 +1,13 @@
 package mmarini.unitn.team04_matchweb.service;
 
-import mmarini.unitn.team04_matchweb.model.ProfileStats;
-import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
-import mmarini.unitn.team04_matchweb.repository.BetRepository;
+import mmarini.unitn.team04_matchweb.model.dto.ProfileStats;
+import mmarini.unitn.team04_matchweb.model.entity.UserDetailsExtra;
 import mmarini.unitn.team04_matchweb.repository.PrizeRepository;
 import mmarini.unitn.team04_matchweb.repository.UserDetailsExtraRepository;
+import org.springframework.data.util.Pair;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.data.util.Pair;
 
 import java.time.LocalDate;
 import java.util.List;

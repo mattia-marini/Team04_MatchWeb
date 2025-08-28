@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.repository;
 
-import mmarini.unitn.team04_matchweb.model.Prize;
+import mmarini.unitn.team04_matchweb.model.entity.Prize;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

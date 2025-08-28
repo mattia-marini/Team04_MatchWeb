@@ -1,6 +1,5 @@
 package mmarini.unitn.team04_matchweb.controller;
 
-import mmarini.unitn.team04_matchweb.client.TeamClient;
 import mmarini.unitn.team04_matchweb.service.PartiteWebService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

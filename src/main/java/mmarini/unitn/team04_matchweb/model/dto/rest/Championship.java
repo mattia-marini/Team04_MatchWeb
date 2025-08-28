@@ -1,9 +1,4 @@
-package mmarini.unitn.team04_matchweb.model.RestDTO;
-
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+package mmarini.unitn.team04_matchweb.model.dto.rest;
 
 
 public class Championship {

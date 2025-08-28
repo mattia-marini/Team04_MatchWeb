@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.controller;
 
-import mmarini.unitn.team04_matchweb.model.RegistrationForm;
+import mmarini.unitn.team04_matchweb.model.dto.RegistrationForm;
 import mmarini.unitn.team04_matchweb.service.RegistrationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

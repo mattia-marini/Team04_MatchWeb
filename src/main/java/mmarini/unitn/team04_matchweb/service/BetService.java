@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.service;
 
-import mmarini.unitn.team04_matchweb.model.Bet;
+import mmarini.unitn.team04_matchweb.model.entity.Bet;
 import mmarini.unitn.team04_matchweb.repository.BetRepository;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;

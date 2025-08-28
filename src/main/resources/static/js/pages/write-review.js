@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         charCount.textContent = length;
 
         // Show error if less than 100 characters
-        if (length < 100) {
+        if (length < 100 || length > 1000) {
             contentError.style.display = 'block';
             validateForm();
         } else {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Form validation
     function validateForm() {
-        const isContentValid = reviewContent.value.length >= 100;
+        const isContentValid = reviewContent.value.length >= 100 && reviewContent.value.length <= 1000;
         const isRatingSelected = Array.from(ratingInputs).some(input => input.checked);
 
         // Enable submit button only if all validations pass
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         // Show appropriate error messages
-        if (reviewContent.value.length < 100) {
+        if (reviewContent.value.length < 100 || reviewContent.value.length > 1000) {
             contentError.style.display = 'block';
         }
 

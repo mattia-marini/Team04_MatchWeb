@@ -1,10 +1,10 @@
 package mmarini.unitn.team04_matchweb.service;
 
-import mmarini.unitn.team04_matchweb.model.Authority;
+import mmarini.unitn.team04_matchweb.model.entity.Authority;
+import mmarini.unitn.team04_matchweb.model.entity.UserDetailsExtra;
 import mmarini.unitn.team04_matchweb.repository.AuthorityRepository;
 import mmarini.unitn.team04_matchweb.repository.UserDetailsExtraRepository;
 import org.springframework.stereotype.Service;
-import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
 
 import java.util.LinkedHashMap;
 import java.util.List;

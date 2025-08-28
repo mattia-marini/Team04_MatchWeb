@@ -1,8 +1,7 @@
 package mmarini.unitn.team04_matchweb.controller;
 
 
-import mmarini.unitn.team04_matchweb.model.RestDTO.Match;
-import mmarini.unitn.team04_matchweb.repository.BetRepository;
+import mmarini.unitn.team04_matchweb.model.dto.rest.Match;
 import mmarini.unitn.team04_matchweb.service.BetService;
 import mmarini.unitn.team04_matchweb.service.PartiteWebService;
 import org.springframework.format.annotation.DateTimeFormat;

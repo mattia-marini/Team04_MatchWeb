@@ -1,4 +1,6 @@
-package mmarini.unitn.team04_matchweb.model;
+package mmarini.unitn.team04_matchweb.model.dto;
+
+import mmarini.unitn.team04_matchweb.model.entity.Prize;
 
 import java.util.List;
 import java.util.Optional;

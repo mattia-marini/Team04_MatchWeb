@@ -1,7 +1,7 @@
 package mmarini.unitn.team04_matchweb.controller;
 
-import mmarini.unitn.team04_matchweb.model.ProfileStats;
-import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
+import mmarini.unitn.team04_matchweb.model.dto.ProfileStats;
+import mmarini.unitn.team04_matchweb.model.entity.UserDetailsExtra;
 import mmarini.unitn.team04_matchweb.service.ProfileInfosService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

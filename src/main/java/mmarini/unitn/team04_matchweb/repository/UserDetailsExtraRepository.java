@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.repository;
 
-import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
+import mmarini.unitn.team04_matchweb.model.entity.UserDetailsExtra;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

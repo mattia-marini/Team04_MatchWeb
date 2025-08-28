@@ -1,13 +1,13 @@
 package mmarini.unitn.team04_matchweb.service;
 
-import org.springframework.stereotype.Service;
 import mmarini.unitn.team04_matchweb.client.ChampionshipNewClient;
 import mmarini.unitn.team04_matchweb.client.MatchCalendarClient;
 import mmarini.unitn.team04_matchweb.client.MatchResultsClient;
 import mmarini.unitn.team04_matchweb.client.TeamClient;
-import mmarini.unitn.team04_matchweb.model.RestDTO.ChampionshipNew;
-import mmarini.unitn.team04_matchweb.model.RestDTO.Match;
-import mmarini.unitn.team04_matchweb.model.RestDTO.Team;
+import mmarini.unitn.team04_matchweb.model.dto.rest.ChampionshipNew;
+import mmarini.unitn.team04_matchweb.model.dto.rest.Match;
+import mmarini.unitn.team04_matchweb.model.dto.rest.Team;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;

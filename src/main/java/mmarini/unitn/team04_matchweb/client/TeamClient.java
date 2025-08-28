@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.client;
 
-import mmarini.unitn.team04_matchweb.model.RestDTO.Team;
+import mmarini.unitn.team04_matchweb.model.dto.rest.Team;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

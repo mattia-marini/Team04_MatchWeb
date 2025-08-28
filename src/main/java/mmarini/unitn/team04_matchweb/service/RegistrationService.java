@@ -1,9 +1,8 @@
 package mmarini.unitn.team04_matchweb.service;
 
-import mmarini.unitn.team04_matchweb.model.RegistrationForm;
-import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
+import mmarini.unitn.team04_matchweb.model.dto.RegistrationForm;
+import mmarini.unitn.team04_matchweb.model.entity.UserDetailsExtra;
 import mmarini.unitn.team04_matchweb.repository.UserDetailsExtraRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,4 +1,4 @@
-package mmarini.unitn.team04_matchweb.model;
+package mmarini.unitn.team04_matchweb.model.entity;
 
 
 import jakarta.persistence.*;
@@ -19,6 +19,7 @@ public class Review {
     @Column(nullable = false)
     private int rating; // 1–5
 
+    @Column(length = 1024)
     private String text;
 
     @Column(nullable = false)

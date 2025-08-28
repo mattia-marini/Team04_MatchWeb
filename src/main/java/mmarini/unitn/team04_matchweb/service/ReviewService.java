@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.service;
 
-import mmarini.unitn.team04_matchweb.model.Review;
+import mmarini.unitn.team04_matchweb.model.entity.Review;
 import mmarini.unitn.team04_matchweb.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 

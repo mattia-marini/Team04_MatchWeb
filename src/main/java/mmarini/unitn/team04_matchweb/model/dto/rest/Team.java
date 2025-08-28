@@ -1,9 +1,5 @@
-package mmarini.unitn.team04_matchweb.model.RestDTO;
+package mmarini.unitn.team04_matchweb.model.dto.rest;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
 public class Team {
 

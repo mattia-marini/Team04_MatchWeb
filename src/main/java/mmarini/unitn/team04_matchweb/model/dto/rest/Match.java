@@ -1,7 +1,4 @@
-package mmarini.unitn.team04_matchweb.model.RestDTO;
-
-import jakarta.persistence.*;
-import org.hibernate.annotations.Check;
+package mmarini.unitn.team04_matchweb.model.dto.rest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

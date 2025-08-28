@@ -1,7 +1,7 @@
 package mmarini.unitn.team04_matchweb.client;
 
 
-import mmarini.unitn.team04_matchweb.model.RestDTO.ChampionshipNew;
+import mmarini.unitn.team04_matchweb.model.dto.rest.ChampionshipNew;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

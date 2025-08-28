@@ -1,6 +1,6 @@
 package mmarini.unitn.team04_matchweb.repository;
 
-import mmarini.unitn.team04_matchweb.model.Authority;
+import mmarini.unitn.team04_matchweb.model.entity.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
