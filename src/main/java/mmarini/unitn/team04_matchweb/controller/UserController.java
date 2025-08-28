@@ -1,10 +1,7 @@
 package mmarini.unitn.team04_matchweb.controller;
 
 import mmarini.unitn.team04_matchweb.model.UserDetailsExtra;
-import mmarini.unitn.team04_matchweb.repository.AuthorityRepository;
-import mmarini.unitn.team04_matchweb.repository.UserDetailsExtraRepository;
 import mmarini.unitn.team04_matchweb.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +52,7 @@ public class UserController {
     @PostMapping("/api/upgrade")
     public String updateRoles(@RequestParam List<String> usernames, @RequestParam String role, Model model) {
         boolean updated = userService.updateUsersRole(role, usernames);
-        return "redirect:/upgrade"; // redirect to a view
+        return "redirect:/upgrade";
     }
 
 
